@@ -1,5 +1,6 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.HomeFragment;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;
 
 import butterknife.BindView;
@@ -41,10 +43,11 @@ public class HomeActivity extends AppCompatActivity
 
         HomeFragment homeFragment = new HomeFragment().newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.body, homeFragment);
+        transaction.add(R.id.body,homeFragment);
         transaction.commit();
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -66,10 +69,17 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.ac_registrer_report) {
+            openRegisterActivity();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openRegisterActivity() {
+        Intent a = new Intent(HomeActivity.this, RegisterActivity.class);
+        startActivity(a);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -77,15 +87,21 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_publications) {
+            openActivity(PublicationsActivity.class);
+        } else if (id == R.id.nav_profile) {
+            openActivity(ProfileActivity.class);
+        } else if (id == R.id.nav_record) {
+            openActivity(RecordActivity.class);
+        } else if (id == R.id.nav_suggestions) {
+            openActivity(SuggestionsActivity.class);
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    void openActivity(Class<?> activity){
+        Intent actv = new Intent(HomeActivity.this,activity);
+        startActivity(actv);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 }

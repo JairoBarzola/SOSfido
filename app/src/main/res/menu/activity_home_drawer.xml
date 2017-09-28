@@ -2,22 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/mapa" />
+            android:id="@+id/nav_publications"
+            android:icon="@mipmap/ic_publications"
+            android:title="@string/publications" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/avisos" />
+            android:id="@+id/nav_record"
+            android:icon="@mipmap/ic_record"
+            android:title="@string/record"/>
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/historial"/>
+            android:id="@+id/nav_suggestions"
+            android:icon="@mipmap/ic_suggestions"
+            android:title="@string/suggestions" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/propuestas" />
+            android:id="@+id/nav_profile"
+            android:icon="@mipmap/ic_profile"
+            android:title="@string/profile" />
 
     </group>
 

@@ -22,9 +22,13 @@
     <string name="google_map_key">AIzaSyCRgXvxKLvdnCP22MVogdZ0bddXZb9NEmg</string>
 
     //drawer
-    <string name="mapa">Mapa</string>
-    <string name="avisos">Avisos</string>
-    <string name="historial">Historial</string>
-    <string name="propuestas">Propuestas</string>
-    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="publications">Publicaciones</string>
+    <string name="record">Historial</string>
+    <string name="suggestions">Propuestas</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="profile">Perfil</string>
+
+
+    //activities
+    <string name="registrar">Registrar</string>
 </resources>

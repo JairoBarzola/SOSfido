@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent i= new Intent(LoginActivity.this,HomeActivity.class);
         finish();
         startActivity(i);
-       // overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
     }
 
