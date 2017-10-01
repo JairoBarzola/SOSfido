@@ -1,9 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+
     android:layout_height="match_parent">
-    <TextView
+<LinearLayout
+    android:padding="16dp"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="yyyyy"/>
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/dog" />
+            <ImageButton
+                android:id="@+id/fab_add"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignBottom="@+id/image"
+                android:layout_alignRight="@+id/image"
+                android:background="@drawable/ripple_oval"
+                android:src="@mipmap/ic_camera_p" />
+        </RelativeLayout>
+        <TextView
+            style="@style/TextViewConstant"
+            android:text="Nombre:"/>
+        <EditText
+            style="@style/EditTxtConstant"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:hint="Escriba un nombre"/>
+        <TextView
+            style="@style/TextViewConstant"
+            android:text="Dirección:"/>
+        <EditText
+            style="@style/EditTxtConstant"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:enabled="false"
+            android:hint="Av. Gonzales Prada 765"/>
+        <TextView
+            style="@style/TextViewConstant"
+            android:text="Contacto:"/>
+        <EditText
+            style="@style/EditTxtConstant"
+            android:maxLength="9"
+            android:maxLines="1"
+            android:text="989281294"
+            android:hint="Ingrese telefono"/>
+        <TextView
+            style="@style/TextViewConstant"
+            android:text="Descripción:"/>
+        <EditText
+            style="@style/EditTxtConstant"
+            android:inputType="textCapWords|textNoSuggestions|textMultiLine"
+            android:scrollbars="vertical"
+            android:gravity="top|left"
+            android:fadeScrollbars="false"
+            android:minLines="1"
+            android:lines="6"
+            android:maxLength="300"
+            android:hint="Escriba una descripción"/>
+
+    </LinearLayout>
+
 </LinearLayout>
+</ScrollView>

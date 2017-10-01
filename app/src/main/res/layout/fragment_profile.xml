@@ -15,13 +15,11 @@
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/photo" />
-
-
+            android:src="@drawable/user" />
         <ImageButton
             android:id="@+id/fab_add"
             android:layout_width="48dp"
@@ -31,4 +29,72 @@
             android:background="@drawable/ripple_oval"
             android:src="@mipmap/ic_camera_p" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="2dp"/>
+    <TextView
+        style="@style/TextViewConstant"
+        android:text="@string/first_name"
+        android:layout_marginBottom="5dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/first_name"
+        android:id="@+id/tv_name"
+        android:layout_marginBottom="10dp"
+        android:textSize="@dimen/normal_text"
+        android:textColor="@color/black_select"/>
+    <TextView
+        style="@style/TextViewConstant"
+        android:text="@string/dni"
+        android:layout_marginBottom="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dni"
+        android:id="@+id/tv_document_number"
+        android:layout_marginBottom="10dp"
+        android:textSize="@dimen/normal_text"
+        android:textColor="@color/black_select"/>
+
+    <TextView
+        style="@style/TextViewConstant"
+        android:text="@string/birth_date"
+        android:layout_marginBottom="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/birth_date"
+        android:id="@+id/tv_birth_date"
+        android:layout_marginBottom="10dp"
+        android:textSize="@dimen/normal_text"
+        android:textColor="@color/black_select"/>
+    <TextView
+        style="@style/TextViewConstant"
+        android:text="@string/email"
+        android:layout_marginBottom="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:id="@+id/tv_email"
+        android:layout_marginBottom="5dp"
+        android:textSize="@dimen/normal_text"
+        android:textColor="@color/black_select"/>
+    <TextView
+        style="@style/TextViewConstant"
+        android:text="@string/direction"
+        android:layout_marginBottom="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/direction"
+        android:id="@+id/tv_direccion"
+        android:layout_marginBottom="30dp"
+        android:textSize="@dimen/normal_text"
+        android:textColor="@color/black_select"/>
 </LinearLayout>

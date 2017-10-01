@@ -5,4 +5,15 @@ package com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote;
  */
 
 public class ApiConstants {
+
+
+    public static final String LOGIN = "login-api/";
+    public static final String USER_DESCRIPTION = "person-api/{person_id}/";
+
+
+
+    //API KEYS CONSTANS
+    public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
+
+
 }

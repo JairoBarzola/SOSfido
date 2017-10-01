@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.HomeFragment;
-import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;
 
 import butterknife.BindView;
@@ -60,7 +59,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
@@ -95,6 +94,8 @@ public class HomeActivity extends AppCompatActivity
             openActivity(RecordActivity.class);
         } else if (id == R.id.nav_suggestions) {
             openActivity(SuggestionsActivity.class);
+        }else if(id == R.id.nav_logout) {
+            openActivity(LoginActivity.class);
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

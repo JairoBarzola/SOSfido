@@ -49,6 +49,8 @@
             android:label="@string/record"/>
         <activity android:name=".Presentacion.Activies.SuggestionsActivity"
             android:label="@string/suggestions"></activity>
+        <activity android:name=".Presentacion.Activies.RegisterUserActivity"
+            android:label="@string/register"></activity>
     </application>
 
 </manifest>

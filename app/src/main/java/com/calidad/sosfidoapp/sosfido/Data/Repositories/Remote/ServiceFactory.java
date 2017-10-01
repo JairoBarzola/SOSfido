@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ServiceFactory {
-    private static final String API_BASE_URL = "";
+    private static final String API_BASE_URL = "http://sosfido.tk/";
 
     private static OkHttpClient httpClient = new OkHttpClient();
     private static Retrofit.Builder builder =

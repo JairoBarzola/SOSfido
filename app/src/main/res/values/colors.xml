@@ -51,4 +51,5 @@
     <color name="accent_transparent">#78ff9700</color>
     <color name="white_transparent">#47b1b1b1</color>
     <color name="btn_color">#0BB5B2</color>
+    <color name="colorPD">#1FB0C3</color>
 </resources>
