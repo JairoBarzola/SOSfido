@@ -3,6 +3,8 @@ package com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.Request;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.AccessTokenEntity;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.LoginEntity;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.PersonEntity;
+import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseEntity;
+import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseRegisterEntity;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ApiConstants;
 
 import retrofit2.Call;
@@ -30,4 +32,22 @@ public interface UserRequest {
     Call<PersonEntity> getPerson (@Header("Content-type") String contentType,
                                   @Header("Authorization") String token,
                                   @Path("person_id") String person_id);
+    @FormUrlEncoded
+    @POST(ApiConstants.LOGOUT)
+    Call<ResponseEntity> logout (@Header("Content-type") String contentType,
+                                 @Header("Authorization") String token,
+                                 @Field("person_id") String personEntity);
+
+    @FormUrlEncoded
+    @POST(ApiConstants.REGISTER)
+    Call<ResponseRegisterEntity> registerUser (@Header("Content-type") String contentType,
+                                               @Field("first_name") String firstname,
+                                                @Field("last_name") String lastname, @Field("email") String email,
+                                               @Field("password") String password, @Field("dni") String dni,
+                                               @Field("gender") String gender, @Field("born_date") String borndate,
+                                               @Field("phone_number") String phone, @Field("address") String address);
+
+
+
+
 }

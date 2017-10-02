@@ -1,12 +1,20 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -23,7 +31,7 @@ import butterknife.ButterKnife;
 public class RegisterActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,4 +79,40 @@ public class RegisterActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+    public void showMessage(String message) {
+        this.showMessageSnack(container, message, R.color.error_red);
+    }
+
+    public void showMessageSnack(View container, String message, int colorResource) {
+        if (container != null) {
+            Snackbar snackbar = Snackbar
+                    .make(container, message, Snackbar.LENGTH_LONG);
+            snackbar.setActionTextColor(Color.WHITE);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(ContextCompat.getColor(this, colorResource));
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
+            snackbar.show();
+        } else {
+            Toast toast =
+                    Toast.makeText(getApplicationContext(),
+                            message, Toast.LENGTH_LONG);
+
+            toast.show();
+        }
+
+    }
+    public void showMessageError(String message) {
+        CoordinatorLayout container = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        this.showMessageSnack(container, message, R.color.error_red);
+
+    }
+    void closeKeyboard(){
+        View view = RegisterActivity.this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
 }

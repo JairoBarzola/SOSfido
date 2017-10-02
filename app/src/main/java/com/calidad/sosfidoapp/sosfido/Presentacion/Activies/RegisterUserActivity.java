@@ -1,14 +1,33 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RecordFragment;
+
+import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.LoginContract;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.RegisterUserContract;
+
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterUserFragment;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.RegisterUserImpl;
 import com.calidad.sosfidoapp.sosfido.R;
+import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +59,6 @@ public class RegisterUserActivity extends AppCompatActivity {
 
         }
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

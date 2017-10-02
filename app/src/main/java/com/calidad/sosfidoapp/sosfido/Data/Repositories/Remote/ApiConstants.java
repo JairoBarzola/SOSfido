@@ -9,7 +9,8 @@ public class ApiConstants {
 
     public static final String LOGIN = "login-api/";
     public static final String USER_DESCRIPTION = "person-api/{person_id}/";
-
+    public static final String LOGOUT = "logout-api/";
+    public static final String REGISTER = "register-api/";
 
 
     //API KEYS CONSTANS

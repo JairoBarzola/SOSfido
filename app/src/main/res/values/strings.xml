@@ -6,7 +6,7 @@
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="forgot_my_password">Olvidé mi contraseña</string>
-    <string name="login">INICIAR SESION</string>
+    <string name="login">INICIAR SESIÓN</string>
     <string name="register">Registrar</string>
     <string name="title_activity_home">SOSFido</string>
 
@@ -44,6 +44,8 @@
     <string name="repeat_password">Repetir contraseña</string>
     <string name="district">Distrito</string>
     <string name="direction">Dirección</string>
+    <string name="genero">Género</string>
+    <string name="phone">Teléfono</string>
 
     //error strings
     <string name="there_was_an_error_try_it_later">Hubo un error, por favor intente más tarde</string>

@@ -47,6 +47,16 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
+                android:inputType="text"
+                android:focusable="false"
+                android:id="@+id/et_gender"
+                android:hint="@string/genero"/>
+            <EditText
+                android:layout_below="@+id/et_gender"
+                style="@style/EditTxtConstant"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:inputType="datetime"
                 android:focusable="false"
                 android:id="@+id/et_birth_date"
@@ -71,7 +81,17 @@
                 android:visibility="gone"
                 android:hint="@string/username"/>
             <EditText
-                android:layout_below="@+id/et_user"
+                android:layout_below="@+id/et_email"
+                style="@style/EditTxtConstant"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:inputType="phone"
+                android:maxLength="9"
+                android:id="@+id/et_phone"
+                android:hint="@string/phone"/>
+            <EditText
+                android:layout_below="@+id/et_phone"
                 style="@style/EditTxtConstant"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="20dp"
@@ -93,7 +113,8 @@
                 style="@style/EditTxtConstant"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="30dp"
+
                 android:inputType="textPassword"
                 android:id="@+id/et_repeat_password"
                 android:hint="@string/repeat_password"/>
@@ -103,6 +124,7 @@
                 android:textColor="@color/white"
                 android:text="@string/register"
                 android:id="@+id/btn_register"
+                android:layout_below="@+id/et_repeat_password"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/button_vagua_rectangle"/>
         </RelativeLayout>

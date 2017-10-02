@@ -1,5 +1,6 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -66,9 +68,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     {
         switch (view.getId()) {
             case R.id.btn_login:
+                closeKeyboard();
             validator.validate();
                 break;
             case R.id.btn_register:
+                closeKeyboard();
                 openActivity(RegisterUserActivity.class);
                 break;
         }
@@ -100,7 +104,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void setMessageError(String error) {
         showMessage(error);
-
     }
 
     @Override
@@ -163,5 +166,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         CoordinatorLayout container = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         this.showMessageSnack(container, message, R.color.error_red);
 
+    }
+    void closeKeyboard(){
+        View view = LoginActivity.this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
