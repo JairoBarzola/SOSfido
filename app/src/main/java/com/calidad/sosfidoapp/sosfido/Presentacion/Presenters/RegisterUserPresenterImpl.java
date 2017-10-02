@@ -22,13 +22,13 @@ import retrofit2.Response;
  * Created by jairbarzola on 1/10/17.
  */
 
-public class RegisterUserImpl implements RegisterUserContract.Presenter{
+public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter{
 
     RegisterUserFragment view;
     Context context;
     private SessionManager sessionManager;
 
-    public  RegisterUserImpl(RegisterUserFragment view, Context context){
+    public RegisterUserPresenterImpl(RegisterUserFragment view, Context context){
         this.view=view;
         sessionManager = new SessionManager(context);
         this.context=context;

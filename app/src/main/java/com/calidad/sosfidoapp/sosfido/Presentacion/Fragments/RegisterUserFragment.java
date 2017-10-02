@@ -15,10 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.HomeActivity;
-import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.LoginActivity;
-import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.RegisterUserContract;
-import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.RegisterUserImpl;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.RegisterUserPresenterImpl;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -89,7 +87,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
         );
-        presenter = new RegisterUserImpl(this,getContext());
+        presenter = new RegisterUserPresenterImpl(this,getContext());
 
     }
     @OnClick(R.id.btn_register)

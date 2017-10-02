@@ -60,11 +60,21 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        //codigo para setear los valores del nav_header_home
+        View hView =  navigationView.getHeaderView(0);
+        TextView navName = (TextView) hView.findViewById(R.id.nav_name);
+        TextView navAddress = (TextView) hView.findViewById(R.id.nav_address);
+        PersonEntity personEntity = sessionManager.getPersonEntity();
+        navName.setText(personEntity.getUser().getFirst_name()+" "+personEntity.getUser().getLast_name());
+        navAddress.setText(personEntity.getAddress());
+
+
         HomeFragment homeFragment = new HomeFragment().newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.body,homeFragment);
         transaction.commit();
 
+        //ProgressDialog para el logout
         mProgressDialogCustom = new ProgressDialogCustom(this,"Cerrando Sesión...");
 
     }
