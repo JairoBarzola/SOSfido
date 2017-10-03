@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <ScrollView
@@ -13,6 +15,7 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:paddingTop="20dp"
+            android:focusableInTouchMode="true"
             android:layout_height="fill_parent">
             <EditText
                 style="@style/EditTxtConstant"
@@ -31,28 +34,9 @@
                 android:inputType="textCapWords"
                 android:id="@+id/et_last_name"
                 android:hint="@string/last_name"/>
+
             <EditText
                 android:layout_below="@+id/et_last_name"
-                style="@style/EditTxtConstant"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:inputType="number"
-                android:maxLength="9"
-                android:id="@+id/et_dni"
-                android:hint="@string/dni"/>
-            <EditText
-                android:layout_below="@+id/et_dni"
-                style="@style/EditTxtConstant"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:inputType="text"
-                android:focusable="false"
-                android:id="@+id/et_gender"
-                android:hint="@string/genero"/>
-            <EditText
-                android:layout_below="@+id/et_gender"
                 style="@style/EditTxtConstant"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="20dp"
@@ -61,15 +45,7 @@
                 android:focusable="false"
                 android:id="@+id/et_birth_date"
                 android:hint="@string/birth_date"/>
-            <EditText
-                android:layout_below="@+id/et_birth_date"
-                style="@style/EditTxtConstant"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:inputType="textEmailAddress"
-                android:id="@+id/et_email"
-                android:hint="@string/email"/>
+
             <EditText
                 android:layout_below="@+id/et_email"
                 style="@style/EditTxtConstant"
@@ -81,7 +57,16 @@
                 android:visibility="gone"
                 android:hint="@string/username"/>
             <EditText
-                android:layout_below="@+id/et_email"
+                android:layout_below="@+id/et_phone"
+                style="@style/EditTxtConstant"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:inputType="textEmailAddress"
+                android:id="@+id/et_email"
+                android:hint="@string/email"/>
+            <EditText
+                android:layout_below="@+id/et_district"
                 style="@style/EditTxtConstant"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="20dp"
@@ -91,7 +76,7 @@
                 android:id="@+id/et_phone"
                 android:hint="@string/phone"/>
             <EditText
-                android:layout_below="@+id/et_phone"
+                android:layout_below="@+id/et_birth_date"
                 style="@style/EditTxtConstant"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="20dp"
@@ -100,7 +85,7 @@
                 android:id="@+id/et_district"
                 android:hint="@string/direction"/>
             <EditText
-                android:layout_below="@+id/et_district"
+                android:layout_below="@+id/et_email"
                 style="@style/EditTxtConstant"
                 android:layout_marginBottom="10dp"
                 android:inputType="textPassword"
@@ -123,9 +108,10 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="@string/register"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:id="@+id/btn_register"
                 android:layout_below="@+id/et_repeat_password"
-                android:layout_alignParentBottom="true"
                 android:background="@drawable/button_vagua_rectangle"/>
         </RelativeLayout>
     </ScrollView>

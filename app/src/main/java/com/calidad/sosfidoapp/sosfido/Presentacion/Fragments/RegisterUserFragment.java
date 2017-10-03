@@ -44,10 +44,6 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.et_last_name) EditText etLastName;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_dni) EditText etDni;
-    @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_gender) EditText etGender;
-    @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.et_birth_date) EditText etBirthDate;
     @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.et_phone) EditText etPhone;
@@ -129,8 +125,8 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
 
     @Override
     public void onValidationSucceeded() {
-        presenter.register(etFirstName.getText().toString(),etLastName.getText().toString(),etDni.getText().toString(),
-                etGender.getText().toString(),etDistrict.getText().toString(),etBirthDate.getText().toString(),
+        presenter.register(etFirstName.getText().toString(),etLastName.getText().toString(),
+                etDistrict.getText().toString(),etBirthDate.getText().toString(),
                 etEmail.getText().toString(),etPassword.getText().toString(),etPhone.getText().toString());
     }
 
@@ -155,44 +151,17 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         etBirthDate.setText(year + "-" + String.format("%02d", monthOfYear + 1) + "-" + String.format("%02d", dayOfMonth));
     }
-    @OnClick({R.id.et_birth_date,R.id.et_gender})
+    @OnClick(R.id.et_birth_date)
     public void onViewClicked(View view) {
 
         switch (view.getId()){
             case R.id.et_birth_date:
                 dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
                 break;
-            case  R.id.et_gender:
-                getGender().show();
-                break;
         }
 
     }
 
-    public AlertDialog getGender() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-        final CharSequence[] items = new CharSequence[2];
-
-        items[0] = "Masculino";
-        items[1] = "Femenino";
-
-        builder.setTitle("Género")
-                .setSingleChoiceItems(items,2, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(which==0){
-                            dialog.dismiss();
-                            etGender.setText("M");
-                        }
-                        else{
-                            dialog.dismiss();
-                            etGender.setText("F");
-                        }
-                    }
-                });
-        return builder.create();
-    }
     void closeKeyboard(){
         View view = getActivity().getCurrentFocus();
         if (view != null) {

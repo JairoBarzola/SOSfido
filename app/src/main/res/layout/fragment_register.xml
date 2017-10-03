@@ -3,7 +3,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-
+    android:background="@color/white"
     android:layout_height="match_parent">
 <LinearLayout
     android:padding="16dp"
@@ -43,7 +43,7 @@
             style="@style/EditTxtConstant"
             android:maxLength="15"
             android:maxLines="1"
-            android:hint="Escriba un nombre"/>
+            android:hint="Ingrese un nombre"/>
         <TextView
             style="@style/TextViewConstant"
             android:text="Dirección:"/>
@@ -74,7 +74,7 @@
             android:minLines="1"
             android:lines="6"
             android:maxLength="300"
-            android:hint="Escriba una descripción"/>
+            android:hint="Ingrese una descripción"/>
 
     </LinearLayout>
 

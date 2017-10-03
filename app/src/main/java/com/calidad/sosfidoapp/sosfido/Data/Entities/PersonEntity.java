@@ -7,8 +7,6 @@ package com.calidad.sosfidoapp.sosfido.Data.Entities;
 public class PersonEntity {
     private int id;
     private UserEntity user;
-    private String gender;
-    private String dni;
     private String born_date;
     private String phone_number;
     private String address;
@@ -28,22 +26,6 @@ public class PersonEntity {
 
     public void setUser(UserEntity user) {
         this.user = user;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
     }
 
     public String getBorn_date() {
