@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterUserFragment;
@@ -21,7 +24,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
+    RegisterUserFragment fragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        RegisterUserFragment fragment = (RegisterUserFragment) getSupportFragmentManager().findFragmentById(R.id.body);
+        fragment = (RegisterUserFragment) getSupportFragmentManager().findFragmentById(R.id.body);
         if(fragment==null){
             fragment = RegisterUserFragment.newInstance();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -49,5 +52,21 @@ public class RegisterUserActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_register_user, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.ac_register_user) {
+            fragment.register();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

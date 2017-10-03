@@ -2,6 +2,7 @@ package com.calidad.sosfidoapp.sosfido.Presentacion.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,11 @@ import butterknife.Unbinder;
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     @BindView(R.id.tv_name) TextView tvName;
-    @BindView(R.id.tv_dni) TextView tvDni;
     @BindView(R.id.tv_birth_date) TextView tvBirthDate;
     @BindView(R.id.tv_direccion) TextView tvDireccion;
     @BindView(R.id.tv_email) TextView tvEmail;
     @BindView(R.id.tv_phone) TextView tvPhone;
+    @BindView(R.id.cardView) CardView cardView;
 
 
     ProfileContract.Presenter presenter;
@@ -62,7 +63,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     @Override
     public void loadUser(PersonEntity personEntity) {
         tvName.setText(personEntity.getUser().getFirst_name()+" "+personEntity.getUser().getLast_name());
-        tvDni.setText(personEntity.getDni());
         tvBirthDate.setText(personEntity.getBorn_date());
         tvDireccion.setText(personEntity.getAddress());
         tvEmail.setText(personEntity.getUser().getEmail());

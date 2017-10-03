@@ -32,11 +32,11 @@
     //activities
     <string name="registrar">Registrar</string>
 
-    <string name="btnregistrar">REGISTRAR</string>
+    <string name="btnregistrar">CREAR UNA CUENTA</string>
 
     //register
     <string name="first_name">Nombre</string>
-    <string name="last_name">Apellido</string>
+    <string name="last_name">Apellidos</string>
     <string name="dni">DNI</string>
     <string name="birth_date">Fecha de nacimiento</string>
     <string name="email">Correo electrónico</string>

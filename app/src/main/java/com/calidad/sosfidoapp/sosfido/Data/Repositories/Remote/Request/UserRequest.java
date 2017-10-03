@@ -43,8 +43,7 @@ public interface UserRequest {
     Call<ResponseRegisterEntity> registerUser (@Header("Content-type") String contentType,
                                                @Field("first_name") String firstname,
                                                 @Field("last_name") String lastname, @Field("email") String email,
-                                               @Field("password") String password, @Field("dni") String dni,
-                                               @Field("gender") String gender, @Field("born_date") String borndate,
+                                               @Field("password") String password, @Field("born_date") String borndate,
                                                @Field("phone_number") String phone, @Field("address") String address);
 
 

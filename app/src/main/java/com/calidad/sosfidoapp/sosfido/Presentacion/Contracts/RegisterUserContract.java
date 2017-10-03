@@ -13,8 +13,8 @@ public interface RegisterUserContract {
         void setDialogMessage(String message);
     }
     interface Presenter {
-        void register(String firstName,String lastName,String dni,String gener,
-                      String district, String birthDate,String email,String password,String phone);
+        void register(String firstName,String lastName, String district,
+                      String birthDate,String email,String password,String phone);
     }
 
 }
