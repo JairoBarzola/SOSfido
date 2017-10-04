@@ -1,20 +1,25 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.Data.Entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.ProfileContract;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.ProfilePresenterImpl;
 import com.calidad.sosfidoapp.sosfido.R;
+import com.calidad.sosfidoapp.sosfido.Utils.CustomBottomSheetDialogFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -29,7 +34,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     @BindView(R.id.tv_email) TextView tvEmail;
     @BindView(R.id.tv_phone) TextView tvPhone;
     @BindView(R.id.cardView) CardView cardView;
-
+    @BindView(R.id.fab_camera) ImageButton fabCamera;
 
     ProfileContract.Presenter presenter;
     Unbinder unbinder;
@@ -67,5 +72,29 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         tvDireccion.setText(personEntity.getAddress());
         tvEmail.setText(personEntity.getUser().getEmail());
         tvPhone.setText(personEntity.getPhone_number());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.init();
+    }
+
+    private void init() {
+
+    }
+    @OnClick(R.id.fab_camera)
+    void onClickButton(){
+        Bundle bundle = new Bundle();
+        bundle.putInt("IdFragment",2);
+        CustomBottomSheetDialogFragment fragment = new CustomBottomSheetDialogFragment();
+        fragment.setArguments( bundle );
+        fragment.show( getActivity().getSupportFragmentManager(), CustomBottomSheetDialogFragment.FRAGMENT_KEY );
+    }
+    public void openCamera(){
+        Toast.makeText(getContext(),"CameraP",Toast.LENGTH_SHORT).show();
+    }
+    public void openGallery(){
+        Toast.makeText(getContext(),"GalleryP",Toast.LENGTH_SHORT).show();
     }
 }

@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:src="@drawable/user" />
         <ImageButton
-            android:id="@+id/fab_add"
+            android:id="@+id/fab_camera"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignBottom="@+id/image"

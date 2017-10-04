@@ -33,7 +33,6 @@ public class ProfileActivity extends AppCompatActivity {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.body,fragment);
             transaction.commit();
-
         }
     }
 

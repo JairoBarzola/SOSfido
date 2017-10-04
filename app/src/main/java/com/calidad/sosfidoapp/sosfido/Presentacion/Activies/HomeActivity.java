@@ -146,7 +146,10 @@ public class HomeActivity extends AppCompatActivity
                     if(responseEntity.isStatus()) {
                         sessionManager.closeSession();
                         setLoadingIndicator(false);
-                        openActivity(LoginActivity.class);
+                        Intent actv = new Intent(HomeActivity.this,LoginActivity.class);
+                        startActivity(actv);
+                        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                        finish();
                     }else{
                         setLoadingIndicator(false);
                         showMessageError(getString(R.string.there_was_an_error_try_it_later));
