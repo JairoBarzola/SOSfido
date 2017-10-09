@@ -47,6 +47,10 @@
     <string name="genero">Género</string>
     <string name="phone">Teléfono</string>
 
+    //upload photo
+    <string name="gallery">Galería</string>
+    <string name="camera">Cámara</string>
+
     //error strings
     <string name="there_was_an_error_try_it_later">Hubo un error, por favor intente más tarde</string>
     <string name="no_server_connection_try_it_later">No hubo conexión al servidor, por favor intente más tarde</string>

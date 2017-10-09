@@ -28,7 +28,7 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/dog" />
             <ImageButton
-                android:id="@+id/fab_add"
+                android:id="@+id/fab_photo_animal"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_alignBottom="@+id/image"
@@ -40,7 +40,9 @@
             style="@style/TextViewConstant"
             android:text="Nombre:"/>
         <EditText
-            style="@style/EditTxtConstant"
+            android:theme="@style/EditTxtConstant"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:maxLength="15"
             android:maxLines="1"
             android:hint="Ingrese un nombre"/>
@@ -48,7 +50,9 @@
             style="@style/TextViewConstant"
             android:text="Dirección:"/>
         <EditText
-            style="@style/EditTxtConstant"
+            android:theme="@style/EditTxtConstant"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:maxLength="15"
             android:maxLines="1"
             android:enabled="false"
@@ -57,7 +61,9 @@
             style="@style/TextViewConstant"
             android:text="Contacto:"/>
         <EditText
-            style="@style/EditTxtConstant"
+            android:theme="@style/EditTxtConstant"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:maxLength="9"
             android:maxLines="1"
             android:text="989281294"
@@ -66,7 +72,9 @@
             style="@style/TextViewConstant"
             android:text="Descripción:"/>
         <EditText
-            style="@style/EditTxtConstant"
+            android:theme="@style/EditTxtConstant"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:inputType="textCapWords|textNoSuggestions|textMultiLine"
             android:scrollbars="vertical"
             android:gravity="top|left"

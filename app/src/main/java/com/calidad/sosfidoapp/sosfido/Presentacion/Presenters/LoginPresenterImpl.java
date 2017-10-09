@@ -88,8 +88,8 @@ public class LoginPresenterImpl  implements LoginContract.Presenter{
         });
     }
     private void openSession(AccessTokenEntity accessTokenEntity, PersonEntity personEntity){
-        view.setLoadingIndicator(false);
         sessionManager.openSession(accessTokenEntity.getAccess_token(),personEntity);
         view.loginSuccessfully();
+        view.setLoadingIndicator(false);
     }
 }
