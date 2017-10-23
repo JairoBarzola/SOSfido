@@ -9,7 +9,17 @@ public class PersonEntity {
     private UserEntity user;
     private String born_date;
     private String phone_number;
-    private String address;
+    private Address address;
+    private String person_image;
+
+    public PersonEntity (int id,UserEntity user,String born_date,String phone_number,Address address,String person_image){
+        this.id=id;
+        this.user=user;
+        this.born_date=born_date;
+        this.phone_number=phone_number;
+        this.address=address;
+        this.person_image=person_image;
+    }
 
 
     public int getId() {
@@ -44,11 +54,50 @@ public class PersonEntity {
         this.phone_number = phone_number;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getPerson_image() {
+        return person_image;
+    }
+
+    public void setPerson_image(String person_image) {
+        this.person_image = person_image;
+    }
+
+
+    public  class Address{
+        private String location;
+        private String latitude;
+        private String longitude;
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
+        }
     }
 }

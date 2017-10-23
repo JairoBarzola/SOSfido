@@ -1,19 +1,24 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.ProfileFragment;
-import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.PublicationsFragment;
-import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
@@ -35,7 +40,11 @@ public class ProfileActivity extends AppCompatActivity {
             transaction.commit();
         }
     }
+    public void showMessageError(String message) {
+        CoordinatorLayout container = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        this.showMessageSnack(container, message, R.color.error_red);
 
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -45,5 +54,27 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+    public void showMessageSnack(View container, String message, int colorResource) {
+        if (container != null) {
+            Snackbar snackbar = Snackbar
+                    .make(container, message, Snackbar.LENGTH_LONG);
+            snackbar.setActionTextColor(Color.WHITE);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(ContextCompat.getColor(this, colorResource));
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
+            snackbar.show();
+        } else {
+            Toast toast =
+                    Toast.makeText(getApplicationContext(),
+                            message, Toast.LENGTH_LONG);
+
+            toast.show();
+        }
+
+    }
+    public void returnResult(){
+        setResult(Activity.RESULT_OK);
     }
 }

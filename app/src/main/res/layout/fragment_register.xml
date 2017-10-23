@@ -1,90 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
-<LinearLayout
-    android:padding="16dp"
-    android:focusableInTouchMode="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:padding="16dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/dog" />
-            <ImageButton
-                android:id="@+id/fab_photo_animal"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignBottom="@+id/image"
-                android:layout_alignRight="@+id/image"
-                android:background="@drawable/ripple_oval"
-                android:src="@mipmap/ic_camera_p" />
-        </RelativeLayout>
-        <TextView
-            style="@style/TextViewConstant"
-            android:text="Nombre:"/>
-        <EditText
-            android:theme="@style/EditTxtConstant"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:maxLength="15"
-            android:maxLines="1"
-            android:hint="Ingrese un nombre"/>
-        <TextView
-            style="@style/TextViewConstant"
-            android:text="Dirección:"/>
-        <EditText
-            android:theme="@style/EditTxtConstant"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:maxLength="15"
-            android:maxLines="1"
-            android:enabled="false"
-            android:hint="Av. Gonzales Prada 765"/>
-        <TextView
-            style="@style/TextViewConstant"
-            android:text="Contacto:"/>
-        <EditText
-            android:theme="@style/EditTxtConstant"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:maxLength="9"
-            android:maxLines="1"
-            android:text="989281294"
-            android:hint="Ingrese telefono"/>
-        <TextView
-            style="@style/TextViewConstant"
-            android:text="Descripción:"/>
-        <EditText
-            android:theme="@style/EditTxtConstant"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:inputType="textCapWords|textNoSuggestions|textMultiLine"
-            android:scrollbars="vertical"
-            android:gravity="top|left"
-            android:fadeScrollbars="false"
-            android:minLines="1"
-            android:lines="6"
-            android:maxLength="300"
-            android:hint="Ingrese una descripción"/>
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_animal"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:src="@drawable/perro"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    app:civ_border_color="#addad5"
+                    app:civ_border_width="2dp" />
+
+                <ImageButton
+                    android:id="@+id/fab_photo_animal"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignBottom="@+id/image_animal"
+                    android:layout_alignRight="@+id/image_animal"
+                    android:background="@drawable/ripple_oval"
+                    android:src="@mipmap/ic_camera_p" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/TextViewConstant"
+                android:text="Nombre:" />
+
+            <EditText
+                android:id="@+id/edt_name_animal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingrese un nombre"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:theme="@style/EditTxtConstant" />
+
+            <TextView
+                style="@style/TextViewConstant"
+                android:text="Dirección:" />
+
+            <EditText
+                android:id="@+id/edt_address_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dirección"
+                android:maxLength="40"
+                android:maxLines="1"
+                android:focusable="false"
+                android:theme="@style/EditTxtConstant" />
+
+            <TextView
+                style="@style/TextViewConstant"
+                android:text="Contacto:" />
+
+            <EditText
+                android:id="@+id/edt_number_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telefono"
+                android:maxLength="9"
+                android:maxLines="1"
+                android:theme="@style/EditTxtConstant" />
+
+            <TextView
+                style="@style/TextViewConstant"
+                android:text="Descripción:" />
+
+            <EditText
+                android:id="@+id/edt_descrip_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadeScrollbars="false"
+                android:gravity="top|left"
+                android:hint="Ingrese una descripción"
+                android:inputType="textCapWords|textNoSuggestions|textMultiLine"
+                android:lines="6"
+                android:maxLength="300"
+                android:minLines="1"
+                android:scrollbars="vertical"
+                android:theme="@style/EditTxtConstant" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
 </ScrollView>

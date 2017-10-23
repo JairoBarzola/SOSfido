@@ -1,9 +1,20 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Fragments;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +23,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.Data.Entities.PersonEntity;
+import com.calidad.sosfidoapp.sosfido.Data.Repositories.Local.SessionManager;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.HomeActivity;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.ProfileActivity;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.ProfileContract;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.ProfilePresenterImpl;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.Utils.CustomBottomSheetDialogFragment;
+import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
+import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by jairbarzola on 28/09/17.
@@ -35,9 +56,15 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     @BindView(R.id.tv_phone) TextView tvPhone;
     @BindView(R.id.cardView) CardView cardView;
     @BindView(R.id.fab_camera) ImageButton fabCamera;
-
+    @BindView(R.id.image_profile) CircleImageView imageProfile;
+    private ProgressDialogCustom mProgressDialogCustom;
+    SessionManager sessionManager;
     ProfileContract.Presenter presenter;
-    Unbinder unbinder;
+    private static final int GALLERY_CODE = 5;
+    private static final int STORAGE_PERMISSION_CODE = 123;
+    private static final int CAMERA_CODE = 1888;
+    static final Integer CAMERA = 0x5;
+    public String imageBase64;
     public ProfileFragment() {
     }
 
@@ -48,41 +75,67 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        unbinder=ButterKnife.bind(this, root);
+        ButterKnife.bind(this, root);
+        sessionManager = new SessionManager(getContext());
+        mProgressDialogCustom = new ProgressDialogCustom(getActivity(),"Actualizando...");
+        askForPermission(android.Manifest.permission.CAMERA,CAMERA);
+        presenter = new ProfilePresenterImpl(this,getContext());
+        presenter.start();
         return root;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new ProfilePresenterImpl(this,getContext());
-        presenter.start();
+
+    }
+    private void askForPermission(String permission,Integer code) {
+        if (ContextCompat.checkSelfPermission( getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale( getActivity(), permission)) {
+                ActivityCompat.requestPermissions( getActivity(), new String[]{permission}, code);
+            } else {
+                ActivityCompat.requestPermissions( getActivity(), new String[]{permission}, code);
+            }
+        }
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
-    public void loadUser(PersonEntity personEntity) {
+    public void loadUser(PersonEntity personEntity,boolean t) {
+        if(t){
+            Picasso.with(getContext()).load(sessionManager.getPersonEntity().getPerson_image()).into(imageProfile);
+        }else{
+            imageProfile.setImageDrawable(getResources().getDrawable(R.drawable.user));
+        }
         tvName.setText(personEntity.getUser().getFirst_name()+" "+personEntity.getUser().getLast_name());
         tvBirthDate.setText(personEntity.getBorn_date());
-        tvDireccion.setText(personEntity.getAddress());
+        tvDireccion.setText(personEntity.getAddress().getLocation());
         tvEmail.setText(personEntity.getUser().getEmail());
         tvPhone.setText(personEntity.getPhone_number());
+
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        this.init();
+    public void setLoadingIndicator(boolean active) {
+        if(mProgressDialogCustom!=null){
+            if(active){
+                mProgressDialogCustom.show();
+            }
+            else{
+                mProgressDialogCustom.dismiss();
+            }
+        }
     }
 
-    private void init() {
-
+    @Override
+    public void setMessageError(String error) {
+        ((ProfileActivity)getActivity()).showMessageError(error);
     }
+    //metodo para actualizar el navegation view
+    @Override
+    public void updateNav() {
+        ((ProfileActivity)getActivity()).returnResult();
+    }
+
     @OnClick(R.id.fab_camera)
     void onClickButton(){
         Bundle bundle = new Bundle();
@@ -92,9 +145,82 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         fragment.show( getActivity().getSupportFragmentManager(), CustomBottomSheetDialogFragment.FRAGMENT_KEY );
     }
     public void openCamera(){
-        Toast.makeText(getContext(),"CameraP",Toast.LENGTH_SHORT).show();
+        if(ContextCompat.checkSelfPermission( getActivity(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+            Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(i,CAMERA_CODE);
+        }else{
+            askForPermission(android.Manifest.permission.CAMERA,CAMERA);
+        }
+
+
     }
     public void openGallery(){
-        Toast.makeText(getContext(),"GalleryP",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Complete action using"), GALLERY_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GALLERY_CODE && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            try {
+                Bitmap bitmapGallery = MediaStore.Images.Media.getBitmap( getActivity().getContentResolver(), filePath);
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, (int) (bitmapGallery.getWidth() * 0.2), (int) (bitmapGallery.getHeight() * 0.2), false);
+                imageBase64=convertBitmapToBASE64(resizedImageGallery);
+                sendPhoto(imageBase64);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (requestCode == CAMERA_CODE ){
+            if (resultCode == Activity.RESULT_OK) {
+                Bitmap bitmapCamera = (Bitmap) data.getExtras().get("data");
+                //Bitmap resizedImageCamera = Bitmap.createScaledBitmap(bitmapCamera, (int) (bitmapCamera.getWidth() * 0.9), (int) (bitmapCamera.getHeight() * 0.9), false);
+                imageBase64=convertBitmapToBASE64(bitmapCamera);
+                sendPhoto(imageBase64);
+            } else {
+                Toast.makeText( getActivity(), "Vuelva a tomar la foto", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    private void sendPhoto(String imageBase64) {
+        if(sessionManager.getPersonEntity().getPerson_image().contains("http")){
+            presenter.changePhoto("data:image/jpeg;base64,"+imageBase64);
+        }else {
+            presenter.uploadPhoto("data:image/jpeg;base64,"+imageBase64);
+        }
+    }
+
+    public String convertBitmapToBASE64(Bitmap path){
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        path.compress(Bitmap.CompressFormat.JPEG,100, bytes); //bm is the bitmap object
+        byte[] b = bytes.toByteArray();
+        return Base64.encodeToString(b,Base64.DEFAULT);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(ActivityCompat.checkSelfPermission( getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED){
+            Toast.makeText( getActivity(), "Permiso concedido", Toast.LENGTH_SHORT).show();
+
+        }else{
+            Toast.makeText( getActivity(), "Permiso denegado", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void setImage(String photo){
+        Log.i("URL",sessionManager.getPersonEntity().getPerson_image());
+        //construir personentity
+        sessionManager.saveUser(new PersonEntity(sessionManager.getPersonEntity().getId(),
+                sessionManager.getPersonEntity().getUser(),sessionManager.getPersonEntity().getBorn_date(),
+                sessionManager.getPersonEntity().getPhone_number(),sessionManager.getPersonEntity().getAddress(),
+                photo));
+        Log.i("URL",sessionManager.getPersonEntity().getPerson_image());
+        Picasso.with(getContext()).load(sessionManager.getPersonEntity().getPerson_image()).into(imageProfile);
     }
 }

@@ -54,6 +54,17 @@ public class SessionManager {
             return "";
         }
     }
+    //save user
+    public void saveUser(PersonEntity personEntity){
+        editor.putString(USER_JSON, null);
+        editor.commit();
+        if(personEntity!=null){
+            Gson gson = new Gson();
+            String user= gson.toJson(personEntity);
+            editor.putString(USER_JSON, user);
+        }
+        editor.commit();
+    }
     //reset session
     public void closeSession() {
         editor.putBoolean(IS_LOGIN, false);

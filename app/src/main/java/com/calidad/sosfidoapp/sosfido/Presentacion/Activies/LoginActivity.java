@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void openActivity(Class<?> activity) {
         Intent i= new Intent(LoginActivity.this,activity);
         startActivity(i);
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
     @Override

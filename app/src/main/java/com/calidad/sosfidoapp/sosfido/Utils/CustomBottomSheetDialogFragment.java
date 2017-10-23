@@ -6,10 +6,9 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.ProfileFragment;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;

@@ -6,9 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.PublicationsFragment;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RecordFragment;
-import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;
 
 import butterknife.BindView;

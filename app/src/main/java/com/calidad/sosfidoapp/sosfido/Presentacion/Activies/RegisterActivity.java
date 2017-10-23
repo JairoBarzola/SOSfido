@@ -1,28 +1,45 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RecordFragment;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;
+import com.calidad.sosfidoapp.sosfido.Utils.CustomBottomSheetDialogFragment;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by jairbarzola on 27/09/17.
@@ -31,17 +48,19 @@ import butterknife.ButterKnife;
 public class RegisterActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+
     @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
+    RegisterFragment fragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_model);
         ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        RegisterFragment fragment = (RegisterFragment) getSupportFragmentManager().findFragmentById(R.id.body);
+        fragment = (RegisterFragment) getSupportFragmentManager().findFragmentById(R.id.body);
         if(fragment==null){
             fragment = RegisterFragment.newInstance();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -49,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
             transaction.commit();
 
         }
+
     }
 
     @Override
@@ -69,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.ac_save_report) {
-            Toast.makeText(this,"Registar",Toast.LENGTH_SHORT).show();
+            fragment.registerReport();
             return true;
         }
 
@@ -113,6 +133,11 @@ public class RegisterActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public void callToHome(){
+        setResult(Activity.RESULT_OK);
+        onBackPressed();
     }
 
 }

@@ -1,6 +1,8 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,9 +31,11 @@ import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.HomeFragment;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +46,12 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.nav_view) NavigationView navigationView;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
-
+    public static final int CODE_PROFILE = 120;
+    View hView;
+    PersonEntity personEntity;
+    TextView navName;
+    TextView navAddress;
+    CircleImageView navImage;
     private SessionManager sessionManager;
     private ProgressDialogCustom mProgressDialogCustom;
     @Override
@@ -61,12 +71,13 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //codigo para setear los valores del nav_header_home
-        View hView =  navigationView.getHeaderView(0);
-        TextView navName = (TextView) hView.findViewById(R.id.nav_name);
-        TextView navAddress = (TextView) hView.findViewById(R.id.nav_address);
-        PersonEntity personEntity = sessionManager.getPersonEntity();
-        navName.setText(personEntity.getUser().getFirst_name()+" "+personEntity.getUser().getLast_name());
-        navAddress.setText(personEntity.getAddress());
+        hView =  navigationView.getHeaderView(0);
+
+        navName = (TextView) hView.findViewById(R.id.nav_name);
+        navAddress = (TextView) hView.findViewById(R.id.nav_address);
+        navImage = (CircleImageView) hView.findViewById(R.id.nav_image) ;
+
+        updateData();
 
 
         HomeFragment homeFragment = new HomeFragment().newInstance();
@@ -109,8 +120,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void openRegisterActivity() {
         Intent a = new Intent(HomeActivity.this, RegisterActivity.class);
-        startActivity(a);
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        startActivityForResult(a,100);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -121,7 +131,7 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_publications) {
             openActivity(PublicationsActivity.class);
         } else if (id == R.id.nav_profile) {
-            openActivity(ProfileActivity.class);
+            openActivity(ProfileActivity.class,CODE_PROFILE);
         } else if (id == R.id.nav_record) {
             openActivity(RecordActivity.class);
         } else if (id == R.id.nav_suggestions) {
@@ -174,7 +184,10 @@ public class HomeActivity extends AppCompatActivity
     void openActivity(Class<?> activity){
         Intent actv = new Intent(HomeActivity.this,activity);
         startActivity(actv);
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+    void openActivity(Class<?> activity,int code){
+        Intent actv = new Intent(HomeActivity.this,activity);
+        startActivityForResult(actv,code);
     }
 
     public void showMessageSnack(View container, String message, int colorResource) {
@@ -211,4 +224,31 @@ public class HomeActivity extends AppCompatActivity
             }
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100){
+            if(resultCode==RESULT_OK){
+                Toast.makeText(this,"Cargando...",Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(requestCode == CODE_PROFILE){
+            if(resultCode==RESULT_OK){
+                updateData();
+            }
+        }
+    }
+    public void updateData(){
+        personEntity = sessionManager.getPersonEntity();
+        if(personEntity.getPerson_image().contains("http")){
+            Picasso.with(getApplicationContext()).load(sessionManager.getPersonEntity().getPerson_image()).into(navImage);
+
+        }else{
+            navImage.setImageDrawable(getResources().getDrawable(R.drawable.user));
+        }
+        navName.setText(personEntity.getUser().getFirst_name()+" "+personEntity.getUser().getLast_name());
+        navAddress.setText(personEntity.getAddress().getLocation());
+    }
+
 }

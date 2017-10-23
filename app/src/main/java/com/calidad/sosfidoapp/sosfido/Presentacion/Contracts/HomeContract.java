@@ -9,13 +9,11 @@ import com.calidad.sosfidoapp.sosfido.Data.Entities.PersonEntity;
 public interface HomeContract {
     //interfaces para el modelo Vista-Presentador
     interface View {
-        void setUser(PersonEntity personEntity);
         void setLoadingIndicator(boolean active);
         void setMessageError(String error);
         void setDialogMessage(String message);
     }
     interface Presenter {
-        void logout();
-        void getUser();
+        void loadReports();
     }
 }

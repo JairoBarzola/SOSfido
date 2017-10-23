@@ -7,190 +7,211 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:focusableInTouchMode="true"
-        android:fillViewport="true" >
+        android:fillViewport="true"
+        android:focusableInTouchMode="true">
 
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="20dp"
-            android:paddingRight="32dp"
             android:paddingLeft="16dp"
-            android:layout_height="wrap_content">
+            android:paddingRight="32dp"
+            android:paddingTop="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:layout_height="wrap_content">
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp">
+
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/name"/>
+                    android:src="@drawable/name" />
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
+
                     <EditText
-                        android:theme="@style/EditTxtConstant"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:inputType="textCapWords"
                         android:id="@+id/et_first_name"
-                        android:textSize="14dp"
-                        android:maxLength="30"
-                        android:hint="@string/first_name"/>
-                    <EditText
-                        android:theme="@style/EditTxtConstant"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
+                        android:hint="@string/first_name"
                         android:inputType="textCapWords"
                         android:maxLength="30"
                         android:textSize="14dp"
+                        android:theme="@style/EditTxtConstant" />
+
+                    <EditText
                         android:id="@+id/et_last_name"
-                        android:hint="@string/last_name"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:hint="@string/last_name"
+                        android:inputType="textCapWords"
+                        android:maxLength="30"
+                        android:textSize="14dp"
+                        android:theme="@style/EditTxtConstant" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:layout_height="wrap_content">
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp">
+
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/birthday"/>
+                    android:src="@drawable/birthday" />
+
                 <EditText
-                    android:theme="@style/EditTxtConstant"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:inputType="datetime"
-                    android:focusable="false"
-                    android:textSize="14dp"
                     android:id="@+id/et_birth_date"
-                    android:hint="@string/birth_date"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:focusable="false"
+                    android:hint="@string/birth_date"
+                    android:inputType="datetime"
+                    android:textSize="14dp"
+                    android:theme="@style/EditTxtConstant" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:layout_height="wrap_content">
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp">
+
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/phone"/>
+                    android:src="@drawable/phone" />
+
                 <EditText
-                    android:theme="@style/EditTxtConstant"
+                    android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:textSize="14dp"
+                    android:hint="@string/phone"
                     android:inputType="phone"
                     android:maxLength="9"
-                    android:id="@+id/et_phone"
-                    android:hint="@string/phone"/>
+                    android:textSize="14dp"
+                    android:theme="@style/EditTxtConstant" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:layout_height="wrap_content">
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp">
+
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/mapa"/>
+                    android:src="@drawable/mapa" />
+
                 <EditText
-                    android:theme="@style/EditTxtConstant"
+                    android:id="@+id/et_district"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
+                    android:hint="@string/direction"
                     android:inputType="text"
                     android:maxLength="40"
                     android:textSize="14dp"
-                    android:id="@+id/et_district"
-                    android:hint="@string/direction"/>
+                    android:theme="@style/EditTxtConstant" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:layout_height="wrap_content">
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp">
+
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/email"/>
+                    android:src="@drawable/email" />
+
                 <EditText
-                    android:theme="@style/EditTxtConstant"
+                    android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:textSize="14dp"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:id="@+id/et_email"
-                    android:hint="@string/email"/>
+                    android:textSize="14dp"
+                    android:theme="@style/EditTxtConstant" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:layout_height="wrap_content">
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp">
+
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/key"/>
+                    android:src="@drawable/key" />
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
+
                     <EditText
-                        android:layout_below="@+id/et_email"
-                        android:theme="@style/EditTxtConstant"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:inputType="textPassword"
-                        android:textSize="14dp"
-                        android:maxLength="12"
                         android:id="@+id/et_password"
-                        android:hint="@string/password"/>
-                    <EditText
-                        android:layout_below="@id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/et_email"
                         android:layout_marginLeft="16dp"
-                        android:textSize="14dp"
-                        android:maxLength="12"
-                        android:theme="@style/EditTxtConstant"
+                        android:hint="@string/password"
                         android:inputType="textPassword"
+                        android:maxLength="12"
+                        android:textSize="14dp"
+                        android:theme="@style/EditTxtConstant" />
+
+                    <EditText
                         android:id="@+id/et_repeat_password"
-                        android:hint="@string/repeat_password"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/et_password"
+                        android:layout_marginLeft="16dp"
+                        android:hint="@string/repeat_password"
+                        android:inputType="textPassword"
+                        android:maxLength="12"
+                        android:textSize="14dp"
+                        android:theme="@style/EditTxtConstant" />
                 </LinearLayout>
             </LinearLayout>
 

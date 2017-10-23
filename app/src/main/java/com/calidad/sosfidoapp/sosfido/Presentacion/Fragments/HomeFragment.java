@@ -9,7 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.HomeActivity;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterActivity;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.HomeContract;
 import com.calidad.sosfidoapp.sosfido.R;
+import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -21,12 +25,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback{
+public class HomeFragment extends Fragment implements OnMapReadyCallback,HomeContract.View{
 
     @BindView(R.id.mv_show_reports)
     MapView mapView;
     GoogleMap googleMap;
-
+    private ProgressDialogCustom mProgressDialogCustom;
     public HomeFragment() {}
     public static HomeFragment newInstance() {return new HomeFragment();}
 
@@ -35,6 +39,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, root);
+        mProgressDialogCustom = new ProgressDialogCustom(getActivity(),"Actualizando...");
         return root;
     }
 
@@ -76,5 +81,27 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
+    }
+
+    @Override
+    public void setLoadingIndicator(boolean active) {
+        if(mProgressDialogCustom!=null){
+            if(active){
+                mProgressDialogCustom.show();
+            }
+            else{
+                mProgressDialogCustom.dismiss();
+            }
+        }
+    }
+
+    @Override
+    public void setMessageError(String error) {
+        ((HomeActivity)getActivity()).showMessageError(error);
+    }
+
+    @Override
+    public void setDialogMessage(String message) {
+        ((HomeActivity)getActivity()).showMessageError(message);
     }
 }
