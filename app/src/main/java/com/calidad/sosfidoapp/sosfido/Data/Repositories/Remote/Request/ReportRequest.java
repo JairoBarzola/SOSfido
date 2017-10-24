@@ -1,10 +1,12 @@
 package com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.Request;
 
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ReportResponse;
+import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseStatus;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ApiConstants;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
@@ -24,9 +26,13 @@ public interface ReportRequest {
                                     @Field("description") String description,@Field("image") String image,
                                     @Field("Name") String name ,@Field("phone") String phone);
 
-    @FormUrlEncoded
+    @POST(ApiConstants.SEND_REPORT)
+    Call<ResponseReport> sendReport(@Header("Content-type") String contentType, @Header("Authorization") String token,
+                                    @Body ResponseReport.Send responseReport);
+
+
     @POST(ApiConstants.SEND_PHOTO)
     Call<ResponseStatus> sendPhoto(@Header("Content-type") String contentType, @Header("Authorization") String token,
-                                   @Field("report") String report, @Field("image") String image);
+                                   @Body ResponseReport.SendPhoto responsePhoto);
 
 }

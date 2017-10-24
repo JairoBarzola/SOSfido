@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.HomeActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.HomeContract;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.HomePresenterImpl;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +22,9 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +36,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,HomeCon
     MapView mapView;
     GoogleMap googleMap;
     private ProgressDialogCustom mProgressDialogCustom;
+    HomeContract.Presenter presenter;
+
     public HomeFragment() {}
     public static HomeFragment newInstance() {return new HomeFragment();}
 
@@ -40,6 +47,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,HomeCon
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, root);
         mProgressDialogCustom = new ProgressDialogCustom(getActivity(),"Actualizando...");
+        presenter = new HomePresenterImpl(this,getContext());
         return root;
     }
 
@@ -52,12 +60,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,HomeCon
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(-12.0560204,-77.0866113))
-                .zoom(15)
-                .build();
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        mapView.onResume();
+        this.googleMap  = googleMap;
+        presenter.loadReports();
+
     }
     @Override
     public void onDestroyView() {
@@ -104,4 +109,25 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,HomeCon
     public void setDialogMessage(String message) {
         ((HomeActivity)getActivity()).showMessageError(message);
     }
+
+    @Override
+    public void getReportsPoints(List<ResponseReport.ReportList> reportLists) {
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(-12.0560204,-77.0866113))
+                .zoom(15)
+                .build();
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        for (ResponseReport.ReportList entity: reportLists){
+            LatLng latLng = new LatLng(Double.parseDouble(entity.getPlace().getLatitude()),Double.parseDouble(entity.getPlace().getLongitude()));
+            googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getDescription()));
+        }
+        mapView.onResume();
+    }
+
+    public void loadMap(){
+        mapView.getMapAsync(this);
+     //   presenter.loadReports();
+    }
+
 }

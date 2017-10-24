@@ -47,11 +47,11 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
     @BindView(R.id.fab_photo_animal) ImageButton fabPhotoanimal;
     @BindView(R.id.image_animal) CircleImageView photoAnimal;
-    @NotEmpty(message = "Este campo no puede ser vacío")
+    //@NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.edt_name_animal) EditText edtName;
-    @NotEmpty(message = "Este campo no puede ser vacío")
+    //@NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.edt_address_report) EditText edtAddress;
-    @NotEmpty(message = "Este campo no puede ser vacío")
+    //@NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.edt_number_report) EditText edtNumber;
     @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.edt_descrip_report) EditText edtDescrip;
@@ -134,7 +134,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
             Uri filePath = data.getData();
             try {
                 Bitmap bitmapGallery = MediaStore.Images.Media.getBitmap( getActivity().getContentResolver(), filePath);
-                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, (int) (bitmapGallery.getWidth() * 0.8), (int) (bitmapGallery.getHeight() * 0.8), false);
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, (int) (bitmapGallery.getWidth() * 0.2), (int) (bitmapGallery.getHeight() * 0.2), false);
                 imageBase64=convertBitmapToBASE64(resizedImageGallery);
                 photoAnimal.setImageBitmap(resizedImageGallery);
             } catch (IOException e) {
@@ -144,13 +144,9 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
         if (requestCode == CAMERA_CODE ){
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap bitmapCamera = (Bitmap) data.getExtras().get("data");
-                Bitmap resizedImageCamera = Bitmap.createScaledBitmap(bitmapCamera, (int) (bitmapCamera.getWidth() * 0.8), (int) (bitmapCamera.getHeight() * 0.8), false);
-                imageBase64=convertBitmapToBASE64(resizedImageCamera);
+                imageBase64=convertBitmapToBASE64(bitmapCamera);
                 photoAnimal.setImageBitmap(bitmapCamera);
-            } else {
-                Toast.makeText( getActivity(), "Vuelva a tomar la foto", Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -198,9 +194,10 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
     void sendReport(){
         if(imageBase64!= null){
-            presenter.start(location,latitud,longitude,edtDescrip.getText().toString(),
-                    imageBase64,edtName.getText().toString()
-                            ,edtNumber.getText().toString());
+                presenter.start(location,latitud,longitude,edtDescrip.getText().toString(),
+                        imageBase64,edtName.getText().toString()
+                        ,edtNumber.getText().toString());
+
         }else{
             setDialogMessage("Por favor tome una foto");
         }
@@ -246,5 +243,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     public void backToHome(){
         ((RegisterActivity)getActivity()).callToHome();
     }
+
 
 }

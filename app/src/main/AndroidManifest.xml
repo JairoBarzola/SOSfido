@@ -18,10 +18,12 @@
         android:hardwareAccelerated="false"
         android:supportsRtl="true"
         android:largeHeap="true"
+
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity
             android:name=".Presentacion.Activies.LoadActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarOnly">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +37,7 @@
         <activity
             android:name=".Presentacion.Activies.HomeActivity"
             android:label="@string/title_activity_home"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
@@ -46,14 +49,19 @@
             android:value="@string/google_map_key" />
 
         <activity android:name=".Presentacion.Activies.PublicationsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/publications"/>
         <activity android:name=".Presentacion.Activies.ProfileActivity"
+            android:screenOrientation="portrait"
             android:label="@string/profile"/>
         <activity android:name=".Presentacion.Activies.RecordActivity"
+            android:screenOrientation="portrait"
             android:label="@string/record"/>
         <activity android:name=".Presentacion.Activies.SuggestionsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/suggestions"></activity>
         <activity android:name=".Presentacion.Activies.RegisterUserActivity"
+            android:screenOrientation="portrait"
             android:label="@string/register"></activity>
     </application>
 

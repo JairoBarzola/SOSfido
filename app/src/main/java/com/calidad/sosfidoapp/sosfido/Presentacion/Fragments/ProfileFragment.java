@@ -182,10 +182,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 //Bitmap resizedImageCamera = Bitmap.createScaledBitmap(bitmapCamera, (int) (bitmapCamera.getWidth() * 0.9), (int) (bitmapCamera.getHeight() * 0.9), false);
                 imageBase64=convertBitmapToBASE64(bitmapCamera);
                 sendPhoto(imageBase64);
-            } else {
-                Toast.makeText( getActivity(), "Vuelva a tomar la foto", Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 

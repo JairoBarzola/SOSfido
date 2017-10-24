@@ -47,6 +47,7 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.nav_view) NavigationView navigationView;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
     public static final int CODE_PROFILE = 120;
+    public static final int CODE_REGISTER_REPORT = 130;
     View hView;
     PersonEntity personEntity;
     TextView navName;
@@ -54,6 +55,7 @@ public class HomeActivity extends AppCompatActivity
     CircleImageView navImage;
     private SessionManager sessionManager;
     private ProgressDialogCustom mProgressDialogCustom;
+    HomeFragment homeFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +82,7 @@ public class HomeActivity extends AppCompatActivity
         updateData();
 
 
-        HomeFragment homeFragment = new HomeFragment().newInstance();
+        homeFragment = new HomeFragment().newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.body,homeFragment);
         transaction.commit();
@@ -120,7 +122,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void openRegisterActivity() {
         Intent a = new Intent(HomeActivity.this, RegisterActivity.class);
-        startActivityForResult(a,100);
+        startActivityForResult(a,CODE_REGISTER_REPORT);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -228,14 +230,14 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==100){
-            if(resultCode==RESULT_OK){
-                Toast.makeText(this,"Cargando...",Toast.LENGTH_SHORT).show();
-            }
-        }
         if(requestCode == CODE_PROFILE){
             if(resultCode==RESULT_OK){
                 updateData();
+            }
+        }
+        if(requestCode == CODE_REGISTER_REPORT){
+            if(resultCode==RESULT_OK){
+                homeFragment.loadMap();
             }
         }
     }

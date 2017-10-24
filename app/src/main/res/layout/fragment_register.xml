@@ -45,6 +45,7 @@
 
             <TextView
                 style="@style/TextViewConstant"
+                android:visibility="gone"
                 android:text="Nombre:" />
 
             <EditText
@@ -54,9 +55,11 @@
                 android:hint="Ingrese un nombre"
                 android:maxLength="15"
                 android:maxLines="1"
+                android:visibility="gone"
                 android:theme="@style/EditTxtConstant" />
 
             <TextView
+                android:layout_marginTop="16dp"
                 style="@style/TextViewConstant"
                 android:text="Dirección:" />
 
@@ -72,6 +75,7 @@
 
             <TextView
                 style="@style/TextViewConstant"
+                android:visibility="gone"
                 android:text="Contacto:" />
 
             <EditText
@@ -79,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Telefono"
+                android:visibility="gone"
                 android:maxLength="9"
                 android:maxLines="1"
                 android:theme="@style/EditTxtConstant" />
@@ -95,8 +100,8 @@
                 android:gravity="top|left"
                 android:hint="Ingrese una descripción"
                 android:inputType="textCapWords|textNoSuggestions|textMultiLine"
-                android:lines="6"
-                android:maxLength="300"
+                android:lines="8"
+                android:maxLength="400"
                 android:minLines="1"
                 android:scrollbars="vertical"
                 android:theme="@style/EditTxtConstant" />
