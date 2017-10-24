@@ -27,7 +27,7 @@
                     android:id="@+id/image_animal"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
-                    android:src="@drawable/perro"
+                    android:src="@drawable/dog"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     app:civ_border_color="#addad5"

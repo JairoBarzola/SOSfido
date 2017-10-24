@@ -36,12 +36,12 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
 
 
     @Override
-    public void register(String firstName, String lastName, String district, String birthDate, String email, String password,String phone) {
+    public void register(String firstName, String lastName, String location,String longitude,String latitude, String birthDate, String email, String password,String phone) {
 
         view.setLoadingIndicator(true);
         UserRequest userRequest = ServiceFactory.createService(UserRequest.class);
         Call<ResponseRegisterEntity> call = userRequest.registerUser(ApiConstants.CONTENT_TYPE,firstName,lastName,
-                email,password,birthDate,phone,district);
+                email,password,birthDate,location,latitude,longitude,phone);
         call.enqueue(new Callback<ResponseRegisterEntity>() {
             @Override
             public void onResponse(Call<ResponseRegisterEntity> call, Response<ResponseRegisterEntity> response) {

@@ -1,5 +1,6 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,8 @@ import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.RegisterUserContrac
 import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.RegisterUserPresenterImpl;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -56,11 +59,16 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     @ConfirmPassword(message = "No concuerda con la contraseña")
     @BindView(R.id.et_repeat_password) EditText etRepeatPass;
 
+    private final int REQUEST_CODE_PLACEPICKER = 1;
     RegisterUserContract.Presenter presenter;
     private ProgressDialogCustom mProgressDialogCustom;
     Validator validator;
+    String location;
+    String longitude;
+    String latitude;
     com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd;
     public RegisterUserFragment() {}
+
     public static RegisterUserFragment newInstance() {return new RegisterUserFragment();}
 
     @Override
@@ -124,8 +132,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
 
     @Override
     public void onValidationSucceeded() {
-        presenter.register(etFirstName.getText().toString(),etLastName.getText().toString(),
-                etDistrict.getText().toString(),etBirthDate.getText().toString(),
+        presenter.register(etFirstName.getText().toString(),etLastName.getText().toString(),location,longitude,latitude,etBirthDate.getText().toString(),
                 etEmail.getText().toString(),etPassword.getText().toString(),etPhone.getText().toString());
     }
 
@@ -167,5 +174,38 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    @OnClick(R.id.et_district)
+    void onclickAddress(){
+        startPlacePickerActivity();
+    }
+
+    private void startPlacePickerActivity() {
+        PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+        // this would only work if you have your Google Places API working
+        try {
+            Intent intent = intentBuilder.build(getActivity());
+            startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == Activity.RESULT_OK) {
+            displaySelectedPlaceFromPlacePicker(data);
+        }
+    }
+    private void displaySelectedPlaceFromPlacePicker(Intent data) {
+        Place placeSelected = PlacePicker.getPlace(data, getActivity());
+
+        location = placeSelected.getAddress().toString();
+        etDistrict.setText(location);
+        latitude = String.valueOf(placeSelected.getLatLng().latitude);
+        longitude = String.valueOf(placeSelected.getLatLng().longitude);
     }
 }

@@ -13,7 +13,7 @@ public interface RegisterUserContract {
         void setDialogMessage(String message);
     }
     interface Presenter {
-        void register(String firstName,String lastName, String district,
+        void register(String firstName,String lastName, String location,String longitude,String latitude,
                       String birthDate,String email,String password,String phone);
     }
 

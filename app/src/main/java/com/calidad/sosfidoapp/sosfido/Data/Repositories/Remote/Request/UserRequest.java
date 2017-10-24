@@ -46,7 +46,9 @@ public interface UserRequest {
                                                @Field("first_name") String firstname,
                                                 @Field("last_name") String lastname, @Field("email") String email,
                                                @Field("password") String password, @Field("born_date") String borndate,
-                                               @Field("phone_number") String phone, @Field("address") String address);
+                                               @Field("location") String location,
+                                               @Field("latitude") String longitude,@Field("longitude") String latitude,
+                                               @Field("phone_number") String phone);
 
 
     @POST(ApiConstants.UPLOAD_PHOTO)

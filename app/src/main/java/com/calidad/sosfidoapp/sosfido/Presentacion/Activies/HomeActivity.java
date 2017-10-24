@@ -250,7 +250,7 @@ public class HomeActivity extends AppCompatActivity
             navImage.setImageDrawable(getResources().getDrawable(R.drawable.user));
         }
         navName.setText(personEntity.getUser().getFirst_name()+" "+personEntity.getUser().getLast_name());
-        navAddress.setText(personEntity.getAddress().getLocation());
+        navAddress.setText(personEntity.getUser().getEmail());
     }
 
 }

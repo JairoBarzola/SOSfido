@@ -26,6 +26,8 @@ import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.RegisterPresenterI
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.Utils.CustomBottomSheetDialogFragment;
 import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -63,6 +65,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     private ProgressDialogCustom mProgressDialogCustom;
     RegisterContract.Presenter presenter;
     Validator validator;
+    private final int REQUEST_CODE_PLACEPICKER = 1;
 
     String location;
     String longitude;
@@ -148,6 +151,9 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
                 photoAnimal.setImageBitmap(bitmapCamera);
             }
         }
+        if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == Activity.RESULT_OK) {
+            displaySelectedPlaceFromPlacePicker(data);
+        }
     }
 
     @Override
@@ -199,7 +205,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
                         ,edtNumber.getText().toString());
 
         }else{
-            setDialogMessage("Por favor tome una foto");
+            setDialogMessage("Por favor adjunta una foto");
         }
 
     }
@@ -230,9 +236,22 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
         switch (view.getId()){
             case R.id.edt_address_report:
-                Toast.makeText(getContext(),"Address",Toast.LENGTH_SHORT).show();
+                startPlacePickerActivity();
                 break;
         }
+
+    }
+
+    private void startPlacePickerActivity() {
+            PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+            // this would only work if you have your Google Places API working
+
+            try {
+                Intent intent = intentBuilder.build(getActivity());
+                startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
     }
 
@@ -244,5 +263,12 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
         ((RegisterActivity)getActivity()).callToHome();
     }
 
+    private void displaySelectedPlaceFromPlacePicker(Intent data) {
+        Place placeSelected = PlacePicker.getPlace(data, getActivity());
 
+        location = placeSelected.getAddress().toString()+"-"+placeSelected.getName().toString();
+        edtAddress.setText(location);
+        latitud = String.valueOf(placeSelected.getLatLng().latitude);
+        longitude = String.valueOf(placeSelected.getLatLng().longitude);
+    }
 }

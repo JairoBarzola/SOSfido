@@ -38,9 +38,6 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
     public void start(String location, String latitud, String longitude, String description, final String image, String name, String phone) {
         view.setLoadingIndicator(true);
 
-        location="prueba-4";
-        latitud="-12.052270";
-        longitude="-77.085460";
         final ReportRequest reportRequest = ServiceFactory.createService(ReportRequest.class);
         Call<ResponseReport> call = reportRequest.sendReport(ApiConstants.CONTENT_TYPE_JSON,"Bearer "+String.valueOf(sessionManager.getUserToken())
                                                             , new ResponseReport.Send(String.valueOf(sessionManager.getPersonEntity().getId()),new ResponseReport.Place(location,latitud,longitude),description));

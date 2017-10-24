@@ -140,6 +140,7 @@
                     android:hint="@string/direction"
                     android:inputType="text"
                     android:maxLength="40"
+                    android:focusable="false"
                     android:textSize="14dp"
                     android:theme="@style/EditTxtConstant" />
             </LinearLayout>
