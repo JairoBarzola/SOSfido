@@ -18,5 +18,12 @@ public interface HomeRequest {
 
 
     @GET(ApiConstants.GET_REPORTS)
-    Call<List<ResponseReport.ReportList>> getReports(@Header("Authorization") String token, @Query("all_reports") boolean value);
+    Call<List<ResponseReport.ReportList>> getReportsAbandoned(@Header("Authorization") String token, @Query("all_reports") boolean value,
+            @Query("abandoned_pet") boolean values2);
+
+    @GET(ApiConstants.GET_REPORTS)
+    Call<List<ResponseReport.ReportListMissing>> getReportsMissing(@Header("Authorization") String token, @Query("all_reports") boolean value,
+                                                              @Query("missing_pet") boolean values2);
+    @GET(ApiConstants.GET_REPORTS_ADOPTION)
+    Call<List<ResponseReport.ReportListAdoption>> getReportsAdoption(@Header("Authorization") String token, @Query("all_adoptions") boolean value);
 }

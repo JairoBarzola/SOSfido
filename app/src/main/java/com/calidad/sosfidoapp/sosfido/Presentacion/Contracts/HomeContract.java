@@ -15,7 +15,8 @@ public interface HomeContract {
         void setLoadingIndicator(boolean active);
         void setMessageError(String error);
         void setDialogMessage(String message);
-        void getReportsPoints(List<ResponseReport.ReportList> reportLists);
+        void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned,List<ResponseReport.ReportListMissing> reportListsMissing,
+                              List<ResponseReport.ReportListAdoption> reportListAdoption);
     }
     interface Presenter {
         void loadReports();

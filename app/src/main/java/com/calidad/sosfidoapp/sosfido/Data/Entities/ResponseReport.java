@@ -58,7 +58,7 @@ public class ResponseReport {
         private String description;
 
         public Send(String person , Place place ,String description){
-            this.setPerson(person);
+            this.person=person;
             this.place=place;
             this.description=description;
         }
@@ -93,7 +93,7 @@ public class ResponseReport {
 
 
         public SendPhoto(String report,String image){
-            this.setReport(report);
+            this.report=report;
             this.image=image;
         }
 
@@ -182,6 +182,220 @@ public class ResponseReport {
 
         public void setId(String id) {
             this.id = id;
+        }
+    }
+
+    public static class SendMissing{
+        private String person;
+        private String pet_name;
+        private Place place;
+        private String description;
+
+        public SendMissing(String person, String pet_name, Place place, String description) {
+            this.person=person;
+            this.pet_name=pet_name;
+            this.place=place;
+            this.description=description;
+        }
+
+        public String getPet_name() {
+            return pet_name;
+        }
+
+        public void setPet_name(String pet_name) {
+            this.pet_name = pet_name;
+        }
+
+        public Place getPlace() {
+            return place;
+        }
+
+        public void setPlace(Place place) {
+            this.place = place;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getPerson() {
+            return person;
+        }
+
+        public void setPerson(String person) {
+            this.person = person;
+        }
+    }
+
+    public static class ReportListMissing{
+        private String id;
+        private Person person;
+        private String pet_name;
+        private Place place;
+        private String description;
+        private String date;
+        private String report_image;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public Person getPerson() {
+            return person;
+        }
+
+        public void setPerson(Person person) {
+            this.person = person;
+        }
+
+        public String getPet_name() {
+            return pet_name;
+        }
+
+        public void setPet_name(String pet_name) {
+            this.pet_name = pet_name;
+        }
+
+        public Place getPlace() {
+            return place;
+        }
+
+        public void setPlace(Place place) {
+            this.place = place;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getReport_image() {
+            return report_image;
+        }
+
+        public void setReport_image(String report_image) {
+            this.report_image = report_image;
+        }
+    }
+
+    public static class SendAdoption{
+        private String owner;
+        private String pet_name;
+        private String description;
+
+        public SendAdoption(String owner,String pet_name,String description){
+            this.owner=owner;
+            this.pet_name=pet_name;
+            this.description=description;
+        }
+
+        public String getOwner() {
+            return owner;
+        }
+
+        public void setOwner(String owner) {
+            this.owner = owner;
+        }
+
+        public String getPet_name() {
+            return pet_name;
+        }
+
+        public void setPet_name(String pet_name) {
+            this.pet_name = pet_name;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+    }
+
+    public static class ReportListAdoption{
+        private int id;
+        private PersonEntity owner;
+        private String pet_name;
+        private String adopter;
+        private String description;
+        private String date;
+        private String adoption_image;
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public PersonEntity getOwner() {
+            return owner;
+        }
+
+        public void setOwner(PersonEntity owner) {
+            this.owner = owner;
+        }
+
+        public String getPet_name() {
+            return pet_name;
+        }
+
+        public void setPet_name(String pet_name) {
+            this.pet_name = pet_name;
+        }
+
+        public String getAdopter() {
+            return adopter;
+        }
+
+        public void setAdopter(String adopter) {
+            this.adopter = adopter;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getAdoption_image() {
+            return adoption_image;
+        }
+
+        public void setAdoption_image(String adoption_image) {
+            this.adoption_image = adoption_image;
         }
     }
 

@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -43,9 +45,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeContract.View {
+public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeContract.View, GoogleMap.OnMyLocationButtonClickListener {
 
     @BindView(R.id.mv_show_reports)
     MapView mapView;
@@ -55,7 +58,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     HomeContract.Presenter presenter;
     double latitude, longitude;
     private static int PETICION_PERMISO_LOCALIZACION = 101;
-
+    Unbinder unbinder;
     public HomeFragment() {
     }
 
@@ -67,7 +70,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this, root);
+        unbinder = ButterKnife.bind(this, root);
         mProgressDialogCustom = new ProgressDialogCustom(getActivity(), "Actualizando...");
         presenter = new HomePresenterImpl(this, getContext());
         return root;
@@ -84,7 +87,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-
+        googleMap.setOnMyLocationButtonClickListener(this);
         presenter.loadReports();
         myUbication();
 
@@ -97,10 +100,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
                     PETICION_PERMISO_LOCALIZACION);
             return;
         } else {
+
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             ActualizarUbicacion(location);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1200,0,locListener);
+            googleMap.setMyLocationEnabled(true);
         }
     }
 
@@ -108,6 +113,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     public void onDestroyView() {
         super.onDestroyView();
         mapView.onDestroy();
+        unbinder.unbind();
     }
 
     @Override
@@ -150,27 +156,45 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     }
 
     @Override
-    public void getReportsPoints(List<ResponseReport.ReportList> reportLists) {
-        for (ResponseReport.ReportList entity: reportLists){
+    public void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing,
+                                 List<ResponseReport.ReportListAdoption> reportListAdoptions){
+        Bitmap abandoned = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
+                R.drawable.verde),95,95, false);
+
+        for (ResponseReport.ReportList entity: reportListsAbandoned){
             LatLng latLng = new LatLng(Double.parseDouble(entity.getPlace().getLatitude()),Double.parseDouble(entity.getPlace().getLongitude()));
-            googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getDescription()));
+            googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getDescription())
+            .icon(BitmapDescriptorFactory.fromBitmap(abandoned)));
+        }
+        Bitmap lost = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
+                R.drawable.naranja),95,95, false);
+        for (ResponseReport.ReportListMissing entity: reportListsMissing){
+            LatLng latLngM = new LatLng(Double.parseDouble(entity.getPlace().getLatitude()),Double.parseDouble(entity.getPlace().getLongitude()));
+            googleMap.addMarker(new MarkerOptions().position(latLngM).title(entity.getDescription())
+            .icon(BitmapDescriptorFactory.fromBitmap(lost)));
+        }
+        Bitmap adoption = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
+                R.drawable.plomo),95,95, false);
+        for (ResponseReport.ReportListAdoption entity: reportListAdoptions){
+            LatLng latLngA = new LatLng(Double.parseDouble(entity.getOwner().getAddress().getLatitude()),Double.parseDouble(entity.getOwner().getAddress().getLongitude()));
+            googleMap.addMarker(new MarkerOptions().position(latLngA).title(entity.getDescription())
+                    .icon(BitmapDescriptorFactory.fromBitmap(adoption)));
         }
         mapView.onResume();
     }
 
     public void loadMap(){
         mapView.getMapAsync(this);
-     //   presenter.loadReports();
+     // presenter.loadReports();
     }
-
 
     //control del gps
     LocationListener locListener = new LocationListener() {
 
         @Override
         public void onLocationChanged(Location location) {
-
-            ActualizarUbicacion(location);
+            // mover market real time
+           // ActualizarUbicacion(location);
            // setLocation(location);
         }
 
@@ -185,9 +209,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         }
 
         @Override
-        public void onProviderDisabled(String s) {
-            locationStart();
-            message("GPS Desactivado");
+        public void onProviderDisabled(String s) {locationStart();message("GPS Desactivado");
         }
     };
 
@@ -208,9 +230,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         LatLng coordenadas = new LatLng(latitude, longitude);
         CameraUpdate myUbication = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
         if (myPosition != null) myPosition.remove();
-        myPosition = googleMap.addMarker(new MarkerOptions()
-                .position(coordenadas)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin)));
         googleMap.animateCamera(myUbication);
     }
     //activar los servicios del gps cuando esten apagados
@@ -224,5 +243,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
     }
 
-
+    @Override
+    public boolean onMyLocationButtonClick() {
+        mCamera(latitude,longitude);
+        return false;
+    }
 }

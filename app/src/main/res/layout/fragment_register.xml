@@ -43,68 +43,95 @@
                     android:src="@mipmap/ic_camera_p" />
             </RelativeLayout>
 
-            <TextView
-                style="@style/TextViewConstant"
-                android:visibility="gone"
-                android:text="Nombre:" />
 
-            <EditText
-                android:id="@+id/edt_name_animal"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ingrese un nombre"
-                android:maxLength="15"
-                android:maxLines="1"
-                android:visibility="gone"
-                android:theme="@style/EditTxtConstant" />
+                android:id="@+id/ln_name"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_marginTop="16dp"
-                style="@style/TextViewConstant"
-                android:text="Dirección:" />
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/TextViewConstant"
+                    android:text="Nombre:" />
 
-            <EditText
-                android:id="@+id/edt_address_report"
+                <EditText
+                    android:id="@+id/edt_name_animal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingrese un nombre"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:theme="@style/EditTxtConstant" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Dirección"
-                android:maxLength="40"
-                android:maxLines="1"
-                android:focusable="false"
-                android:theme="@style/EditTxtConstant" />
+                android:id="@+id/ln_address"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/TextViewConstant"
+                    android:text="Dirección:" />
 
-            <TextView
-                style="@style/TextViewConstant"
-                android:visibility="gone"
-                android:text="Contacto:" />
+                <EditText
+                    android:id="@+id/edt_address_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Dirección"
+                    android:maxLength="40"
+                    android:maxLines="1"
+                    android:focusable="false"
+                    android:theme="@style/EditTxtConstant" />
 
-            <EditText
-                android:id="@+id/edt_number_report"
+
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Telefono"
-                android:visibility="gone"
-                android:maxLength="9"
-                android:maxLines="1"
-                android:theme="@style/EditTxtConstant" />
+                android:id="@+id/ln_phone"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/TextViewConstant"
+                    android:text="Contacto:" />
 
-            <TextView
-                style="@style/TextViewConstant"
-                android:text="Descripción:" />
+                <EditText
+                    android:id="@+id/edt_number_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Telefono"
+                    android:visibility="visible"
+                    android:maxLength="9"
+                    android:maxLines="1"
+                    android:theme="@style/EditTxtConstant" />
 
-            <EditText
-                android:id="@+id/edt_descrip_report"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fadeScrollbars="false"
-                android:gravity="top|left"
-                android:hint="Ingrese una descripción"
-                android:inputType="textCapWords|textNoSuggestions|textMultiLine"
-                android:lines="8"
-                android:maxLength="400"
-                android:minLines="1"
-                android:scrollbars="vertical"
-                android:theme="@style/EditTxtConstant" />
+                android:id="@+id/ln_description"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/TextViewConstant"
+                    android:text="Descripción:" />
+                <EditText
+                    android:id="@+id/edt_descrip_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadeScrollbars="false"
+                    android:gravity="top|left"
+                    android:hint="Ingrese una descripción"
+                    android:inputType="textCapWords|textNoSuggestions|textMultiLine"
+                    android:lines="8"
+                    android:maxLength="400"
+                    android:minLines="1"
+                    android:scrollbars="vertical"
+                    android:theme="@style/EditTxtConstant" />
+            </LinearLayout>
+
 
         </LinearLayout>
 

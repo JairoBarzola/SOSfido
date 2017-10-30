@@ -1,5 +1,7 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,9 +15,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -113,15 +117,63 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.ac_registrer_report) {
-            openRegisterActivity();
+            openDialog();
+          //  openRegisterActivity();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void openRegisterActivity() {
+    private void openDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        dialog.setContentView(R.layout.dialog_report);
+        TextView missing = (TextView) dialog.findViewById(R.id.report_p);
+        TextView abandoned = (TextView) dialog.findViewById(R.id.report_a);
+        TextView adopcion = (TextView) dialog.findViewById(R.id.report_ad);
+
+        missing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openRegisterActivity(1);
+                    dialog.dismiss();
+            }
+        });
+
+        abandoned.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openRegisterActivity(2);
+                dialog.dismiss();
+            }
+        });
+
+
+        adopcion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openRegisterActivity(3);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+
+    }
+
+    private void openRegisterActivity(int idReport) {
         Intent a = new Intent(HomeActivity.this, RegisterActivity.class);
+        a.putExtra("idReport",idReport);
         startActivityForResult(a,CODE_REGISTER_REPORT);
     }
 

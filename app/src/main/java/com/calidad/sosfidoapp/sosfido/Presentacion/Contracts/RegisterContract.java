@@ -14,7 +14,7 @@ public interface RegisterContract {
         void setDialogMessage(String message);
     }
     interface Presenter {
-        void start(String location,String latitud,String longitude,String description,String image,String name,String phone);
+        void start(String location,String latitud,String longitude,String description,String image,String name,String phone,int tag);
 
     }
 }

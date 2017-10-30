@@ -18,21 +18,26 @@ import retrofit2.http.POST;
 
 public interface ReportRequest {
 
-    @FormUrlEncoded
-    @POST(ApiConstants.SEND_REPORT)
-    Call<ReportResponse> sendReport(@Header("Content-type") String contentType,@Header("Authorization") String token,
-                                    @Field("person") String person,@Field("location") String location,
-                                    @Field("latitud") String latitud,@Field("longitude") String longitude,
-                                    @Field("description") String description,@Field("image") String image,
-                                    @Field("Name") String name ,@Field("phone") String phone);
-
+    // enviar reporte de animal abandonado
     @POST(ApiConstants.SEND_REPORT)
     Call<ResponseReport> sendReport(@Header("Content-type") String contentType, @Header("Authorization") String token,
                                     @Body ResponseReport.Send responseReport);
 
+    // enviar reporte de animal perdido
+    @POST(ApiConstants.SEND_REPORT)
+    Call<ResponseReport> sendReportMissing(@Header("Content-type") String contentType, @Header("Authorization") String token,
+                                @Body ResponseReport.SendMissing responseReport);
 
+    // enviar reporte de animal en adopcion
+    @POST(ApiConstants.SEND_ADOPTION)
+    Call<ResponseReport> sendReportAdoption(@Header("Content-type") String contentType, @Header("Authorization") String token,
+                                           @Body ResponseReport.SendAdoption responseReport);
+
+    //enviar foto de animal perdido, abandonado y adopcion
     @POST(ApiConstants.SEND_PHOTO)
     Call<ResponseStatus> sendPhoto(@Header("Content-type") String contentType, @Header("Authorization") String token,
                                    @Body ResponseReport.SendPhoto responsePhoto);
+
+
 
 }
