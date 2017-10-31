@@ -56,6 +56,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_model);
         ButterKnife.bind(this);
+        Bundle bundle = getIntent().getExtras();
+        int idReport = bundle.getInt("idReport");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,10 +65,12 @@ public class RegisterActivity extends AppCompatActivity {
         fragment = (RegisterFragment) getSupportFragmentManager().findFragmentById(R.id.body);
         if(fragment==null){
             fragment = RegisterFragment.newInstance();
+            Bundle args = new Bundle();
+            args.putInt("idReport",idReport);
+            fragment.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.body,fragment);
             transaction.commit();
-
         }
 
     }
@@ -137,7 +141,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void callToHome(){
         setResult(Activity.RESULT_OK);
-        onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
 }

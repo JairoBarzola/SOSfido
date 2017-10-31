@@ -17,9 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.calidad.sosfidoapp.sosfido.Data.Repositories.Local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.RegisterContract;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.RegisterPresenterImpl;
@@ -28,6 +30,7 @@ import com.calidad.sosfidoapp.sosfido.Utils.CustomBottomSheetDialogFragment;
 import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.vision.text.Line;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -49,14 +52,23 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
     @BindView(R.id.fab_photo_animal) ImageButton fabPhotoanimal;
     @BindView(R.id.image_animal) CircleImageView photoAnimal;
-    //@NotEmpty(message = "Este campo no puede ser vacío")
+    @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.edt_name_animal) EditText edtName;
-    //@NotEmpty(message = "Este campo no puede ser vacío")
+    @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.edt_address_report) EditText edtAddress;
-    //@NotEmpty(message = "Este campo no puede ser vacío")
+    @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.edt_number_report) EditText edtNumber;
     @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.edt_descrip_report) EditText edtDescrip;
+
+    @BindView(R.id.ln_name)
+    LinearLayout lnName;
+    @BindView(R.id.ln_phone)
+    LinearLayout lnPhone;
+    @BindView(R.id.ln_description)
+    LinearLayout lnDescrip;
+    @BindView(R.id.ln_address)
+    LinearLayout lnAddress;
     private static final int GALLERY_CODE = 5;
     private static final int STORAGE_PERMISSION_CODE = 123;
     private static final int CAMERA_CODE = 1888;
@@ -70,6 +82,10 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     String location;
     String longitude;
     String latitud;
+
+    SessionManager sessionManager;
+
+    int idReport;
     public RegisterFragment() {
     }
 
@@ -83,10 +99,39 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
         ButterKnife.bind(this, root);
         validator = new Validator(this);
         validator.setValidationListener(this);
+        sessionManager = new SessionManager(getContext());
+        Bundle bundle = getArguments();
+        idReport = bundle.getInt("idReport");
+        openReport(idReport);
+
         presenter = new RegisterPresenterImpl(this,getContext());
         askForPermission(android.Manifest.permission.CAMERA,CAMERA);
         mProgressDialogCustom = new ProgressDialogCustom(getActivity(),"Registrando...");
         return root;
+    }
+
+    private void openReport(int id) {
+        //perdido
+        if(id==1){
+            lnName.setVisibility(View.VISIBLE);
+            lnPhone.setVisibility(View.GONE);
+            lnAddress.setVisibility(View.VISIBLE);
+            lnDescrip.setVisibility(View.VISIBLE);
+        }
+        //abandonado
+        else if (id == 2){
+            lnName.setVisibility(View.GONE);
+            lnPhone.setVisibility(View.GONE);
+            lnAddress.setVisibility(View.VISIBLE);
+            lnDescrip.setVisibility(View.VISIBLE);
+        }else{
+            //adopcion
+            lnName.setVisibility(View.VISIBLE);
+            lnPhone.setVisibility(View.GONE);
+            lnAddress.setVisibility(View.GONE);
+            lnDescrip.setVisibility(View.VISIBLE);
+
+        }
     }
 
     @Override
@@ -137,7 +182,8 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
             Uri filePath = data.getData();
             try {
                 Bitmap bitmapGallery = MediaStore.Images.Media.getBitmap( getActivity().getContentResolver(), filePath);
-                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, (int) (bitmapGallery.getWidth() * 0.2), (int) (bitmapGallery.getHeight() * 0.2), false);
+                //Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, (int) (bitmapGallery.getWidth() * 0.2), (int) (bitmapGallery.getHeight() * 0.2), false);
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap (bitmapGallery,600,600, false);
                 imageBase64=convertBitmapToBASE64(resizedImageGallery);
                 photoAnimal.setImageBitmap(resizedImageGallery);
             } catch (IOException e) {
@@ -200,9 +246,20 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
     void sendReport(){
         if(imageBase64!= null){
+            if(idReport == 1){
                 presenter.start(location,latitud,longitude,edtDescrip.getText().toString(),
                         imageBase64,edtName.getText().toString()
-                        ,edtNumber.getText().toString());
+                        ,edtNumber.getText().toString(),1);
+            }else if(idReport == 2){
+                presenter.start(location,latitud,longitude,edtDescrip.getText().toString(),
+                        imageBase64,edtName.getText().toString()
+                        ,edtNumber.getText().toString(),2);
+            }else{
+                presenter.start(sessionManager.getPersonEntity().getAddress().getLocation(),sessionManager.getPersonEntity().getAddress().getLatitude()
+                        ,sessionManager.getPersonEntity().getAddress().getLongitude(),edtDescrip.getText().toString(),
+                        imageBase64,edtName.getText().toString()
+                        ,edtNumber.getText().toString(),3);
+            }
 
         }else{
             setDialogMessage("Por favor adjunta una foto");
@@ -265,8 +322,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(data, getActivity());
-
-        location = placeSelected.getAddress().toString()+"-"+placeSelected.getName().toString();
+        location = placeSelected.getAddress().toString();
         edtAddress.setText(location);
         latitud = String.valueOf(placeSelected.getLatLng().latitude);
         longitude = String.valueOf(placeSelected.getLatLng().longitude);

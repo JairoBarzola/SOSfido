@@ -168,7 +168,9 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             Uri filePath = data.getData();
             try {
                 Bitmap bitmapGallery = MediaStore.Images.Media.getBitmap( getActivity().getContentResolver(), filePath);
-                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, (int) (bitmapGallery.getWidth() * 0.2), (int) (bitmapGallery.getHeight() * 0.2), false);
+
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap (bitmapGallery,600,600, false);
+                //Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, (int) (bitmapGallery.getWidth() * 0.2), (int) (bitmapGallery.getHeight() * 0.2), false);
                 imageBase64=convertBitmapToBASE64(resizedImageGallery);
                 sendPhoto(imageBase64);
 
