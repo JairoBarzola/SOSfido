@@ -54,4 +54,10 @@
     <color name="colorPD">#1FB0C3</color>
 
     <color name="ventana1">#c60c797c</color>
+    <color name="text">#f5009094</color>
+    <color name="textList">#c7003335</color>
+
+    <color name="colorMissing">#ed9420</color>
+    <color name="colorAbandoned">#1a9678</color>
+    <color name="colorAdoption">#9d9d9d</color>
 </resources>

@@ -19,6 +19,7 @@ public class ApiConstants {
     public static final String SEND_ADOPTION = "adoption-proposal-api/";
     public static final String UPLOAD_PHOTO = "person-image-api/";
     public static final String CHANGE_PHOTO= "person-image-api/{person_id}/";
+    public static final String EDIT_USER="person-api/{person_id}/";
 
     //API KEYS CONSTANS
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";

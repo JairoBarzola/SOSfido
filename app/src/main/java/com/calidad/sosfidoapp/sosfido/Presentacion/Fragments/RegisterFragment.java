@@ -193,8 +193,9 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
         if (requestCode == CAMERA_CODE ){
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap bitmapCamera = (Bitmap) data.getExtras().get("data");
-                imageBase64=convertBitmapToBASE64(bitmapCamera);
-                photoAnimal.setImageBitmap(bitmapCamera);
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap (bitmapCamera,600,600, false);
+                imageBase64=convertBitmapToBASE64(resizedImageGallery);
+                photoAnimal.setImageBitmap(resizedImageGallery);
             }
         }
         if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == Activity.RESULT_OK) {

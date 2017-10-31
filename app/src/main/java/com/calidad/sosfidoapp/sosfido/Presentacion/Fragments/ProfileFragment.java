@@ -182,7 +182,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap bitmapCamera = (Bitmap) data.getExtras().get("data");
                 //Bitmap resizedImageCamera = Bitmap.createScaledBitmap(bitmapCamera, (int) (bitmapCamera.getWidth() * 0.9), (int) (bitmapCamera.getHeight() * 0.9), false);
-                imageBase64=convertBitmapToBASE64(bitmapCamera);
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap (bitmapCamera,600,600, false);
+                imageBase64=convertBitmapToBASE64(resizedImageGallery);
                 sendPhoto(imageBase64);
             }
         }

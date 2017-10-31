@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.calidad.sosfidoapp.sosfido.Data.Entities.ReportEntity;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.HomeActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterActivity;
@@ -45,6 +46,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
@@ -75,6 +77,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     HashMap<Marker, ResponseReport.ReportListAdoption> hashMapAdoption = new HashMap<Marker, ResponseReport.ReportListAdoption>();
     HashMap<Marker, ResponseReport.ReportList> hashMapAbandoned = new HashMap<Marker, ResponseReport.ReportList>();
     HashMap<Marker, ResponseReport.ReportListMissing> hashMapMissing = new HashMap<Marker, ResponseReport.ReportListMissing>();
+    HashMap<Marker, ReportEntity> hashMapReport= new HashMap<Marker, ReportEntity>();
 
     Timer timer;
     public HomeFragment() {
@@ -100,7 +103,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
         int delay = 5000; // delay for 0 sec.
-        int period = 10000; // repeat every 10 sec.
+        int period = 15000; // repeat every 10 sec.
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask()
         {
@@ -131,16 +134,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
             @Override
             public View getInfoContents(Marker marker) {
-                View v = getLayoutInflater(getArguments()).inflate(R.layout.info_marker,null);
+                View v = getActivity().getLayoutInflater().inflate(R.layout.info_marker,null);
                 ImageView imageView = (ImageView) v.findViewById(R.id.image_animal);
                 TextView textView = (TextView) v.findViewById(R.id.text);
-
-
-               // Log.i("URL",reportListAdoptionsInfo.get(Integer.parseInt(marker.getTitle())).getAdoption_image());
-              // Picasso.with(v.getContext()).load(url_image).into(imageView);
-                //textView.setText(reportListAdoptionsInfo.get(9).getPet_name());
-                //Picasso.with(v.getContext()).load("http://sosfido.tk/media/photos/adoptions/pets/6c608a63-5e8.jpg").into(imageView);
-
+                TextView name = (TextView) v.findViewById(R.id.pet_name);
+                ReportEntity data = hashMapReport.get(marker);
+                if(data!=null) {
+                    textView.setText(data.getLocation());
+                    name.setText(data.getNamePet());
+                    if(data.getPhoto().equals("Sin imagen")){
+                        //http://sosfido.tk/media/photos/users/profile/2408e9ff-12e.jpg
+                        Picasso.with(v.getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageView);
+                    }else{
+                    Picasso.with(v.getContext()).load(data.getPhoto()).into(imageView);}
+                }
                 return v;
             }
         });
@@ -192,6 +199,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     public void onPause() {
         mapView.onPause();
         super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         timer.cancel();
         timer.purge();
     }
@@ -226,31 +238,56 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     @Override
     public void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing,
                                  List<ResponseReport.ReportListAdoption> reportListAdoptions){
+
+        List<ReportEntity> reportEntityList = convertOneList(reportListAdoptions,reportListsAbandoned,reportListsMissing);
+
+
         Bitmap abandoned = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
                 R.drawable.verde),95,95, false);
-
-        for (ResponseReport.ReportList entity: reportListsAbandoned){
-            LatLng latLng = new LatLng(Double.parseDouble(entity.getPlace().getLatitude()),Double.parseDouble(entity.getPlace().getLongitude()));
-
-            hashMapAbandoned.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getId())
-                    .icon(BitmapDescriptorFactory.fromBitmap(abandoned))),entity);
-        }
         Bitmap lost = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
                 R.drawable.naranja),95,95, false);
-        for (ResponseReport.ReportListMissing entity: reportListsMissing){
-            LatLng latLngM = new LatLng(Double.parseDouble(entity.getPlace().getLatitude()),Double.parseDouble(entity.getPlace().getLongitude()));
-
-            hashMapMissing.put(googleMap.addMarker(new MarkerOptions().position(latLngM).title(entity.getId())
-                    .icon(BitmapDescriptorFactory.fromBitmap(lost))),entity);
-        }
         Bitmap adoption = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
                 R.drawable.plomo),95,95, false);
-        for (ResponseReport.ReportListAdoption entity: reportListAdoptions){
-            LatLng latLngA = new LatLng(Double.parseDouble(entity.getOwner().getAddress().getLatitude()),Double.parseDouble(entity.getOwner().getAddress().getLongitude()));
-            hashMapAdoption.put( googleMap.addMarker(new MarkerOptions().position(latLngA).title(entity.getId())
-                    .icon(BitmapDescriptorFactory.fromBitmap(adoption))),entity);
+        for (ReportEntity entity: reportEntityList){
+            if(!entity.getLatitude().equals("")||!entity.getLongitude().equals("")){
+            LatLng latLng = new LatLng(Double.parseDouble(entity.getLatitude()),Double.parseDouble(entity.getLongitude()));
+
+            if(entity.getTypeReport().equals("1")){
+                hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
+                        .icon(BitmapDescriptorFactory.fromBitmap(lost))),entity);
+            }else{
+                if(entity.getTypeReport().equals("2")) {
+                    hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
+                            .icon(BitmapDescriptorFactory.fromBitmap(abandoned))),entity);
+                }else{
+                    hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
+                            .icon(BitmapDescriptorFactory.fromBitmap(adoption))),entity);
+                }
+            }
+
         }
+        }
+
+
         mapView.onResume();
+    }
+
+    private List<ReportEntity> convertOneList(List<ResponseReport.ReportListAdoption> reportListAdoptions, List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing) {
+        List<ReportEntity> reportList = new ArrayList<>();
+        for (ResponseReport.ReportListAdoption entity: reportListAdoptions){
+            reportList.add(new ReportEntity(entity.getId(),entity.getOwner().getAddress().getLocation(),
+                    entity.getOwner().getAddress().getLatitude(),entity.getOwner().getAddress().getLongitude(),
+                    entity.getDate(),entity.getAdoption_image(),entity.getPet_name(),entity.getDescription(),"3"));
+        }
+        for (ResponseReport.ReportListMissing entity: reportListsMissing){
+            reportList.add(new ReportEntity(entity.getId(),entity.getPlace().getLocation(),entity.getPlace().getLatitude(),
+                    entity.getPlace().getLongitude(),entity.getDate(),entity.getReport_image(),entity.getPet_name(),entity.getDescription(),"1"));
+        }
+        for (ResponseReport.ReportList entity: reportListsAbandoned){
+            reportList.add(new ReportEntity(entity.getId(),entity.getPlace().getLocation(),entity.getPlace().getLatitude(),entity.getPlace().getLongitude(),
+                    entity.getDate(),entity.getReport_image(),"Abandonado",entity.getDescription(),"2"));
+        }
+        return reportList;
     }
 
     public void loadMap(){

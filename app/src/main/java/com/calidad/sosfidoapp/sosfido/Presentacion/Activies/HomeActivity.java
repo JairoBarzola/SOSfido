@@ -136,6 +136,7 @@ public class HomeActivity extends AppCompatActivity
         final Dialog dialog = new Dialog(this);
         //LayoutInflater inflater = this.getLayoutInflater();
         dialog.setContentView(R.layout.dialog_report);
+
         TextView missing = (TextView) dialog.findViewById(R.id.report_p);
         TextView abandoned = (TextView) dialog.findViewById(R.id.report_a);
         TextView adopcion = (TextView) dialog.findViewById(R.id.report_ad);
@@ -307,7 +308,7 @@ public class HomeActivity extends AppCompatActivity
         }else{
             navImage.setImageDrawable(getResources().getDrawable(R.drawable.user));
         }
-        navName.setText(personEntity.getUser().getFirst_name()+" "+personEntity.getUser().getLast_name());
+        navName.setText(personEntity.getUser().getFirst_name());
         navAddress.setText(personEntity.getUser().getEmail());
     }
 
