@@ -33,11 +33,15 @@ public interface ReportRequest {
     Call<ResponseReport> sendReportAdoption(@Header("Content-type") String contentType, @Header("Authorization") String token,
                                            @Body ResponseReport.SendAdoption responseReport);
 
-    //enviar foto de animal perdido, abandonado y adopcion
+    //enviar foto de animal perdido, abandonado
     @POST(ApiConstants.SEND_PHOTO)
     Call<ResponseStatus> sendPhoto(@Header("Content-type") String contentType, @Header("Authorization") String token,
                                    @Body ResponseReport.SendPhoto responsePhoto);
 
+    // enviar foto de animal adoptado
+    @POST(ApiConstants.SEND_PHOTO_ADOPTION)
+    Call<ResponseStatus> sendPhotoAdoption(@Header("Content-type") String contentType, @Header("Authorization") String token,
+                                   @Body ResponseReport.SendPhotoAdoption responsePhoto);
 
 
 }

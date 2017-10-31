@@ -47,7 +47,7 @@
 
         <activity
             android:name=".Presentacion.Activies.PublicationsActivity"
-            android:label="@string/publications"
+            android:label="@string/reportes"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Presentacion.Activies.ProfileActivity"

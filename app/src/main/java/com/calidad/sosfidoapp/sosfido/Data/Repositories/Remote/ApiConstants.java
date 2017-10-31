@@ -13,6 +13,7 @@ public class ApiConstants {
     public static final String REGISTER = "register-api/";
     public static final String SEND_REPORT = "animal-report-api/";
     public static final String SEND_PHOTO = "report-image-api/";
+    public static final String SEND_PHOTO_ADOPTION ="adoption-image-api/";
     public static final String GET_REPORTS = "animal-report-api/";
     public static final String GET_REPORTS_ADOPTION = "adoption-proposal-api/";
     public static final String SEND_ADOPTION = "adoption-proposal-api/";

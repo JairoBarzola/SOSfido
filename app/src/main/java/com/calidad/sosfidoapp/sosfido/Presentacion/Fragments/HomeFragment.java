@@ -1,6 +1,7 @@
 package com.calidad.sosfidoapp.sosfido.Presentacion.Fragments;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,6 +21,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseReport;
@@ -40,6 +43,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -48,7 +52,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeContract.View, GoogleMap.OnMyLocationButtonClickListener {
+public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeContract.View,
+        GoogleMap.OnMyLocationButtonClickListener,GoogleMap.OnInfoWindowClickListener {
 
     @BindView(R.id.mv_show_reports)
     MapView mapView;
@@ -59,6 +64,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     double latitude, longitude;
     private static int PETICION_PERMISO_LOCALIZACION = 101;
     Unbinder unbinder;
+    List<ResponseReport.ReportListAdoption> reportListAdoptionsInfo;
+    List<ResponseReport.ReportList> reportListsAbandonedInfo;
+    List<ResponseReport.ReportListMissing> reportListsMissingInfo;
+
     public HomeFragment() {
     }
 
@@ -88,9 +97,103 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         googleMap.setOnMyLocationButtonClickListener(this);
+        googleMap.setOnInfoWindowClickListener(this);
+        /*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                reportDialog(marker.getTitle());
+                return false;
+            }
+        });*/
+       googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                View v = getLayoutInflater(getArguments()).inflate(R.layout.info_marker,null);
+                ImageView imageView = (ImageView) v.findViewById(R.id.image_animal);
+                TextView textView = (TextView) v.findViewById(R.id.text);
+
+                String url_image = findUrl(marker.getTitle());
+                //String location = findLocation(marker.getTitle());
+               // String pet_name = findPetName(marker.getTitle());
+
+               // Log.i("URL",reportListAdoptionsInfo.get(Integer.parseInt(marker.getTitle())).getAdoption_image());
+                Picasso.with(v.getContext()).load(url_image).into(imageView);
+                //textView.setText(reportListAdoptionsInfo.get(9).getPet_name());
+                //Picasso.with(v.getContext()).load("http://sosfido.tk/media/photos/adoptions/pets/6c608a63-5e8.jpg").into(imageView);
+
+                return v;
+            }
+        });
         presenter.loadReports();
         myUbication();
 
+    }
+
+    private String findUrl(String id) {
+
+        int i=0;
+        String url = "";
+        boolean first=false;
+        boolean second=false;
+        boolean third = false;
+
+
+        while(i<=reportListsAbandonedInfo.size()&&reportListAdoptionsInfo.size()!=0){
+            if(reportListsAbandonedInfo.get(i).getId().equals(id)){
+                url=reportListsAbandonedInfo.get(i).getReport_image();
+                first=true;
+                break;
+            }
+            i++;
+        }
+
+        if(first){
+            return url;
+        }else{
+            i=0;
+            while (i<=reportListsMissingInfo.size()&&reportListsMissingInfo.size()!=0){
+                if(reportListsMissingInfo.get(i).getId().equals(id)){
+                    url=reportListsMissingInfo.get(i).getReport_image();
+                    second=true;
+                    break;
+                }
+                i++;
+            }
+            if(second){
+                return url;
+            }else {
+                i = 0;
+                while (i <= reportListAdoptionsInfo.size()&&reportListsAbandonedInfo.size()!=0) {
+                    if (reportListAdoptionsInfo.get(i).getId() .equals(id)) {
+                        url = reportListAdoptionsInfo.get(i).getAdoption_image();
+                        third=true;
+                        break;
+                    }
+                    i++;
+                }
+                if(third){
+                    return url;
+                }else {
+                    return "http://sosfido.tk/media/photos/users/profile/629df15f-e88.jpg";
+                }
+            }
+        }
+    }
+
+    private  void reportDialog(String id) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.info_marker);
+        ImageView imageView = (ImageView) dialog.findViewById(R.id.image_animal);
+        TextView textView = (TextView) dialog.findViewById(R.id.text);
+        //Picasso.with(getContext()).load(reportListAdoptionsInfo.get(Integer.parseInt(marker.getTitle())).getAdoption_image()).into(imageView);
+        Picasso.with(dialog.getContext()).load("http://sosfido.tk/media/photos/adoptions/pets/6c608a63-5e8.jpg").into(imageView);
+
+        dialog.show();
     }
 
     private void myUbication() {
@@ -160,24 +263,26 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
                                  List<ResponseReport.ReportListAdoption> reportListAdoptions){
         Bitmap abandoned = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
                 R.drawable.verde),95,95, false);
-
+        reportListAdoptionsInfo= reportListAdoptions;
+        reportListsAbandonedInfo=reportListsAbandoned;
+        reportListsMissingInfo=reportListsMissing;
         for (ResponseReport.ReportList entity: reportListsAbandoned){
             LatLng latLng = new LatLng(Double.parseDouble(entity.getPlace().getLatitude()),Double.parseDouble(entity.getPlace().getLongitude()));
-            googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getDescription())
+            googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getId())
             .icon(BitmapDescriptorFactory.fromBitmap(abandoned)));
         }
         Bitmap lost = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
                 R.drawable.naranja),95,95, false);
         for (ResponseReport.ReportListMissing entity: reportListsMissing){
             LatLng latLngM = new LatLng(Double.parseDouble(entity.getPlace().getLatitude()),Double.parseDouble(entity.getPlace().getLongitude()));
-            googleMap.addMarker(new MarkerOptions().position(latLngM).title(entity.getDescription())
+            googleMap.addMarker(new MarkerOptions().position(latLngM).title(entity.getId())
             .icon(BitmapDescriptorFactory.fromBitmap(lost)));
         }
         Bitmap adoption = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
                 R.drawable.plomo),95,95, false);
         for (ResponseReport.ReportListAdoption entity: reportListAdoptions){
             LatLng latLngA = new LatLng(Double.parseDouble(entity.getOwner().getAddress().getLatitude()),Double.parseDouble(entity.getOwner().getAddress().getLongitude()));
-            googleMap.addMarker(new MarkerOptions().position(latLngA).title(entity.getDescription())
+            googleMap.addMarker(new MarkerOptions().position(latLngA).title(entity.getId())
                     .icon(BitmapDescriptorFactory.fromBitmap(adoption)));
         }
         mapView.onResume();
@@ -247,5 +352,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     public boolean onMyLocationButtonClick() {
         mCamera(latitude,longitude);
         return false;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+    //    Toast.makeText(getContext(),"Hola",Toast.LENGTH_SHORT).show();
     }
 }

@@ -87,6 +87,31 @@ public class ResponseReport {
         }
     }
 
+    public static class SendPhotoAdoption{
+        private String adoption_proposal;
+        private String image;
+
+        public SendPhotoAdoption(String adoption_proposal,String image){
+            this.adoption_proposal=adoption_proposal;
+            this.image=image;
+        }
+
+        public String getAdoption_proposal() {
+            return adoption_proposal;
+        }
+
+        public void setAdoption_proposal(String adoption_proposal) {
+            this.adoption_proposal = adoption_proposal;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+    }
     public static class SendPhoto{
         private String report;
         private String image;
@@ -334,7 +359,7 @@ public class ResponseReport {
     }
 
     public static class ReportListAdoption{
-        private int id;
+        private String id;
         private PersonEntity owner;
         private String pet_name;
         private String adopter;
@@ -342,13 +367,7 @@ public class ResponseReport {
         private String date;
         private String adoption_image;
 
-        public Integer getId() {
-            return id;
-        }
 
-        public void setId(Integer id) {
-            this.id = id;
-        }
 
         public PersonEntity getOwner() {
             return owner;
@@ -396,6 +415,14 @@ public class ResponseReport {
 
         public void setAdoption_image(String adoption_image) {
             this.adoption_image = adoption_image;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
         }
     }
 

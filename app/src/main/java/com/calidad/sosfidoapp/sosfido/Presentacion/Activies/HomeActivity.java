@@ -82,6 +82,12 @@ public class HomeActivity extends AppCompatActivity
         navName = (TextView) hView.findViewById(R.id.nav_name);
         navAddress = (TextView) hView.findViewById(R.id.nav_address);
         navImage = (CircleImageView) hView.findViewById(R.id.nav_image) ;
+        navImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity(ProfileActivity.class,CODE_PROFILE);
+            }
+        });
 
         updateData();
 
@@ -128,7 +134,7 @@ public class HomeActivity extends AppCompatActivity
     private void openDialog() {
 
         final Dialog dialog = new Dialog(this);
-        LayoutInflater inflater = this.getLayoutInflater();
+        //LayoutInflater inflater = this.getLayoutInflater();
         dialog.setContentView(R.layout.dialog_report);
         TextView missing = (TextView) dialog.findViewById(R.id.report_p);
         TextView abandoned = (TextView) dialog.findViewById(R.id.report_a);

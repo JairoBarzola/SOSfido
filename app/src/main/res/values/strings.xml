@@ -22,8 +22,8 @@
     <string name="google_map_key">AIzaSyCRgXvxKLvdnCP22MVogdZ0bddXZb9NEmg</string>
 
     //drawer
-    <string name="publications">Publicaciones</string>
-    <string name="record">Historial</string>
+    <string name="reportes">Reportes</string>
+    <string name="record">Mi Historial</string>
     <string name="suggestions">Propuestas</string>
     <string name="logout">Cerrar Sesión</string>
     <string name="profile">Perfil</string>

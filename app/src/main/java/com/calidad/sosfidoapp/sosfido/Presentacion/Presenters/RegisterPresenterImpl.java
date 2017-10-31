@@ -59,7 +59,7 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
                 if(response.isSuccessful()){
                     ResponseReport responseReport = response.body();
                     if(responseReport.getId()!=null) {
-                        uploadPhoto("data:image/jpeg;base64,"+image,responseReport.getId());
+                        uploadPhotoAdoption("data:image/jpeg;base64,"+image,responseReport.getId());
                     }else{
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.setLoadingIndicator(false);
@@ -140,6 +140,36 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
         ReportRequest reportRequest = ServiceFactory.createService(ReportRequest.class);
         Call<ResponseStatus> call = reportRequest.sendPhoto(ApiConstants.CONTENT_TYPE_JSON,
                                                             "Bearer "+String.valueOf(sessionManager.getUserToken()),new ResponseReport.SendPhoto(id_report,image));
+        call.enqueue(new Callback<ResponseStatus>() {
+            @Override
+            public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
+                if(response.isSuccessful()){
+                    ResponseStatus responseStatus= response.body();
+                    if(responseStatus.getUrl_image().contains("http")){
+                        view.backToHome();
+                        view.setLoadingIndicator(false);
+                    }else{
+                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                        view.setLoadingIndicator(false);
+                    }
+                }else{
+                    view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                    view.setLoadingIndicator(false);}
+            }
+
+            @Override
+            public void onFailure(Call<ResponseStatus> call, Throwable t) {
+                view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                view.setLoadingIndicator(false);
+            }
+        });
+    }
+
+    //enviar foto de animal en adopcion
+    private void uploadPhotoAdoption(String image, String adoption_proposal) {
+        ReportRequest reportRequest = ServiceFactory.createService(ReportRequest.class);
+        Call<ResponseStatus> call = reportRequest.sendPhotoAdoption(ApiConstants.CONTENT_TYPE_JSON,
+                "Bearer "+String.valueOf(sessionManager.getUserToken()),new ResponseReport.SendPhotoAdoption(adoption_proposal,image));
         call.enqueue(new Callback<ResponseStatus>() {
             @Override
             public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
