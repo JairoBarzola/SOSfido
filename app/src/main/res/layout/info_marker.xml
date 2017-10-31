@@ -14,9 +14,8 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="italic"
-        android:textColor="@color/black"
-        android:textSize="16dp"
+        android:textColor="@color/gray"
+        android:textSize="14dp"
         android:text=" Av. Gonzales prada"
         android:gravity="center"/>
 </LinearLayout>

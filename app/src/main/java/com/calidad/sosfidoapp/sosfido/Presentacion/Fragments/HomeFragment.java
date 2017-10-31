@@ -46,6 +46,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,7 +70,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     List<ResponseReport.ReportListAdoption> reportListAdoptionsInfo;
     List<ResponseReport.ReportList> reportListsAbandonedInfo;
     List<ResponseReport.ReportListMissing> reportListsMissingInfo;
-
+    Timer timer;
     public HomeFragment() {
     }
 
@@ -90,7 +93,16 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         super.onViewCreated(view, savedInstanceState);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
+        int delay = 5000; // delay for 0 sec.
+        int period = 5000; // repeat every 10 sec.
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask()
+        {
+            public void run()
+            {
+                presenter.loadReports();
+            }
+        }, delay, period);
     }
 
     @Override
@@ -118,7 +130,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
                 TextView textView = (TextView) v.findViewById(R.id.text);
 
                 String url_image = findUrl(marker.getTitle());
-                //String location = findLocation(marker.getTitle());
+                String location = findLocation(marker.getTitle());
                // String pet_name = findPetName(marker.getTitle());
 
                // Log.i("URL",reportListAdoptionsInfo.get(Integer.parseInt(marker.getTitle())).getAdoption_image());
@@ -132,6 +144,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         presenter.loadReports();
         myUbication();
 
+    }
+
+    private String findLocation(String id) {
+        int i=0;
+        String url = "";
+        while(i<=reportListsAbandonedInfo.size()&&reportListAdoptionsInfo.size()!=0){
+            if(reportListsAbandonedInfo.get(i).getId().equals(id)){
+                url=reportListsAbandonedInfo.get(i).getPlace().getLocation();
+                //first=true;
+                break;
+            }
+            i++;
+        }
+        return url;
     }
 
     private String findUrl(String id) {
@@ -229,6 +255,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     public void onPause() {
         mapView.onPause();
         super.onPause();
+        timer.cancel();
     }
 
     @Override
@@ -358,4 +385,5 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     public void onInfoWindowClick(Marker marker) {
     //    Toast.makeText(getContext(),"Hola",Toast.LENGTH_SHORT).show();
     }
+
 }
