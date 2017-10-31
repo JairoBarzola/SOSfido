@@ -153,7 +153,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     public void getReportsPoints(List<ResponseReport.ReportList> reportLists) {
         for (ResponseReport.ReportList entity: reportLists){
             LatLng latLng = new LatLng(Double.parseDouble(entity.getPlace().getLatitude()),Double.parseDouble(entity.getPlace().getLongitude()));
-            googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getDescription()));
+            googleMap.addMarker(new
+                    MarkerOptions()
+                    .position(latLng)
+                    .title(entity.getDescription())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker1)));
         }
         mapView.onResume();
     }
