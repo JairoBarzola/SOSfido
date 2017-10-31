@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
         int delay = 5000; // delay for 0 sec.
-        int period = 5000; // repeat every 10 sec.
+        int period = 10000; // repeat every 10 sec.
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask()
         {
@@ -256,6 +256,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         mapView.onPause();
         super.onPause();
         timer.cancel();
+        timer.purge();
     }
 
     @Override
