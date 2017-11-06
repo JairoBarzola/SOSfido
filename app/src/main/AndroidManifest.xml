@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Presentacion.Activies.LoadActivity"
+            android:name=".presentacion.activies.LoadActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarOnly">
             <intent-filter>
@@ -27,12 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Presentacion.Activies.LoginActivity" />
+        <activity android:name=".presentacion.activies.LoginActivity" />
         <activity
-            android:name=".Presentacion.Activies.RegisterActivity"
+            android:name=".presentacion.activies.RegisterActivity"
             android:label="@string/register"></activity>
         <activity
-            android:name=".Presentacion.Activies.HomeActivity"
+            android:name=".presentacion.activies.HomeActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
@@ -45,26 +45,26 @@
             android:value="@string/google_map_key" />
 
         <activity
-            android:name=".Presentacion.Activies.PublicationsActivity"
+            android:name=".presentacion.activies.PublicationsActivity"
             android:label="@string/reportes"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Presentacion.Activies.ProfileActivity"
+            android:name=".presentacion.activies.ProfileActivity"
             android:label="@string/profile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Presentacion.Activies.RecordActivity"
+            android:name=".presentacion.activies.RecordActivity"
             android:label="@string/record"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Presentacion.Activies.SuggestionsActivity"
+            android:name=".presentacion.activies.SuggestionsActivity"
             android:label="@string/suggestions"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Presentacion.Activies.RegisterUserActivity"
+            android:name=".presentacion.activies.RegisterUserActivity"
             android:label="@string/register"
             android:screenOrientation="portrait" />
-        <activity android:name=".Presentacion.Activies.EditUserActivity"
+        <activity android:name=".presentacion.activies.EditUserActivity"
             android:label="Editar Usuario"></activity>
     </application>
 

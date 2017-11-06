@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/coordinatorLayout"
     android:fitsSystemWindows="true"
-    tools:context="com.calidad.sosfidoapp.sosfido.Presentacion.Activies.HomeActivity">
+    tools:context="com.calidad.sosfidoapp.sosfido.presentacion.activies.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
