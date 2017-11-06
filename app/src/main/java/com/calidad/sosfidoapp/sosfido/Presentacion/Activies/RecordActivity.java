@@ -14,8 +14,7 @@ import butterknife.ButterKnife;
 
 public class RecordActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,10 +31,8 @@ public class RecordActivity extends AppCompatActivity {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.body,fragment);
             transaction.commit();
-
         }
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

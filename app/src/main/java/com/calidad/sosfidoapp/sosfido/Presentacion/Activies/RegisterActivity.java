@@ -2,45 +2,26 @@ package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
-import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RecordFragment;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;
-import com.calidad.sosfidoapp.sosfido.Utils.CustomBottomSheetDialogFragment;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
-
 /**
  * Created by jairbarzola on 27/09/17.
  */
@@ -48,9 +29,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RegisterActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-
     @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
-    RegisterFragment fragment;
+    private RegisterFragment fragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,20 +94,15 @@ public class RegisterActivity extends AppCompatActivity {
             snackbar.setActionTextColor(Color.WHITE);
             View sbView = snackbar.getView();
             sbView.setBackgroundColor(ContextCompat.getColor(this, colorResource));
-            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            Toast toast =
-                    Toast.makeText(getApplicationContext(),
-                            message, Toast.LENGTH_LONG);
-
-            toast.show();
+            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
         }
-
     }
     public void showMessageError(String message) {
-        CoordinatorLayout container = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        CoordinatorLayout container = findViewById(R.id.coordinatorLayout);
         this.showMessageSnack(container, message, R.color.error_red);
 
     }

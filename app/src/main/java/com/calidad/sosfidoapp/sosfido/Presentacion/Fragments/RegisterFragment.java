@@ -30,7 +30,6 @@ import com.calidad.sosfidoapp.sosfido.Utils.CustomBottomSheetDialogFragment;
 import com.calidad.sosfidoapp.sosfido.Utils.ProgressDialogCustom;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.vision.text.Line;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -60,32 +59,23 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     @BindView(R.id.edt_number_report) EditText edtNumber;
     @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.edt_descrip_report) EditText edtDescrip;
-
-    @BindView(R.id.ln_name)
-    LinearLayout lnName;
-    @BindView(R.id.ln_phone)
-    LinearLayout lnPhone;
-    @BindView(R.id.ln_description)
-    LinearLayout lnDescrip;
-    @BindView(R.id.ln_address)
-    LinearLayout lnAddress;
+    @BindView(R.id.ln_name) LinearLayout lnName;
+    @BindView(R.id.ln_phone) LinearLayout lnPhone;
+    @BindView(R.id.ln_description) LinearLayout lnDescrip;
+    @BindView(R.id.ln_address) LinearLayout lnAddress;
     private static final int GALLERY_CODE = 5;
-    private static final int STORAGE_PERMISSION_CODE = 123;
     private static final int CAMERA_CODE = 1888;
-    static final Integer CAMERA = 0x5;
-    public String imageBase64;
+    private static final Integer CAMERA = 0x5;
+    private  String imageBase64;
     private ProgressDialogCustom mProgressDialogCustom;
-    RegisterContract.Presenter presenter;
-    Validator validator;
+    private RegisterContract.Presenter presenter;
+    private Validator validator;
     private final int REQUEST_CODE_PLACEPICKER = 1;
-
-    String location;
-    String longitude;
-    String latitud;
-
-    SessionManager sessionManager;
-
-    int idReport;
+    private String location;
+    private String longitude;
+    private String latitud;
+    private SessionManager sessionManager;
+    private int idReport;
     public RegisterFragment() {
     }
 
@@ -130,7 +120,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
             lnPhone.setVisibility(View.GONE);
             lnAddress.setVisibility(View.GONE);
             lnDescrip.setVisibility(View.VISIBLE);
-
         }
     }
 
@@ -234,7 +223,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
             }
         }
     }
-
     @Override
     public void setMessageError(String error) {
         ((RegisterActivity)getActivity()).showMessage(error);
@@ -265,7 +253,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
         }else{
             setDialogMessage("Por favor adjunta una foto");
         }
-
     }
 
     @Override
@@ -291,7 +278,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
     @OnClick(R.id.edt_address_report)
     void OnClickAddress(View view){
-
         switch (view.getId()){
             case R.id.edt_address_report:
                 startPlacePickerActivity();
@@ -303,7 +289,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     private void startPlacePickerActivity() {
             PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
             // this would only work if you have your Google Places API working
-
             try {
                 Intent intent = intentBuilder.build(getActivity());
                 startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);

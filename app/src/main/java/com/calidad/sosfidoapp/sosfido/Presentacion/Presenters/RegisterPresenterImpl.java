@@ -2,14 +2,12 @@ package com.calidad.sosfidoapp.sosfido.Presentacion.Presenters;
 
 import android.content.Context;
 
-import com.calidad.sosfidoapp.sosfido.Data.Entities.ReportResponse;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseStatus;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ApiConstants;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.Request.ReportRequest;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ServiceFactory;
-import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.RegisterContract;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;
@@ -17,7 +15,6 @@ import com.calidad.sosfidoapp.sosfido.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
 
 /**
  * Created by Jair Barzola on 22-Oct-17.
@@ -145,7 +142,7 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
             public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
                 if(response.isSuccessful()){
                     ResponseStatus responseStatus= response.body();
-                    if(responseStatus.getUrl_image().contains("http")){
+                    if(responseStatus.getUrlImage().contains("http")){
                         view.backToHome();
                         view.setLoadingIndicator(false);
                     }else{
@@ -175,7 +172,7 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
             public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
                 if(response.isSuccessful()){
                     ResponseStatus responseStatus= response.body();
-                    if(responseStatus.getUrl_image().contains("http")){
+                    if(responseStatus.getUrlImage().contains("http")){
                         view.backToHome();
                         view.setLoadingIndicator(false);
                     }else{

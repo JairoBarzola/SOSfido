@@ -2,14 +2,13 @@ package com.calidad.sosfidoapp.sosfido.Presentacion.Presenters;
 
 import android.content.Context;
 
-import com.calidad.sosfidoapp.sosfido.Data.Entities.AccessTokenEntity;
+
 import com.calidad.sosfidoapp.sosfido.Data.Entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseRegisterEntity;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ApiConstants;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.Request.UserRequest;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ServiceFactory;
-import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterUserActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.RegisterUserContract;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterUserFragment;
 import com.calidad.sosfidoapp.sosfido.R;
@@ -24,8 +23,8 @@ import retrofit2.Response;
 
 public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter{
 
-    RegisterUserFragment view;
-    Context context;
+    private RegisterUserFragment view;
+    private Context context;
     private SessionManager sessionManager;
 
     public RegisterUserPresenterImpl(RegisterUserFragment view, Context context){
@@ -33,8 +32,6 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
         sessionManager = new SessionManager(context);
         this.context=context;
     }
-
-
     @Override
     public void register(String firstName, String lastName, String location,String longitude,String latitude, String birthDate, String email, String password,String phone) {
 
@@ -72,7 +69,8 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
 
     private void openHome(final ResponseRegisterEntity responseRegisterEntity) {
         UserRequest userRequest = ServiceFactory.createService(UserRequest.class);
-        Call<PersonEntity> call = userRequest.getPerson(ApiConstants.CONTENT_TYPE,"Bearer "+String.valueOf(responseRegisterEntity.getAccess_token()),String.valueOf(responseRegisterEntity.getPerson_id()));
+        Call<PersonEntity> call = userRequest.getPerson(ApiConstants.CONTENT_TYPE,"Bearer "+String.valueOf(responseRegisterEntity.getAccessToken())
+                ,String.valueOf(responseRegisterEntity.getPersonId()));
         call.enqueue(new Callback<PersonEntity>() {
             @Override
             public void onResponse(Call<PersonEntity> call, Response<PersonEntity> response) {
@@ -94,7 +92,7 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
     }
     private void openSession(ResponseRegisterEntity responseRegisterEntity, PersonEntity personEntity){
         view.setLoadingIndicator(false);
-        sessionManager.openSession(responseRegisterEntity.getAccess_token(),personEntity);
+        sessionManager.openSession(responseRegisterEntity.getAccessToken(),personEntity);
         view.registerSuccessfully();
     }
 }

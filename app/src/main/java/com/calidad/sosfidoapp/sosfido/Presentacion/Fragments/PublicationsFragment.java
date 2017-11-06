@@ -15,7 +15,7 @@ import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.PublicationsActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.ReportContract;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.PublicationsPresenterImpl;
-import com.calidad.sosfidoapp.sosfido.Presentacion.ReportRecyclerAdapter;
+import com.calidad.sosfidoapp.sosfido.Presentacion.Adapters.ReportRecyclerAdapter;
 import com.calidad.sosfidoapp.sosfido.R;
 
 import java.util.ArrayList;
@@ -31,17 +31,14 @@ import butterknife.Unbinder;
 
 public class PublicationsFragment extends Fragment implements ReportContract.View {
 
-    Unbinder unbinder;
-    @BindView(R.id.recyclerViewP)
-    RecyclerView recyclerView;
-    @BindView(R.id.empty)
-    TextView empty;
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    private Unbinder unbinder;
+    @BindView(R.id.recyclerViewP) RecyclerView recyclerView;
+    @BindView(R.id.empty) TextView empty;
+    @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 
-    ReportContract.Presenter presenter;
+    private ReportContract.Presenter presenter;
     private LinearLayoutManager layoutManager;
-    ReportRecyclerAdapter adapter;
+    private ReportRecyclerAdapter adapter;
     public PublicationsFragment() {
     }
 
@@ -55,14 +52,12 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
         unbinder=ButterKnife.bind(this, root);
         //presenter
         presenter = new PublicationsPresenterImpl(getContext(),this);
-
         // recyclerview
         layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
-
         //swipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -70,7 +65,6 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
                 presenter.start();
             }
         });
-
         return root;
     }
 
@@ -105,15 +99,15 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
         for (ResponseReport.ReportListAdoption entity: reportListAdoption){
             reportList.add(new ReportEntity(entity.getId(),entity.getOwner().getAddress().getLocation(),
                     entity.getOwner().getAddress().getLatitude(),entity.getOwner().getAddress().getLongitude(),
-                    entity.getDate(),entity.getAdoption_image(),entity.getPet_name(),entity.getDescription(),"3"));
+                    entity.getDate(),entity.getAdoptionImage(),entity.getPetName(),entity.getDescription(),"3"));
         }
         for (ResponseReport.ReportListMissing entity: reportListsMissing){
             reportList.add(new ReportEntity(entity.getId(),entity.getPlace().getLocation(),entity.getPlace().getLatitude(),
-                    entity.getPlace().getLongitude(),entity.getDate(),entity.getReport_image(),entity.getPet_name(),entity.getDescription(),"1"));
+                    entity.getPlace().getLongitude(),entity.getDate(),entity.getReport_image(),entity.getPetName(),entity.getDescription(),"1"));
         }
         for (ResponseReport.ReportList entity: reportListsAbandoned){
             reportList.add(new ReportEntity(entity.getId(),entity.getPlace().getLocation(),entity.getPlace().getLatitude(),entity.getPlace().getLongitude(),
-                    entity.getDate(),entity.getReport_image(),"Abandonado",entity.getDescription(),"2"));
+                    entity.getDate(),entity.getReportImage(),"Abandonado",entity.getDescription(),"2"));
         }
         return reportList;
     }
@@ -145,6 +139,4 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
     public void setMessageError(String error) {
         ((PublicationsActivity)getActivity()).showMessageError(error);
     }
-
-
 }

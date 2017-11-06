@@ -8,11 +8,11 @@ public class ResponseStatus {
 
     private String url_image;
 
-    public String getUrl_image() {
+    public String getUrlImage() {
         return url_image;
     }
 
-    public void setUrl_image(String url_image) {
+    public void setUrlImage(String url_image) {
         this.url_image = url_image;
     }
 }

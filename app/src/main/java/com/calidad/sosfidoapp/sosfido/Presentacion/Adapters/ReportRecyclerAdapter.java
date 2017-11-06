@@ -1,4 +1,4 @@
-package com.calidad.sosfidoapp.sosfido.Presentacion;
+package com.calidad.sosfidoapp.sosfido.Presentacion.Adapters;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ReportEntity;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.squareup.picasso.Picasso;
@@ -25,8 +24,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>{
 
-    List<ReportEntity> reportEntityList= new ArrayList<>();
-    Context context;
+    private List<ReportEntity> reportEntityList= new ArrayList<>();
+    private Context context;
 
     public ReportRecyclerAdapter(Context context,List<ReportEntity> reportEntityList){
         this.context=context;
@@ -34,8 +33,7 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_publication,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_publication,parent,false);
         ViewHolder viewHolder= new ViewHolder(view);
         return viewHolder;
     }
@@ -57,7 +55,6 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
         }else{
             Picasso.with(context).load(reportEntity.getPhoto()).into(holder.image);
         }
-
         holder.name.setText(reportEntity.getNamePet());
         holder.lag.setText(reportEntity.getLocation());
     }
@@ -68,13 +65,9 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
-        @BindView(R.id.image_publication)
-        CircleImageView image;
-        @BindView(R.id.name_publication)
-        TextView name;
-        @BindView(R.id.txtLag)
-        TextView lag;
+        @BindView(R.id.image_publication) CircleImageView image;
+        @BindView(R.id.name_publication) TextView name;
+        @BindView(R.id.txtLag) TextView lag;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

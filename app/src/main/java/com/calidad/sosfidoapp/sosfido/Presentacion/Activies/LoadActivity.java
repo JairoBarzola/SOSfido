@@ -27,7 +27,6 @@ public class LoadActivity extends AppCompatActivity {
         };
         t.start();
     }
-
     private void verifyToken() {
         if(sessionManager.isLogin()==true){
             openActivity(HomeActivity.class);

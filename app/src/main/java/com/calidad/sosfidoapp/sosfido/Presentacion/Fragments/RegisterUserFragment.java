@@ -2,11 +2,9 @@ package com.calidad.sosfidoapp.sosfido.Presentacion.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.HomeActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.RegisterUserContract;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Presenters.RegisterUserPresenterImpl;
@@ -60,12 +57,12 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     @BindView(R.id.et_repeat_password) EditText etRepeatPass;
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
-    RegisterUserContract.Presenter presenter;
+    private RegisterUserContract.Presenter presenter;
     private ProgressDialogCustom mProgressDialogCustom;
-    Validator validator;
-    String location;
-    String longitude;
-    String latitude;
+    private Validator validator;
+    private String location;
+    private String longitude;
+    private String latitude;
     com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd;
     public RegisterUserFragment() {}
 
@@ -99,7 +96,6 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
        validator.validate();
     }
 
-
     @Override
     public void registerSuccessfully() {
         Intent i = new Intent(getActivity(), HomeActivity.class);
@@ -119,15 +115,9 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
             }
         }
     }
-
     @Override
     public void setMessageError(String error) {
         Toast.makeText(getContext(),error,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void setDialogMessage(String message) {
-
     }
 
     @Override
@@ -152,14 +142,12 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
         }
     }
 
-
     @Override
     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         etBirthDate.setText(year + "-" + String.format("%02d", monthOfYear + 1) + "-" + String.format("%02d", dayOfMonth));
     }
     @OnClick(R.id.et_birth_date)
     public void onViewClicked(View view) {
-
         switch (view.getId()){
             case R.id.et_birth_date:
                 dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
@@ -183,7 +171,6 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
 
     private void startPlacePickerActivity() {
         PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
-        // this would only work if you have your Google Places API working
         try {
             Intent intent = intentBuilder.build(getActivity());
             startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
@@ -202,7 +189,6 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     }
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(data, getActivity());
-
         location = placeSelected.getAddress().toString();
         etDistrict.setText(location);
         latitude = String.valueOf(placeSelected.getLatLng().latitude);

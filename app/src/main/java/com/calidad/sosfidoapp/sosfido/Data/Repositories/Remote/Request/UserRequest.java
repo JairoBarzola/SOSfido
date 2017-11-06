@@ -61,9 +61,6 @@ public interface UserRequest {
                                           @Header("Authorization") String token,@Body ResponseUser.PhotoChange photoBody,
                                                 @Path("person_id") String person_id);
 
- //   @PATCH(ApiConstants.EDIT_USER)
-   // Call<>
-
 
 
 }

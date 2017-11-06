@@ -3,8 +3,6 @@ package com.calidad.sosfidoapp.sosfido.Presentacion.Activies;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -15,11 +13,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,14 +47,14 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
     public static final int CODE_PROFILE = 120;
     public static final int CODE_REGISTER_REPORT = 130;
-    View hView;
-    PersonEntity personEntity;
-    TextView navName;
-    TextView navAddress;
-    CircleImageView navImage;
+    private  View hView;
+    private PersonEntity personEntity;
+    private TextView navName;
+    private TextView navAddress;
+    private CircleImageView navImage;
     private SessionManager sessionManager;
     private ProgressDialogCustom mProgressDialogCustom;
-    HomeFragment homeFragment;
+    private HomeFragment homeFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,19 +74,16 @@ public class HomeActivity extends AppCompatActivity
         //codigo para setear los valores del nav_header_home
         hView =  navigationView.getHeaderView(0);
 
-        navName = (TextView) hView.findViewById(R.id.nav_name);
-        navAddress = (TextView) hView.findViewById(R.id.nav_address);
-        navImage = (CircleImageView) hView.findViewById(R.id.nav_image) ;
+        navName = hView.findViewById(R.id.nav_name);
+        navAddress = hView.findViewById(R.id.nav_address);
+        navImage = hView.findViewById(R.id.nav_image);
         navImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openActivity(ProfileActivity.class,CODE_PROFILE);
             }
         });
-
         updateData();
-
-
         homeFragment = new HomeFragment().newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.body,homeFragment);
@@ -136,10 +128,9 @@ public class HomeActivity extends AppCompatActivity
         final Dialog dialog = new Dialog(this);
         //LayoutInflater inflater = this.getLayoutInflater();
         dialog.setContentView(R.layout.dialog_report);
-
-        TextView missing = (TextView) dialog.findViewById(R.id.report_p);
-        TextView abandoned = (TextView) dialog.findViewById(R.id.report_a);
-        TextView adopcion = (TextView) dialog.findViewById(R.id.report_ad);
+        TextView missing = dialog.findViewById(R.id.report_p);
+        TextView abandoned = dialog.findViewById(R.id.report_a);
+        TextView adopcion = dialog.findViewById(R.id.report_ad);
 
         missing.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,16 +156,13 @@ public class HomeActivity extends AppCompatActivity
                 dialog.dismiss();
             }
         });
-
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 dialog.dismiss();
             }
         });
-
         dialog.show();
-
 
     }
 
@@ -258,20 +246,15 @@ public class HomeActivity extends AppCompatActivity
             snackbar.setActionTextColor(Color.WHITE);
             View sbView = snackbar.getView();
             sbView.setBackgroundColor(ContextCompat.getColor(this, colorResource));
-            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            Toast toast =
-                    Toast.makeText(getApplicationContext(),
-                            message, Toast.LENGTH_LONG);
-
-            toast.show();
+            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
         }
-
     }
     public void showMessageError(String message) {
-        CoordinatorLayout container = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        CoordinatorLayout container = findViewById(R.id.coordinatorLayout);
         this.showMessageSnack(container, message, R.color.error_red);
 
     }
@@ -302,13 +285,12 @@ public class HomeActivity extends AppCompatActivity
     }
     public void updateData(){
         personEntity = sessionManager.getPersonEntity();
-        if(personEntity.getPerson_image().contains("http")){
-            Picasso.with(getApplicationContext()).load(sessionManager.getPersonEntity().getPerson_image()).into(navImage);
-
+        if(personEntity.getPersonImage().contains("http")){
+            Picasso.with(getApplicationContext()).load(sessionManager.getPersonEntity().getPersonImage()).into(navImage);
         }else{
             navImage.setImageDrawable(getResources().getDrawable(R.drawable.user));
         }
-        navName.setText(personEntity.getUser().getFirst_name());
+        navName.setText(personEntity.getUser().getFirstName());
         navAddress.setText(personEntity.getUser().getEmail());
     }
 

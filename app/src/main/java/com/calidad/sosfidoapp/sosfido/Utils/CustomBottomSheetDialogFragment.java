@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.calidad.sosfidoapp.sosfido.Presentacion.Activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.ProfileFragment;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;
@@ -26,9 +25,9 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
     public static final String FRAGMENT_KEY = "com.calidad.sosfidoapp.sosfido";
     @BindView(R.id.ln_gallery) ImageView lnGallery;
     @BindView(R.id.ln_camera) ImageView lnCamera;
-    ProfileFragment fragment2;
-    RegisterFragment fragment1;
-    int id;
+    private ProfileFragment fragment2;
+    private RegisterFragment fragment1;
+    private int id;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

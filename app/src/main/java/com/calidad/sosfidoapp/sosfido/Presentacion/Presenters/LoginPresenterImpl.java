@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.calidad.sosfidoapp.sosfido.Data.Entities.AccessTokenEntity;
-import com.calidad.sosfidoapp.sosfido.Data.Entities.LoginEntity;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ApiConstants;
@@ -67,7 +66,7 @@ public class LoginPresenterImpl  implements LoginContract.Presenter{
 
     private void getAccount(final AccessTokenEntity accessTokenEntity) {
         UserRequest userRequest = ServiceFactory.createService(UserRequest.class);
-        Call<PersonEntity> call = userRequest.getPerson(ApiConstants.CONTENT_TYPE,"Bearer "+String.valueOf(accessTokenEntity.getAccess_token()),String.valueOf(accessTokenEntity.getPerson_id()));
+        Call<PersonEntity> call = userRequest.getPerson(ApiConstants.CONTENT_TYPE,"Bearer "+String.valueOf(accessTokenEntity.getAccessToken()),String.valueOf(accessTokenEntity.getPersonId()));
         call.enqueue(new Callback<PersonEntity>() {
             @Override
             public void onResponse(Call<PersonEntity> call, Response<PersonEntity> response) {
@@ -88,7 +87,7 @@ public class LoginPresenterImpl  implements LoginContract.Presenter{
         });
     }
     private void openSession(AccessTokenEntity accessTokenEntity, PersonEntity personEntity){
-        sessionManager.openSession(accessTokenEntity.getAccess_token(),personEntity);
+        sessionManager.openSession(accessTokenEntity.getAccessToken(),personEntity);
         view.loginSuccessfully();
         view.setLoadingIndicator(false);
     }

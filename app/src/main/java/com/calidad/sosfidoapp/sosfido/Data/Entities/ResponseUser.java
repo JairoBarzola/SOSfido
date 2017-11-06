@@ -48,11 +48,11 @@ public class ResponseUser {
         }
 
 
-        public String getUpload_date() {
+        public String getUploadDate() {
             return upload_date;
         }
 
-        public void setUpload_date(String upload_date) {
+        public void setUploadDate(String upload_date) {
             this.upload_date = upload_date;
         }
 
@@ -64,11 +64,11 @@ public class ResponseUser {
             this.person = person;
         }
 
-        public String getUrl_image() {
+        public String getUrlImage() {
             return url_image;
         }
 
-        public void setUrl_image(String url_image) {
+        public void setUrlImage(String url_image) {
             this.url_image = url_image;
         }
     }

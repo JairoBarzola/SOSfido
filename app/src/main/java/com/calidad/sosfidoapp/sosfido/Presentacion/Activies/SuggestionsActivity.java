@@ -5,18 +5,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-
-import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.PublicationsFragment;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.SuggenstionsFragment;
 import com.calidad.sosfidoapp.sosfido.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SuggestionsActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,7 +22,6 @@ public class SuggestionsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         SuggenstionsFragment publicationsFragment = new SuggenstionsFragment().newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.body,publicationsFragment);

@@ -25,8 +25,6 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter{
     private ProfileFragment view;
     private SessionManager sessionManager;
     private Context context;
-
-
     public ProfilePresenterImpl(ProfileFragment view, Context context){
         this.view=view;
         this.context=context;
@@ -35,7 +33,7 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter{
     @Override
     public void start() {
         PersonEntity personEntity = sessionManager.getPersonEntity();
-        if(personEntity.getPerson_image().contains("http")){
+        if(personEntity.getPersonImage().contains("http")){
             view.loadUser(personEntity,true);
         }else{
             view.loadUser(personEntity,false);
@@ -45,11 +43,9 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter{
     @Override
     public void uploadPhoto(final String path) {
         view.setLoadingIndicator(true);
-
         UserRequest userRequest = ServiceFactory.createService(UserRequest.class);
         Call<ResponseUser.Photo> call = userRequest.uploadPhoto(ApiConstants.CONTENT_TYPE_JSON,"Bearer "+sessionManager.getUserToken(),
                 new ResponseUser.PhotoBody(String.valueOf(sessionManager.getPersonEntity().getId()),path));
-
         call.enqueue(new Callback<ResponseUser.Photo>() {
             @Override
             public void onResponse(Call<ResponseUser.Photo> call, Response<ResponseUser.Photo> response) {
@@ -88,9 +84,9 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter{
             public void onResponse(Call<ResponseUser.PhotoChange> call, Response<ResponseUser.PhotoChange> response) {
                 if(response.isSuccessful()){
                     ResponseUser.PhotoChange responsePhoto = response.body();
-                    if(responsePhoto.getUrl_image().contains("http")){
+                    if(responsePhoto.getUrlImage().contains("http")){
                         view.updateNav();
-                        view.setImage(responsePhoto.getUrl_image());
+                        view.setImage(responsePhoto.getUrlImage());
                         view.setLoadingIndicator(false);
                     }else{
                         view.setLoadingIndicator(false);

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Local.SessionManager;
-import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ApiConstants;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.Request.HomeRequest;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.Presentacion.Contracts.HomeContract;
@@ -47,12 +46,10 @@ public class HomePresenterImpl implements HomeContract.Presenter {
                     }else{
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                     }
-
                 }else{
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                 }
             }
-
             @Override
             public void onFailure(Call<List<ResponseReport.ReportList>> call, Throwable t) {
                 view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
@@ -73,7 +70,6 @@ public class HomePresenterImpl implements HomeContract.Presenter {
                     }else{
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                     }
-
                 }else{
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                 }

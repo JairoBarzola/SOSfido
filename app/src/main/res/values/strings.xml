@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">Sosfido</string>
-    <string name="title_activity_login">LoginActivity</string>
 
     //login
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
-    <string name="forgot_my_password">Olvidé mi contraseña</string>
     <string name="login">INICIAR SESIÓN</string>
     <string name="register">Registrar</string>
     <string name="title_activity_home">SOSFido</string>
@@ -13,10 +11,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     //google map keys
     <string name="google_map_key">AIzaSyCRgXvxKLvdnCP22MVogdZ0bddXZb9NEmg</string>
@@ -30,21 +25,16 @@
 
 
     //activities
-    <string name="registrar">Registrar</string>
 
     <string name="btnregistrar">CREAR UNA CUENTA</string>
 
     //register
     <string name="first_name">Nombre</string>
     <string name="last_name">Apellidos</string>
-    <string name="dni">DNI</string>
     <string name="birth_date">Fecha de nacimiento</string>
     <string name="email">Correo electrónico</string>
-    <string name="username">Nombre de usuario</string>
     <string name="repeat_password">Repetir contraseña</string>
-    <string name="district">Distrito</string>
     <string name="direction">Dirección</string>
-    <string name="genero">Género</string>
     <string name="phone">Teléfono</string>
 
     //upload photo

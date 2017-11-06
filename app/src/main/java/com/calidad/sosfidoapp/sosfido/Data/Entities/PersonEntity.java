@@ -38,19 +38,19 @@ public class PersonEntity {
         this.user = user;
     }
 
-    public String getBorn_date() {
+    public String getBornDate() {
         return born_date;
     }
 
-    public void setBorn_date(String born_date) {
+    public void setBornDate(String born_date) {
         this.born_date = born_date;
     }
 
-    public String getPhone_number() {
+    public String getPhoneNumber() {
         return phone_number;
     }
 
-    public void setPhone_number(String phone_number) {
+    public void setPhoneNumber(String phone_number) {
         this.phone_number = phone_number;
     }
 
@@ -62,11 +62,11 @@ public class PersonEntity {
         this.address = address;
     }
 
-    public String getPerson_image() {
+    public String getPersonImage() {
         return person_image;
     }
 
-    public void setPerson_image(String person_image) {
+    public void setPersonImage(String person_image) {
         this.person_image = person_image;
     }
 

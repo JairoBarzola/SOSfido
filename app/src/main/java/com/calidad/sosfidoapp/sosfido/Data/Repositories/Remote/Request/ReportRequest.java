@@ -1,14 +1,11 @@
 package com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.Request;
 
-import com.calidad.sosfidoapp.sosfido.Data.Entities.ReportResponse;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.Data.Entities.ResponseStatus;
 import com.calidad.sosfidoapp.sosfido.Data.Repositories.Remote.ApiConstants;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 

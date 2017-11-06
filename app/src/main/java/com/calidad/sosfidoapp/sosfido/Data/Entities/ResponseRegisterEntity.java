@@ -10,11 +10,11 @@ public class ResponseRegisterEntity {
     private boolean status;
 
 
-    public int getPerson_id() {
+    public int getPersonId() {
         return person_id;
     }
 
-    public void setPerson_id(int person_id) {
+    public void setPersonId(int person_id) {
         this.person_id = person_id;
     }
 
@@ -27,11 +27,11 @@ public class ResponseRegisterEntity {
     }
 
 
-    public String getAccess_token() {
+    public String getAccessToken() {
         return access_token;
     }
 
-    public void setAccess_token(String access_token) {
+    public void setAccessToken(String access_token) {
         this.access_token = access_token;
     }
 }

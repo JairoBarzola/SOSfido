@@ -188,11 +188,11 @@ public class ResponseReport {
             this.date = date;
         }
 
-        public String getReport_image() {
+        public String getReportImage() {
             return report_image;
         }
 
-        public void setReport_image(String report_image) {
+        public void setReportImage(String report_image) {
             this.report_image = report_image;
         }
     }
@@ -223,11 +223,11 @@ public class ResponseReport {
             this.description=description;
         }
 
-        public String getPet_name() {
+        public String getPetName() {
             return pet_name;
         }
 
-        public void setPet_name(String pet_name) {
+        public void setPetName(String pet_name) {
             this.pet_name = pet_name;
         }
 
@@ -281,11 +281,11 @@ public class ResponseReport {
             this.person = person;
         }
 
-        public String getPet_name() {
+        public String getPetName() {
             return pet_name;
         }
 
-        public void setPet_name(String pet_name) {
+        public void setPetName(String pet_name) {
             this.pet_name = pet_name;
         }
 
@@ -317,7 +317,7 @@ public class ResponseReport {
             return report_image;
         }
 
-        public void setReport_image(String report_image) {
+        public void setReportImage(String report_image) {
             this.report_image = report_image;
         }
     }
@@ -341,11 +341,11 @@ public class ResponseReport {
             this.owner = owner;
         }
 
-        public String getPet_name() {
+        public String getPetName() {
             return pet_name;
         }
 
-        public void setPet_name(String pet_name) {
+        public void setPetName(String pet_name) {
             this.pet_name = pet_name;
         }
 
@@ -367,8 +367,6 @@ public class ResponseReport {
         private String date;
         private String adoption_image;
 
-
-
         public PersonEntity getOwner() {
             return owner;
         }
@@ -377,11 +375,11 @@ public class ResponseReport {
             this.owner = owner;
         }
 
-        public String getPet_name() {
+        public String getPetName() {
             return pet_name;
         }
 
-        public void setPet_name(String pet_name) {
+        public void setPetName(String pet_name) {
             this.pet_name = pet_name;
         }
 
@@ -409,11 +407,11 @@ public class ResponseReport {
             this.date = date;
         }
 
-        public String getAdoption_image() {
+        public String getAdoptionImage() {
             return adoption_image;
         }
 
-        public void setAdoption_image(String adoption_image) {
+        public void setAdoptionImage(String adoption_image) {
             this.adoption_image = adoption_image;
         }
 

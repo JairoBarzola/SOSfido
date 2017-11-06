@@ -2,9 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
     defaultConfig {
         applicationId "com.calidad.sosfidoapp.sosfido"
+        manifestPlaceholders = [onesignal_app_id: "340e9d3e-5e29-436f-a9d2-bc3c6b178e06",
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE"]
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
@@ -23,33 +25,28 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    //retrofit
-    //google api
-    //circle imageview
-    //butterknife
-    //date picker
-    //piccaso
-    compile 'com.mobsandgeeks:android-saripaar:2.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:support-v13:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    compile 'com.mobsandgeeks:android-saripaar:2.0.3'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.google.android.gms:play-services:11.0.4'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.jakewharton:butterknife:8.8.1'
     compile 'com.wdullaer:materialdatetimepicker:2.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:design:26.0.0-alpha1'
-    compile 'com.android.support:cardview-v7:26.0.+'
-    compile 'com.android.support:support-v13:26.0.0-alpha1'
-    compile 'com.android.support:support-v4:26.0.0-alpha1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.google.android.gms:play-services:11.4.2'
+    compile 'com.android.support:animated-vector-drawable:26.1.0'
+    compile 'com.android.support:customtabs:26.1.0'
 }

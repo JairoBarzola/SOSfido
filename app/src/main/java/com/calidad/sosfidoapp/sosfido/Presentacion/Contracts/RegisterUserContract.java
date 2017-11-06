@@ -10,7 +10,6 @@ public interface RegisterUserContract {
         void registerSuccessfully();
         void setLoadingIndicator(boolean active);
         void setMessageError(String error);
-        void setDialogMessage(String message);
     }
     interface Presenter {
         void register(String firstName,String lastName, String location,String longitude,String latitude,

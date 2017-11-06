@@ -24,8 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProfileActivity extends AppCompatActivity {
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
     public void showMessageError(String message) {
-        CoordinatorLayout container = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        CoordinatorLayout container = findViewById(R.id.coordinatorLayout);
         this.showMessageSnack(container, message, R.color.error_red);
 
     }
@@ -65,17 +64,12 @@ public class ProfileActivity extends AppCompatActivity {
             snackbar.setActionTextColor(Color.WHITE);
             View sbView = snackbar.getView();
             sbView.setBackgroundColor(ContextCompat.getColor(this, colorResource));
-            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            Toast toast =
-                    Toast.makeText(getApplicationContext(),
-                            message, Toast.LENGTH_LONG);
-
-            toast.show();
+            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
         }
-
     }
     public void returnResult(){
         setResult(Activity.RESULT_OK);
@@ -90,13 +84,11 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.ac_edit_profile) {
             Intent u = new Intent(this,EditUserActivity.class);
             startActivity(u);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

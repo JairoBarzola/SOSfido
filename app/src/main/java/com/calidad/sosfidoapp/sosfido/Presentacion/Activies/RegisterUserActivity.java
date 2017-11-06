@@ -7,12 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-
 import com.calidad.sosfidoapp.sosfido.Presentacion.Fragments.RegisterUserFragment;
 import com.calidad.sosfidoapp.sosfido.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,7 +20,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    RegisterUserFragment fragment;
+    private  RegisterUserFragment fragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +36,6 @@ public class RegisterUserActivity extends AppCompatActivity {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.body,fragment);
             transaction.commit();
-
         }
     }
     @Override
@@ -62,7 +57,6 @@ public class RegisterUserActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.ac_register_user) {
             fragment.register();
             return true;
