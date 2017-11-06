@@ -32,13 +32,9 @@ import butterknife.Unbinder;
 public class PublicationsFragment extends Fragment implements ReportContract.View {
 
     private Unbinder unbinder;
-    @BindView(R.id.recyclerViewP)
-    RecyclerView recyclerView;
-    @BindView(R.id.empty)
-    TextView emptyView;
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefresh;
-
+    @BindView(R.id.recyclerViewP) RecyclerView recyclerView;
+    @BindView(R.id.empty) TextView emptyView;
+    @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefresh;
     private ReportContract.Presenter presenter;
     LinearLayoutManager layoutManager;
     ReportRecyclerAdapter adapter;
@@ -104,7 +100,7 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
         }
         for (ResponseReport.ReportListMissing entity : reportListsMissing) {
             reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(),
-                    entity.getPlace().getLongitude(), entity.getDate(), entity.getReport_image(), entity.getPetName(), entity.getDescription(), "1"));
+                    entity.getPlace().getLongitude(), entity.getDate(), entity.getReportImage(), entity.getPetName(), entity.getDescription(), "1"));
         }
         for (ResponseReport.ReportList entity : reportListsAbandoned) {
             reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(), entity.getPlace().getLongitude(),

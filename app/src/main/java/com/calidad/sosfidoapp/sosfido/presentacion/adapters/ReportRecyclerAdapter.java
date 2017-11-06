@@ -65,7 +65,7 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
         return reportEntityList.size();
     }
 
-    protected class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image_publication)
         CircleImageView image;
         @BindView(R.id.name_publication)

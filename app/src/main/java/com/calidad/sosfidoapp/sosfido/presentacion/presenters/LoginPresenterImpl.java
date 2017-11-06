@@ -7,7 +7,7 @@ import com.calidad.sosfidoapp.sosfido.data.entities.AccessTokenEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
-import com.calidad.sosfidoapp.sosfido.data.repositories.remote.Request.UserRequest;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.request.UserRequest;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.LoginActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.LoginContract;

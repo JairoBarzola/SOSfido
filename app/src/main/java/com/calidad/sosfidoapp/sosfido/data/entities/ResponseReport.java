@@ -313,7 +313,7 @@ public class ResponseReport {
             this.date = date;
         }
 
-        public String getReport_image() {
+        public String getReportImage() {
             return report_image;
         }
 

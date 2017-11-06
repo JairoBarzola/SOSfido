@@ -17,9 +17,6 @@ import butterknife.ButterKnife;
 public class RecordFragment extends Fragment {
 
 
-    public RecordFragment() {
-    }
-
     public static RecordFragment newInstance() {
         return new RecordFragment();
     }

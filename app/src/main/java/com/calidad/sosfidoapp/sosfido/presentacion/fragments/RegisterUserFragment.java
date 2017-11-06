@@ -43,29 +43,21 @@ import butterknife.OnClick;
 public class RegisterUserFragment extends Fragment implements RegisterUserContract.View, Validator.ValidationListener, com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener {
 
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_first_name)
-    EditText etFirstName;
+    @BindView(R.id.et_first_name) EditText etFirstName;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_last_name)
-    EditText etLastName;
+    @BindView(R.id.et_last_name) EditText etLastName;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_birth_date)
-    EditText etBirthDate;
+    @BindView(R.id.et_birth_date) EditText etBirthDate;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_phone)
-    EditText etPhone;
+    @BindView(R.id.et_phone) EditText etPhone;
     @Email(message = "Este campo no tiene el formato email")
-    @BindView(R.id.et_email)
-    EditText etEmail;
+    @BindView(R.id.et_email) EditText etEmail;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_district)
-    EditText etDistrict;
+    @BindView(R.id.et_district) EditText etDistrict;
     @Password(message = "La contraseña debe tener mínimo 6 campos")
-    @BindView(R.id.et_password)
-    EditText etPassword;
+    @BindView(R.id.et_password) EditText etPassword;
     @ConfirmPassword(message = "No concuerda con la contraseña")
-    @BindView(R.id.et_repeat_password)
-    EditText etRepeatPass;
+    @BindView(R.id.et_repeat_password) EditText etRepeatPass;
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
     private RegisterUserContract.Presenter presenter;

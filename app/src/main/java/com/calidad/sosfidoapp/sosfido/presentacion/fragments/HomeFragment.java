@@ -269,7 +269,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         }
         for (ResponseReport.ReportListMissing entity : reportListsMissing) {
             reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(),
-                    entity.getPlace().getLongitude(), entity.getDate(), entity.getReport_image(), entity.getPetName(), entity.getDescription(), "1"));
+                    entity.getPlace().getLongitude(), entity.getDate(), entity.getReportImage(), entity.getPetName(), entity.getDescription(), "1"));
         }
         for (ResponseReport.ReportList entity : reportListsAbandoned) {
             reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(), entity.getPlace().getLongitude(),

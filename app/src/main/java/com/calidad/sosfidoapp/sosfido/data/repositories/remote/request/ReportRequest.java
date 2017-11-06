@@ -1,4 +1,4 @@
-package com.calidad.sosfidoapp.sosfido.data.repositories.remote.Request;
+package com.calidad.sosfidoapp.sosfido.data.repositories.remote.request;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseStatus;

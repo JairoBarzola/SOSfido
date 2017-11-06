@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
-import com.calidad.sosfidoapp.sosfido.data.repositories.remote.Request.HomeRequest;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.request.HomeRequest;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.HomeContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.HomeFragment;

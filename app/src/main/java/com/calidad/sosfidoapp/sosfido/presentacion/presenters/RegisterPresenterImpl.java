@@ -6,7 +6,7 @@ import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseStatus;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
-import com.calidad.sosfidoapp.sosfido.data.repositories.remote.Request.ReportRequest;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.request.ReportRequest;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.RegisterContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.RegisterFragment;

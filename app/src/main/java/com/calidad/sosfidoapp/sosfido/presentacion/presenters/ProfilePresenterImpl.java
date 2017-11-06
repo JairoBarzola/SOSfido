@@ -6,7 +6,7 @@ import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseUser;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
-import com.calidad.sosfidoapp.sosfido.data.repositories.remote.Request.UserRequest;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.request.UserRequest;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.ProfileContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.ProfileFragment;
@@ -55,9 +55,9 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter {
             public void onResponse(Call<ResponseUser.Photo> call, Response<ResponseUser.Photo> response) {
                 if (response.isSuccessful()) {
                     ResponseUser.Photo responsePhoto = response.body();
-                    if (responsePhoto.getUrl_image().contains("http")) {
+                    if (responsePhoto.getUrlImage().contains("http")) {
                         view.updateNav();
-                        view.setImage(responsePhoto.getUrl_image());
+                        view.setImage(responsePhoto.getUrlImage());
                         view.setLoadingIndicator(false);
                     } else {
                         view.setLoadingIndicator(false);

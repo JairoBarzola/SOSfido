@@ -47,30 +47,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegisterFragment extends Fragment implements RegisterContract.View, Validator.ValidationListener {
 
-    @BindView(R.id.fab_photo_animal)
-    ImageButton fabPhotoanimal;
-    @BindView(R.id.image_animal)
-    CircleImageView photoAnimal;
+    @BindView(R.id.fab_photo_animal) ImageButton fabPhotoanimal;
+    @BindView(R.id.image_animal) CircleImageView photoAnimal;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.edt_name_animal)
-    EditText edtName;
+    @BindView(R.id.edt_name_animal) EditText edtName;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.edt_address_report)
-    EditText edtAddress;
+    @BindView(R.id.edt_address_report) EditText edtAddress;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.edt_number_report)
-    EditText edtNumber;
+    @BindView(R.id.edt_number_report) EditText edtNumber;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.edt_descrip_report)
-    EditText edtDescrip;
-    @BindView(R.id.ln_name)
-    LinearLayout lnName;
-    @BindView(R.id.ln_phone)
-    LinearLayout lnPhone;
-    @BindView(R.id.ln_description)
-    LinearLayout lnDescrip;
-    @BindView(R.id.ln_address)
-    LinearLayout lnAddress;
+    @BindView(R.id.edt_descrip_report) EditText edtDescrip;
+    @BindView(R.id.ln_name) LinearLayout lnName;
+    @BindView(R.id.ln_phone) LinearLayout lnPhone;
+    @BindView(R.id.ln_description) LinearLayout lnDescrip;
+    @BindView(R.id.ln_address) LinearLayout lnAddress;
     private static final int GALLERY_CODE = 5;
     private static final int CAMERA_CODE = 1888;
     private static final Integer CAMERA = 0x5;
