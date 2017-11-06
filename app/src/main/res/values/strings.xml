@@ -11,8 +11,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-
     //google map keys
     <string name="google_map_key">AIzaSyCRgXvxKLvdnCP22MVogdZ0bddXZb9NEmg</string>
 

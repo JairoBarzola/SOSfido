@@ -8,12 +8,17 @@ public interface LoginContract {
     //interfaces para el modelo Vista-Presentador
     interface View {
         void loginSuccessfully();
+
         void setLoadingIndicator(boolean active);
+
         void setMessageError(String error);
+
         void setDialogMessage(String message);
+
         boolean isActive();
     }
+
     interface Presenter {
-        void login(String email,String password);
+        void login(String email, String password);
     }
 }

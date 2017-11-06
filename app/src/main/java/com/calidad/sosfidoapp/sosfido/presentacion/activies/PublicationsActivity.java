@@ -21,8 +21,11 @@ import butterknife.ButterKnife;
 
 public class PublicationsActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +38,7 @@ public class PublicationsActivity extends AppCompatActivity {
 
         PublicationsFragment publicationsFragment = new PublicationsFragment().newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.body,publicationsFragment);
+        transaction.add(R.id.body, publicationsFragment);
         transaction.commit();
     }
 
@@ -43,8 +46,9 @@ public class PublicationsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
+
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
@@ -61,9 +65,10 @@ public class PublicationsActivity extends AppCompatActivity {
             textView.setTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }
+
     public void showMessageError(String message) {
         CoordinatorLayout container = findViewById(R.id.coordinatorLayout);
         this.showMessageSnack(container, message, R.color.error_red);

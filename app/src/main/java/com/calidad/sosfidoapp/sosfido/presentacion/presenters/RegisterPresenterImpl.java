@@ -22,26 +22,28 @@ import retrofit2.Response;
 
 public class RegisterPresenterImpl implements RegisterContract.Presenter {
 
-    private  RegisterFragment view;
+    private RegisterFragment view;
     private SessionManager sessionManager;
-    private  Context context;
+    private Context context;
     private ServiceFactory serviceFactory;
-    public RegisterPresenterImpl(RegisterFragment view,Context context){
-        this.view= view;
-        this.context=context;
+
+    public RegisterPresenterImpl(RegisterFragment view, Context context) {
+        this.view = view;
+        this.context = context;
         sessionManager = new SessionManager(context);
-        serviceFactory= new ServiceFactory();
+        serviceFactory = new ServiceFactory();
     }
+
     @Override
-    public void start(String location, String latitud, String longitude, String description, final String image, String name, String phone,int tag) {
+    public void start(String location, String latitud, String longitude, String description, final String image, String name, String phone, int tag) {
         view.setLoadingIndicator(true);
 
-        if (tag==1){
-            sendReportMissing(new ResponseReport.SendMissing(String.valueOf(sessionManager.getPersonEntity().getId()),name,new ResponseReport.Place(location,latitud,longitude),description),image);
-        }else if(tag==2){
-            sendReportAbandoned( new ResponseReport.Send(String.valueOf(sessionManager.getPersonEntity().getId()),new ResponseReport.Place(location,latitud,longitude),description),image);
-        }else{
-            sendAdoption(new ResponseReport.SendAdoption(String.valueOf(sessionManager.getPersonEntity().getId()),name,description),image);
+        if (tag == 1) {
+            sendReportMissing(new ResponseReport.SendMissing(String.valueOf(sessionManager.getPersonEntity().getId()), name, new ResponseReport.Place(location, latitud, longitude), description), image);
+        } else if (tag == 2) {
+            sendReportAbandoned(new ResponseReport.Send(String.valueOf(sessionManager.getPersonEntity().getId()), new ResponseReport.Place(location, latitud, longitude), description), image);
+        } else {
+            sendAdoption(new ResponseReport.SendAdoption(String.valueOf(sessionManager.getPersonEntity().getId()), name, description), image);
         }
 
 
@@ -49,20 +51,20 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
 
     private void sendAdoption(ResponseReport.SendAdoption sendAdoption, final String image) {
         final ReportRequest reportRequest = serviceFactory.createService(ReportRequest.class);
-        Call<ResponseReport> call = reportRequest.sendReportAdoption(ApiConstants.CONTENT_TYPE_JSON,"Bearer "+String.valueOf(sessionManager.getUserToken())
-                ,sendAdoption);
+        Call<ResponseReport> call = reportRequest.sendReportAdoption(ApiConstants.CONTENT_TYPE_JSON, "Bearer " + String.valueOf(sessionManager.getUserToken())
+                , sendAdoption);
         call.enqueue(new Callback<ResponseReport>() {
             @Override
             public void onResponse(Call<ResponseReport> call, Response<ResponseReport> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ResponseReport responseReport = response.body();
-                    if(responseReport.getId()!=null) {
-                        uploadPhotoAdoption("data:image/jpeg;base64,"+image,responseReport.getId());
-                    }else{
+                    if (responseReport.getId() != null) {
+                        uploadPhotoAdoption("data:image/jpeg;base64," + image, responseReport.getId());
+                    } else {
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.setLoadingIndicator(false);
                     }
-                }else{
+                } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                     view.setLoadingIndicator(false);
                 }
@@ -78,20 +80,20 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
 
     private void sendReportMissing(ResponseReport.SendMissing sendMissing, final String image) {
         final ReportRequest reportRequest = serviceFactory.createService(ReportRequest.class);
-        Call<ResponseReport> call = reportRequest.sendReportMissing(ApiConstants.CONTENT_TYPE_JSON,"Bearer "+String.valueOf(sessionManager.getUserToken())
+        Call<ResponseReport> call = reportRequest.sendReportMissing(ApiConstants.CONTENT_TYPE_JSON, "Bearer " + String.valueOf(sessionManager.getUserToken())
                 , sendMissing);
         call.enqueue(new Callback<ResponseReport>() {
             @Override
             public void onResponse(Call<ResponseReport> call, Response<ResponseReport> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ResponseReport responseReport = response.body();
-                    if(responseReport.getId()!=null) {
-                        uploadPhoto("data:image/jpeg;base64,"+image,responseReport.getId());
-                    }else{
+                    if (responseReport.getId() != null) {
+                        uploadPhoto("data:image/jpeg;base64," + image, responseReport.getId());
+                    } else {
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.setLoadingIndicator(false);
                     }
-                }else{
+                } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                     view.setLoadingIndicator(false);
                 }
@@ -107,20 +109,20 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
 
     private void sendReportAbandoned(final ResponseReport.Send send, final String image) {
         final ReportRequest reportRequest = serviceFactory.createService(ReportRequest.class);
-        Call<ResponseReport> call = reportRequest.sendReport(ApiConstants.CONTENT_TYPE_JSON,"Bearer "+String.valueOf(sessionManager.getUserToken())
+        Call<ResponseReport> call = reportRequest.sendReport(ApiConstants.CONTENT_TYPE_JSON, "Bearer " + String.valueOf(sessionManager.getUserToken())
                 , send);
         call.enqueue(new Callback<ResponseReport>() {
             @Override
             public void onResponse(Call<ResponseReport> call, Response<ResponseReport> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ResponseReport responseReport = response.body();
-                    if(responseReport.getId()!=null) {
-                        uploadPhoto("data:image/jpeg;base64,"+image,responseReport.getId());
-                    }else{
+                    if (responseReport.getId() != null) {
+                        uploadPhoto("data:image/jpeg;base64," + image, responseReport.getId());
+                    } else {
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.setLoadingIndicator(false);
                     }
-                }else{
+                } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                     view.setLoadingIndicator(false);
                 }
@@ -137,22 +139,23 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
     private void uploadPhoto(String image, String id_report) {
         ReportRequest reportRequest = serviceFactory.createService(ReportRequest.class);
         Call<ResponseStatus> call = reportRequest.sendPhoto(ApiConstants.CONTENT_TYPE_JSON,
-                                                            "Bearer "+String.valueOf(sessionManager.getUserToken()),new ResponseReport.SendPhoto(id_report,image));
+                "Bearer " + String.valueOf(sessionManager.getUserToken()), new ResponseReport.SendPhoto(id_report, image));
         call.enqueue(new Callback<ResponseStatus>() {
             @Override
             public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
-                if(response.isSuccessful()){
-                    ResponseStatus responseStatus= response.body();
-                    if(responseStatus.getUrlImage().contains("http")){
+                if (response.isSuccessful()) {
+                    ResponseStatus responseStatus = response.body();
+                    if (responseStatus.getUrlImage().contains("http")) {
                         view.backToHome();
                         view.setLoadingIndicator(false);
-                    }else{
+                    } else {
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.setLoadingIndicator(false);
                     }
-                }else{
+                } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
-                    view.setLoadingIndicator(false);}
+                    view.setLoadingIndicator(false);
+                }
             }
 
             @Override
@@ -167,22 +170,23 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
     private void uploadPhotoAdoption(String image, String adoption_proposal) {
         ReportRequest reportRequest = serviceFactory.createService(ReportRequest.class);
         Call<ResponseStatus> call = reportRequest.sendPhotoAdoption(ApiConstants.CONTENT_TYPE_JSON,
-                "Bearer "+String.valueOf(sessionManager.getUserToken()),new ResponseReport.SendPhotoAdoption(adoption_proposal,image));
+                "Bearer " + String.valueOf(sessionManager.getUserToken()), new ResponseReport.SendPhotoAdoption(adoption_proposal, image));
         call.enqueue(new Callback<ResponseStatus>() {
             @Override
             public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
-                if(response.isSuccessful()){
-                    ResponseStatus responseStatus= response.body();
-                    if(responseStatus.getUrlImage().contains("http")){
+                if (response.isSuccessful()) {
+                    ResponseStatus responseStatus = response.body();
+                    if (responseStatus.getUrlImage().contains("http")) {
                         view.backToHome();
                         view.setLoadingIndicator(false);
-                    }else{
+                    } else {
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.setLoadingIndicator(false);
                     }
-                }else{
+                } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
-                    view.setLoadingIndicator(false);}
+                    view.setLoadingIndicator(false);
+                }
             }
 
             @Override
@@ -192,10 +196,6 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
             }
         });
     }
-
-
-
-
 
 
 }

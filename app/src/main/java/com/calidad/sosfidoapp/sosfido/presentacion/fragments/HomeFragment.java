@@ -63,10 +63,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     private double longitude;
     private Unbinder unbinder;
     private static int CODE_LOCATION = 123;
-    private static int ZOOM=16;
-    private static  int SIZE_MARKER=95;
-    private static  int MIN_TIME = 1200;
-    private  static int MIN_DISTANCE =0;
+    private static int ZOOM = 16;
+    private static int SIZE_MARKER = 95;
+    private static int MIN_TIME = 1200;
+    private static int MIN_DISTANCE = 0;
     private List<ResponseReport.ReportListAdoption> reportListAdoptionsInfo;
     private List<ResponseReport.ReportList> reportListsAbandonedInfo;
     private List<ResponseReport.ReportListMissing> reportListsMissingInfo;
@@ -90,8 +90,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         presenter = new HomePresenterImpl(this, getContext());
         return root;
     }
-
-
 
 
     @Override
@@ -123,18 +121,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
             @Override
             public View getInfoContents(Marker marker) {
-                View v = getActivity().getLayoutInflater().inflate(R.layout.info_marker,null);
+                View v = getActivity().getLayoutInflater().inflate(R.layout.info_marker, null);
                 ImageView imageView = v.findViewById(R.id.image_animal);
                 TextView textView = v.findViewById(R.id.text);
                 TextView name = v.findViewById(R.id.pet_name);
                 ReportEntity data = hashMapReport.get(marker);
-                if(data!=null) {
+                if (data != null) {
                     textView.setText(data.getLocation());
                     name.setText(data.getNamePet());
-                    if(data.getPhoto().equals("Sin imagen")){
+                    if (data.getPhoto().equals("Sin imagen")) {
                         Picasso.with(v.getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageView);
-                    }else{
-                    Picasso.with(v.getContext()).load(data.getPhoto()).into(imageView);}
+                    } else {
+                        Picasso.with(v.getContext()).load(data.getPhoto()).into(imageView);
+                    }
                 }
                 return v;
             }
@@ -151,23 +150,24 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             actualizarUbicacion(location);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,MIN_TIME,MIN_DISTANCE,locListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, locListener);
             googleMap.setMyLocationEnabled(true);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
 
-        if( requestCode== CODE_LOCATION){
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0) {
-                    // Permission granted.
-                    myUbication();
-                } else {
-                    // User refused to grant permission. You can add AlertDialog here
-                    askForPermission();
-                }
+        if (requestCode == CODE_LOCATION) {
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0) {
+                // Permission granted.
+                myUbication();
+            } else {
+                // User refused to grant permission. You can add AlertDialog here
+                askForPermission();
             }
+        }
     }
 
     private void askForPermission() {
@@ -229,35 +229,35 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
     @Override
     public void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing,
-                                 List<ResponseReport.ReportListAdoption> reportListAdoptions){
+                                 List<ResponseReport.ReportListAdoption> reportListAdoptions) {
 
-        List<ReportEntity> reportEntityList = convertOneList(reportListAdoptions,reportListsAbandoned,reportListsMissing);
+        List<ReportEntity> reportEntityList = convertOneList(reportListAdoptions, reportListsAbandoned, reportListsMissing);
 
 
-        Bitmap abandoned = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
-                R.drawable.verde),95,95, false);
-        Bitmap lost = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
-                R.drawable.naranja),95,95, false);
-        Bitmap adoption = Bitmap.createScaledBitmap (BitmapFactory.decodeResource(getResources(),
-                R.drawable.plomo),95,95, false);
-        for (ReportEntity entity: reportEntityList){
-            if(!entity.getLatitude().equals("")||!entity.getLongitude().equals("")){
-            LatLng latLng = new LatLng(Double.parseDouble(entity.getLatitude()),Double.parseDouble(entity.getLongitude()));
+        Bitmap abandoned = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
+                R.drawable.verde), 95, 95, false);
+        Bitmap lost = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
+                R.drawable.naranja), 95, 95, false);
+        Bitmap adoption = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
+                R.drawable.plomo), 95, 95, false);
+        for (ReportEntity entity : reportEntityList) {
+            if (!entity.getLatitude().equals("") || !entity.getLongitude().equals("")) {
+                LatLng latLng = new LatLng(Double.parseDouble(entity.getLatitude()), Double.parseDouble(entity.getLongitude()));
 
-            if(entity.getTypeReport().equals("1")){
-                hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
-                        .icon(BitmapDescriptorFactory.fromBitmap(lost))),entity);
-            }else{
-                if(entity.getTypeReport().equals("2")) {
+                if (entity.getTypeReport().equals("1")) {
                     hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
-                            .icon(BitmapDescriptorFactory.fromBitmap(abandoned))),entity);
-                }else{
-                    hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
-                            .icon(BitmapDescriptorFactory.fromBitmap(adoption))),entity);
+                            .icon(BitmapDescriptorFactory.fromBitmap(lost))), entity);
+                } else {
+                    if (entity.getTypeReport().equals("2")) {
+                        hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
+                                .icon(BitmapDescriptorFactory.fromBitmap(abandoned))), entity);
+                    } else {
+                        hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
+                                .icon(BitmapDescriptorFactory.fromBitmap(adoption))), entity);
+                    }
                 }
-            }
 
-        }
+            }
         }
 
         mapView.onResume();
@@ -265,23 +265,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
     private List<ReportEntity> convertOneList(List<ResponseReport.ReportListAdoption> reportListAdoptions, List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing) {
         List<ReportEntity> reportList = new ArrayList<>();
-        for (ResponseReport.ReportListAdoption entity: reportListAdoptions){
-            reportList.add(new ReportEntity(entity.getId(),entity.getOwner().getAddress().getLocation(),
-                    entity.getOwner().getAddress().getLatitude(),entity.getOwner().getAddress().getLongitude(),
-                    entity.getDate(),entity.getAdoptionImage(),entity.getPetName(),entity.getDescription(),"3"));
+        for (ResponseReport.ReportListAdoption entity : reportListAdoptions) {
+            reportList.add(new ReportEntity(entity.getId(), entity.getOwner().getAddress().getLocation(),
+                    entity.getOwner().getAddress().getLatitude(), entity.getOwner().getAddress().getLongitude(),
+                    entity.getDate(), entity.getAdoptionImage(), entity.getPetName(), entity.getDescription(), "3"));
         }
-        for (ResponseReport.ReportListMissing entity: reportListsMissing){
-            reportList.add(new ReportEntity(entity.getId(),entity.getPlace().getLocation(),entity.getPlace().getLatitude(),
-                    entity.getPlace().getLongitude(),entity.getDate(),entity.getReport_image(),entity.getPetName(),entity.getDescription(),"1"));
+        for (ResponseReport.ReportListMissing entity : reportListsMissing) {
+            reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(),
+                    entity.getPlace().getLongitude(), entity.getDate(), entity.getReport_image(), entity.getPetName(), entity.getDescription(), "1"));
         }
-        for (ResponseReport.ReportList entity: reportListsAbandoned){
-            reportList.add(new ReportEntity(entity.getId(),entity.getPlace().getLocation(),entity.getPlace().getLatitude(),entity.getPlace().getLongitude(),
-                    entity.getDate(),entity.getReportImage(),"Abandonado",entity.getDescription(),"2"));
+        for (ResponseReport.ReportList entity : reportListsAbandoned) {
+            reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(), entity.getPlace().getLongitude(),
+                    entity.getDate(), entity.getReportImage(), "Abandonado", entity.getDescription(), "2"));
         }
         return reportList;
     }
 
-    public void loadMap(){
+    public void loadMap() {
         mapView.getMapAsync(this);
     }
 
@@ -292,10 +292,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         public void onLocationChanged(Location location) {
             // mover market real time ActualizarUbicacion(location);/ setLocation(location);
         }
+
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {
             //nothing
         }
+
         @Override
         public void onProviderEnabled(String s) {
             message("GPS Activado");
@@ -309,7 +311,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     };
 
     private void message(String s) {
-        Toast.makeText(getContext(),s,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
     }
 
     //actualizar la ubicacion
@@ -326,6 +328,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         CameraUpdate myUbication = CameraUpdateFactory.newLatLngZoom(coordenadas, ZOOM);
         googleMap.animateCamera(myUbication);
     }
+
     //activar los servicios del gps cuando esten apagados
     public void locationStart() {
         LocationManager mlocManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -335,14 +338,16 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
             startActivity(settingsIntent);
         }
     }
+
     @Override
     public boolean onMyLocationButtonClick() {
-        mCamera(latitude,longitude);
+        mCamera(latitude, longitude);
         return false;
     }
+
     @Override
     public void onInfoWindowClick(Marker marker) {
-    //    Toast.makeText(getContext(),"Hola",Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(getContext(),"Hola",Toast.LENGTH_SHORT).show();
     }
 
 }

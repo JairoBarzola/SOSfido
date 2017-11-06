@@ -18,19 +18,25 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.RegisterFragment;
 import com.calidad.sosfidoapp.sosfido.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 /**
  * Created by jairbarzola on 27/09/17.
  */
 
 public class RegisterActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout container;
     private RegisterFragment fragment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +49,13 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         fragment = (RegisterFragment) getSupportFragmentManager().findFragmentById(R.id.body);
-        if(fragment==null){
+        if (fragment == null) {
             fragment = RegisterFragment.newInstance();
             Bundle args = new Bundle();
-            args.putInt("idReport",idReport);
+            args.putInt("idReport", idReport);
             fragment.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.body,fragment);
+            transaction.add(R.id.body, fragment);
             transaction.commit();
         }
 
@@ -59,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
@@ -79,10 +85,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+
     public void showMessage(String message) {
         this.showMessageSnack(container, message, R.color.error_red);
     }
@@ -98,26 +106,28 @@ public class RegisterActivity extends AppCompatActivity {
             textView.setTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }
+
     public void showMessageError(String message) {
         CoordinatorLayout container = findViewById(R.id.coordinatorLayout);
         this.showMessageSnack(container, message, R.color.error_red);
 
     }
-    void closeKeyboard(){
+
+    void closeKeyboard() {
         View view = RegisterActivity.this.getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
-    public void callToHome(){
+    public void callToHome() {
         setResult(Activity.RESULT_OK);
         finish();
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
 }

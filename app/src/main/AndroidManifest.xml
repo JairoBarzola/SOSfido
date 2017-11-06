@@ -30,12 +30,14 @@
         <activity android:name=".presentacion.activies.LoginActivity" />
         <activity
             android:name=".presentacion.activies.RegisterActivity"
-            android:label="@string/register"></activity>
+            android:label="@string/register">
+        </activity>
         <activity
             android:name=".presentacion.activies.HomeActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -65,7 +67,8 @@
             android:label="@string/register"
             android:screenOrientation="portrait" />
         <activity android:name=".presentacion.activies.EditUserActivity"
-            android:label="Editar Usuario"></activity>
+            android:label="Editar Usuario">
+        </activity>
     </application>
 
 </manifest>

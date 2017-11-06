@@ -41,10 +41,14 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    @BindView(R.id.drawer_layout) DrawerLayout drawer;
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.nav_view) NavigationView navigationView;
-    @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout container;
     //code profile
     private static final int CODE_PROFILE = 120;
     //code report
@@ -57,6 +61,7 @@ public class HomeActivity extends AppCompatActivity
     private SessionManager sessionManager;
     private ProgressDialogCustom mProgressDialogCustom;
     HomeFragment homeFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +79,7 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //codigo para setear los valores del nav_header_home
-        hView =  navigationView.getHeaderView(0);
+        hView = navigationView.getHeaderView(0);
 
         navName = hView.findViewById(R.id.nav_name);
         navAddress = hView.findViewById(R.id.nav_address);
@@ -82,17 +87,17 @@ public class HomeActivity extends AppCompatActivity
         navImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openActivity(ProfileActivity.class,CODE_PROFILE);
+                openActivity(ProfileActivity.class, CODE_PROFILE);
             }
         });
         updateData();
         homeFragment = new HomeFragment().newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.body,homeFragment);
+        transaction.add(R.id.body, homeFragment);
         transaction.commit();
 
         //ProgressDialog para el logout
-        mProgressDialogCustom = new ProgressDialogCustom(this,"Cerrando Sesión...");
+        mProgressDialogCustom = new ProgressDialogCustom(this, "Cerrando Sesión...");
 
     }
 
@@ -118,7 +123,7 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.ac_registrer_report) {
             openDialog();
-          //  openRegisterActivity();
+            //  openRegisterActivity();
             return true;
         }
 
@@ -138,7 +143,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 openRegisterActivity(1);
-                    dialog.dismiss();
+                dialog.dismiss();
             }
         });
 
@@ -170,8 +175,8 @@ public class HomeActivity extends AppCompatActivity
 
     private void openRegisterActivity(int idReport) {
         Intent a = new Intent(HomeActivity.this, RegisterActivity.class);
-        a.putExtra("idReport",idReport);
-        startActivityForResult(a,CODE_REGISTER_REPORT);
+        a.putExtra("idReport", idReport);
+        startActivityForResult(a, CODE_REGISTER_REPORT);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -182,46 +187,47 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_publications) {
             openActivity(PublicationsActivity.class);
         } else if (id == R.id.nav_profile) {
-            openActivity(ProfileActivity.class,CODE_PROFILE);
+            openActivity(ProfileActivity.class, CODE_PROFILE);
         } else if (id == R.id.nav_record) {
             openActivity(RecordActivity.class);
         } else if (id == R.id.nav_suggestions) {
             openActivity(SuggestionsActivity.class);
-        }else if(id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout) {
             closeSession();
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     //metodo para cerrar sesion
     private void closeSession() {
         setLoadingIndicator(true);
         PersonEntity personEntity = sessionManager.getPersonEntity();
-        ServiceFactory serviceFactory= new ServiceFactory();
+        ServiceFactory serviceFactory = new ServiceFactory();
         UserRequest userRequest = serviceFactory.createService(UserRequest.class);
-        Call<ResponseEntity> call = userRequest.logout(ApiConstants.CONTENT_TYPE,"Bearer "+sessionManager.getUserToken(),String.valueOf(personEntity.getId()));
+        Call<ResponseEntity> call = userRequest.logout(ApiConstants.CONTENT_TYPE, "Bearer " + sessionManager.getUserToken(), String.valueOf(personEntity.getId()));
         call.enqueue(new Callback<ResponseEntity>() {
             @Override
             public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ResponseEntity responseEntity = response.body();
-                    if(responseEntity.isStatus()) {
+                    if (responseEntity.isStatus()) {
                         sessionManager.closeSession();
                         setLoadingIndicator(false);
-                        Intent actv = new Intent(HomeActivity.this,LoginActivity.class);
+                        Intent actv = new Intent(HomeActivity.this, LoginActivity.class);
                         startActivity(actv);
-                        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
-                    }else{
+                    } else {
                         setLoadingIndicator(false);
                         showMessageError(getString(R.string.there_was_an_error_try_it_later));
                     }
-                }
-                else{
+                } else {
                     setLoadingIndicator(false);
                     showMessageError(getString(R.string.there_was_an_error_try_it_later));
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseEntity> call, Throwable t) {
                 setLoadingIndicator(false);
@@ -230,16 +236,16 @@ public class HomeActivity extends AppCompatActivity
         });
 
 
-
     }
 
-    void openActivity(Class<?> activity){
-        Intent actv = new Intent(HomeActivity.this,activity);
+    void openActivity(Class<?> activity) {
+        Intent actv = new Intent(HomeActivity.this, activity);
         startActivity(actv);
     }
-    void openActivity(Class<?> activity,int code){
-        Intent actv = new Intent(HomeActivity.this,activity);
-        startActivityForResult(actv,code);
+
+    void openActivity(Class<?> activity, int code) {
+        Intent actv = new Intent(HomeActivity.this, activity);
+        startActivityForResult(actv, code);
     }
 
     public void showMessageSnack(View container, String message, int colorResource) {
@@ -253,20 +259,21 @@ public class HomeActivity extends AppCompatActivity
             textView.setTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }
+
     public void showMessageError(String message) {
         CoordinatorLayout container = findViewById(R.id.coordinatorLayout);
         this.showMessageSnack(container, message, R.color.error_red);
 
     }
+
     public void setLoadingIndicator(boolean active) {
-        if(mProgressDialogCustom!=null){
-            if(active){
+        if (mProgressDialogCustom != null) {
+            if (active) {
                 mProgressDialogCustom.show();
-            }
-            else{
+            } else {
                 mProgressDialogCustom.dismiss();
             }
         }
@@ -275,22 +282,23 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == CODE_PROFILE){
-            if(resultCode==RESULT_OK){
+        if (requestCode == CODE_PROFILE) {
+            if (resultCode == RESULT_OK) {
                 updateData();
             }
         }
-        if(requestCode == CODE_REGISTER_REPORT){
-            if(resultCode==RESULT_OK){
+        if (requestCode == CODE_REGISTER_REPORT) {
+            if (resultCode == RESULT_OK) {
                 homeFragment.loadMap();
             }
         }
     }
-    public void updateData(){
+
+    public void updateData() {
         personEntity = sessionManager.getPersonEntity();
-        if(personEntity.getPersonImage().contains("http")){
+        if (personEntity.getPersonImage().contains("http")) {
             Picasso.with(getApplicationContext()).load(sessionManager.getPersonEntity().getPersonImage()).into(navImage);
-        }else{
+        } else {
             navImage.setImageDrawable(getResources().getDrawable(R.drawable.user));
         }
         navName.setText(personEntity.getUser().getFirstName());

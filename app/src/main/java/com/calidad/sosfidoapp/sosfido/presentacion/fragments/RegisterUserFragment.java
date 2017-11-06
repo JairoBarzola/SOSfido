@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.HomeActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.RegisterUserContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.RegisterUserPresenterImpl;
@@ -37,24 +38,32 @@ import butterknife.OnClick;
  * Created by jairbarzola on 29/09/17.
  */
 
-public class RegisterUserFragment extends Fragment implements RegisterUserContract.View,Validator.ValidationListener, com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener{
+public class RegisterUserFragment extends Fragment implements RegisterUserContract.View, Validator.ValidationListener, com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener {
 
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_first_name) EditText etFirstName;
+    @BindView(R.id.et_first_name)
+    EditText etFirstName;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_last_name) EditText etLastName;
+    @BindView(R.id.et_last_name)
+    EditText etLastName;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_birth_date) EditText etBirthDate;
+    @BindView(R.id.et_birth_date)
+    EditText etBirthDate;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_phone) EditText etPhone;
+    @BindView(R.id.et_phone)
+    EditText etPhone;
     @Email(message = "Este campo no tiene el formato email")
-    @BindView(R.id.et_email) EditText etEmail;
+    @BindView(R.id.et_email)
+    EditText etEmail;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_district) EditText etDistrict;
+    @BindView(R.id.et_district)
+    EditText etDistrict;
     @Password(message = "La contraseña debe tener mínimo 6 campos")
-    @BindView(R.id.et_password) EditText etPassword;
+    @BindView(R.id.et_password)
+    EditText etPassword;
     @ConfirmPassword(message = "No concuerda con la contraseña")
-    @BindView(R.id.et_repeat_password) EditText etRepeatPass;
+    @BindView(R.id.et_repeat_password)
+    EditText etRepeatPass;
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
     private RegisterUserContract.Presenter presenter;
@@ -64,9 +73,13 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     private String longitude;
     private String latitude;
     com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd;
-    public RegisterUserFragment() {}
 
-    public static RegisterUserFragment newInstance() {return new RegisterUserFragment();}
+    public RegisterUserFragment() {
+    }
+
+    public static RegisterUserFragment newInstance() {
+        return new RegisterUserFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,7 +93,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
         super.onViewCreated(view, savedInstanceState);
         validator = new Validator(this);
         validator.setValidationListener(this);
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(),"Registrando...");
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Registrando...");
         Calendar now = Calendar.getInstance();
         dpd = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
                 this,
@@ -88,12 +101,13 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
         );
-        presenter = new RegisterUserPresenterImpl(this,getContext());
+        presenter = new RegisterUserPresenterImpl(this, getContext());
 
     }
+
     // funcion llamada desde la activity para validar
-    public void register (){
-       validator.validate();
+    public void register() {
+        validator.validate();
     }
 
     @Override
@@ -101,29 +115,29 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
         Intent i = new Intent(getActivity(), HomeActivity.class);
         startActivity(i);
         getActivity().finish();
-        getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
     public void setLoadingIndicator(boolean active) {
-        if(mProgressDialogCustom!=null){
-            if(active){
+        if (mProgressDialogCustom != null) {
+            if (active) {
                 mProgressDialogCustom.show();
-            }
-            else{
+            } else {
                 mProgressDialogCustom.dismiss();
             }
         }
     }
+
     @Override
     public void setMessageError(String error) {
-        Toast.makeText(getContext(),error,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onValidationSucceeded() {
-        presenter.register(etFirstName.getText().toString(),etLastName.getText().toString(),location,longitude,latitude,etBirthDate.getText().toString(),
-                etEmail.getText().toString(),etPassword.getText().toString(),etPhone.getText().toString());
+        presenter.register(etFirstName.getText().toString(), etLastName.getText().toString(), location, longitude, latitude, etBirthDate.getText().toString(),
+                etEmail.getText().toString(), etPassword.getText().toString(), etPhone.getText().toString());
     }
 
     @Override
@@ -146,25 +160,26 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         etBirthDate.setText(year + "-" + String.format("%02d", monthOfYear + 1) + "-" + String.format("%02d", dayOfMonth));
     }
+
     @OnClick(R.id.et_birth_date)
     public void onViewClicked(View view) {
 
-        if(view.getId()==R.id.et_birth_date){
+        if (view.getId() == R.id.et_birth_date) {
             dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
         }
 
     }
 
-    void closeKeyboard(){
+    void closeKeyboard() {
         View view = getActivity().getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
     @OnClick(R.id.et_district)
-    void onclickAddress(){
+    void onclickAddress() {
         startPlacePickerActivity();
     }
 
@@ -186,6 +201,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
             displaySelectedPlaceFromPlacePicker(data);
         }
     }
+
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(data, getActivity());
         location = placeSelected.getAddress().toString();

@@ -21,40 +21,40 @@ import retrofit2.Response;
  * Created by jairbarzola on 1/10/17.
  */
 
-public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter{
+public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter {
 
     private RegisterUserFragment view;
     private Context context;
     private SessionManager sessionManager;
     private ServiceFactory serviceFactory;
 
-    public RegisterUserPresenterImpl(RegisterUserFragment view, Context context){
-        this.view=view;
+    public RegisterUserPresenterImpl(RegisterUserFragment view, Context context) {
+        this.view = view;
         sessionManager = new SessionManager(context);
-        this.context=context;
+        this.context = context;
         serviceFactory = new ServiceFactory();
     }
+
     @Override
-    public void register(String firstName, String lastName, String location,String longitude,String latitude, String birthDate, String email, String password,String phone) {
+    public void register(String firstName, String lastName, String location, String longitude, String latitude, String birthDate, String email, String password, String phone) {
 
         view.setLoadingIndicator(true);
         UserRequest userRequest = serviceFactory.createService(UserRequest.class);
-        Call<ResponseRegisterEntity> call = userRequest.registerUser(ApiConstants.CONTENT_TYPE,firstName,lastName,
-                email,password,birthDate,location,latitude,longitude,phone);
+        Call<ResponseRegisterEntity> call = userRequest.registerUser(ApiConstants.CONTENT_TYPE, firstName, lastName,
+                email, password, birthDate, location, latitude, longitude, phone);
         call.enqueue(new Callback<ResponseRegisterEntity>() {
             @Override
             public void onResponse(Call<ResponseRegisterEntity> call, Response<ResponseRegisterEntity> response) {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ResponseRegisterEntity responseRegisterEntity = response.body();
-                    if(responseRegisterEntity.isStatus()){
+                    if (responseRegisterEntity.isStatus()) {
                         openHome(responseRegisterEntity);
-                    }else{
+                    } else {
                         view.setLoadingIndicator(false);
                         view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                     }
-                }
-                else{
+                } else {
                     view.setLoadingIndicator(false);
                     view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                 }
@@ -71,15 +71,14 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
 
     private void openHome(final ResponseRegisterEntity responseRegisterEntity) {
         UserRequest userRequest = serviceFactory.createService(UserRequest.class);
-        Call<PersonEntity> call = userRequest.getPerson(ApiConstants.CONTENT_TYPE,"Bearer "+String.valueOf(responseRegisterEntity.getAccessToken())
-                ,String.valueOf(responseRegisterEntity.getPersonId()));
+        Call<PersonEntity> call = userRequest.getPerson(ApiConstants.CONTENT_TYPE, "Bearer " + String.valueOf(responseRegisterEntity.getAccessToken())
+                , String.valueOf(responseRegisterEntity.getPersonId()));
         call.enqueue(new Callback<PersonEntity>() {
             @Override
             public void onResponse(Call<PersonEntity> call, Response<PersonEntity> response) {
-                if(response.isSuccessful()){
-                    openSession(responseRegisterEntity,response.body());
-                }
-                else{
+                if (response.isSuccessful()) {
+                    openSession(responseRegisterEntity, response.body());
+                } else {
                     view.setLoadingIndicator(false);
                     view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                 }
@@ -92,9 +91,10 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
             }
         });
     }
-    private void openSession(ResponseRegisterEntity responseRegisterEntity, PersonEntity personEntity){
+
+    private void openSession(ResponseRegisterEntity responseRegisterEntity, PersonEntity personEntity) {
         view.setLoadingIndicator(false);
-        sessionManager.openSession(responseRegisterEntity.getAccessToken(),personEntity);
+        sessionManager.openSession(responseRegisterEntity.getAccessToken(), personEntity);
         view.registerSuccessfully();
     }
 }

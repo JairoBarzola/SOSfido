@@ -17,8 +17,12 @@ import butterknife.ButterKnife;
 public class RecordFragment extends Fragment {
 
 
-    public RecordFragment() {}
-    public static RecordFragment newInstance() {return new RecordFragment();}
+    public RecordFragment() {
+    }
+
+    public static RecordFragment newInstance() {
+        return new RecordFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

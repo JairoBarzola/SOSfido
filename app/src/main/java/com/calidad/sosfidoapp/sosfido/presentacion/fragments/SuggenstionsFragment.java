@@ -14,10 +14,14 @@ import butterknife.ButterKnife;
  * Created by jairbarzola on 28/09/17.
  */
 
-public class SuggenstionsFragment extends Fragment{
+public class SuggenstionsFragment extends Fragment {
 
-    public SuggenstionsFragment() {}
-    public static SuggenstionsFragment newInstance() {return new SuggenstionsFragment();}
+    public SuggenstionsFragment() {
+    }
+
+    public static SuggenstionsFragment newInstance() {
+        return new SuggenstionsFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -24,7 +24,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProfileActivity extends AppCompatActivity {
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,28 +37,32 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ProfileFragment fragment = (ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.body);
-        if(fragment==null){
+        if (fragment == null) {
             fragment = ProfileFragment.newInstance();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.body,fragment);
+            transaction.add(R.id.body, fragment);
             transaction.commit();
         }
     }
+
     public void showMessageError(String message) {
         CoordinatorLayout container = findViewById(R.id.coordinatorLayout);
         this.showMessageSnack(container, message, R.color.error_red);
 
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
+
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+
     public void showMessageSnack(View container, String message, int colorResource) {
         if (container != null) {
             Snackbar snackbar = Snackbar
@@ -68,10 +74,11 @@ public class ProfileActivity extends AppCompatActivity {
             textView.setTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }
-    public void returnResult(){
+
+    public void returnResult() {
         setResult(Activity.RESULT_OK);
     }
 
@@ -85,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.ac_edit_profile) {
-            Intent u = new Intent(this,EditUserActivity.class);
+            Intent u = new Intent(this, EditUserActivity.class);
             startActivity(u);
             return true;
         }

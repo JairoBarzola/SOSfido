@@ -14,12 +14,18 @@ public interface ReportContract {
     interface View {
         void setInitRecycler(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing,
                              List<ResponseReport.ReportListAdoption> reportListAdoption);
+
         void showSwipeLayout();
+
         void hideSWipeLayout();
+
         void showEmpty();
+
         void hideEmpty();
+
         void setMessageError(String error);
     }
+
     interface Presenter {
         void start();
     }

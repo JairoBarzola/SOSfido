@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,6 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,26 +45,36 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Jair Barzola on 22-Oct-17.
  */
 
-public class RegisterFragment extends Fragment implements RegisterContract.View,Validator.ValidationListener{
+public class RegisterFragment extends Fragment implements RegisterContract.View, Validator.ValidationListener {
 
-    @BindView(R.id.fab_photo_animal) ImageButton fabPhotoanimal;
-    @BindView(R.id.image_animal) CircleImageView photoAnimal;
+    @BindView(R.id.fab_photo_animal)
+    ImageButton fabPhotoanimal;
+    @BindView(R.id.image_animal)
+    CircleImageView photoAnimal;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.edt_name_animal) EditText edtName;
+    @BindView(R.id.edt_name_animal)
+    EditText edtName;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.edt_address_report) EditText edtAddress;
+    @BindView(R.id.edt_address_report)
+    EditText edtAddress;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.edt_number_report) EditText edtNumber;
+    @BindView(R.id.edt_number_report)
+    EditText edtNumber;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.edt_descrip_report) EditText edtDescrip;
-    @BindView(R.id.ln_name) LinearLayout lnName;
-    @BindView(R.id.ln_phone) LinearLayout lnPhone;
-    @BindView(R.id.ln_description) LinearLayout lnDescrip;
-    @BindView(R.id.ln_address) LinearLayout lnAddress;
+    @BindView(R.id.edt_descrip_report)
+    EditText edtDescrip;
+    @BindView(R.id.ln_name)
+    LinearLayout lnName;
+    @BindView(R.id.ln_phone)
+    LinearLayout lnPhone;
+    @BindView(R.id.ln_description)
+    LinearLayout lnDescrip;
+    @BindView(R.id.ln_address)
+    LinearLayout lnAddress;
     private static final int GALLERY_CODE = 5;
     private static final int CAMERA_CODE = 1888;
     private static final Integer CAMERA = 0x5;
-    private  String imageBase64;
+    private String imageBase64;
     private ProgressDialogCustom mProgressDialogCustom;
     private RegisterContract.Presenter presenter;
     private Validator validator;
@@ -76,6 +84,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     private String latitud;
     private SessionManager sessionManager;
     private int idReport;
+
     public RegisterFragment() {
     }
 
@@ -94,27 +103,27 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
         idReport = bundle.getInt("idReport");
         openReport(idReport);
 
-        presenter = new RegisterPresenterImpl(this,getContext());
-        askForPermission(android.Manifest.permission.CAMERA,CAMERA);
-        mProgressDialogCustom = new ProgressDialogCustom(getActivity(),"Registrando...");
+        presenter = new RegisterPresenterImpl(this, getContext());
+        askForPermission(android.Manifest.permission.CAMERA, CAMERA);
+        mProgressDialogCustom = new ProgressDialogCustom(getActivity(), "Registrando...");
         return root;
     }
 
     private void openReport(int id) {
         //perdido
-        if(id==1){
+        if (id == 1) {
             lnName.setVisibility(View.VISIBLE);
             lnPhone.setVisibility(View.GONE);
             lnAddress.setVisibility(View.VISIBLE);
             lnDescrip.setVisibility(View.VISIBLE);
         }
         //abandonado
-        else if (id == 2){
+        else if (id == 2) {
             lnName.setVisibility(View.GONE);
             lnPhone.setVisibility(View.GONE);
             lnAddress.setVisibility(View.VISIBLE);
             lnDescrip.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             //adopcion
             lnName.setVisibility(View.VISIBLE);
             lnPhone.setVisibility(View.GONE);
@@ -127,36 +136,39 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-    private void askForPermission(String permission,Integer code) {
-        if (ContextCompat.checkSelfPermission( getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale( getActivity(), permission)) {
-                ActivityCompat.requestPermissions( getActivity(), new String[]{permission}, code);
+
+    private void askForPermission(String permission, Integer code) {
+        if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, code);
             } else {
-                ActivityCompat.requestPermissions( getActivity(), new String[]{permission}, code);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, code);
             }
         }
     }
 
 
     @OnClick(R.id.fab_photo_animal)
-    void buttonOnClicked(){
+    void buttonOnClicked() {
         Bundle bundle = new Bundle();
-        bundle.putInt("IdFragment",1);
+        bundle.putInt("IdFragment", 1);
         CustomBottomSheetDialogFragment fragment = new CustomBottomSheetDialogFragment();
-        fragment.setArguments( bundle );
-        fragment.show( getActivity().getSupportFragmentManager(), CustomBottomSheetDialogFragment.FRAGMENT_KEY );
+        fragment.setArguments(bundle);
+        fragment.show(getActivity().getSupportFragmentManager(), CustomBottomSheetDialogFragment.FRAGMENT_KEY);
     }
-    public void openCamera(){
-        if(ContextCompat.checkSelfPermission( getActivity(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+
+    public void openCamera() {
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(i,CAMERA_CODE);
-        }else{
-            askForPermission(android.Manifest.permission.CAMERA,CAMERA);
+            startActivityForResult(i, CAMERA_CODE);
+        } else {
+            askForPermission(android.Manifest.permission.CAMERA, CAMERA);
         }
 
 
     }
-    public void openGallery(){
+
+    public void openGallery() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -170,20 +182,20 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
         if (requestCode == GALLERY_CODE && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             Uri filePath = data.getData();
             try {
-                Bitmap bitmapGallery = MediaStore.Images.Media.getBitmap( getActivity().getContentResolver(), filePath);
+                Bitmap bitmapGallery = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                 //Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, (int) (bitmapGallery.getWidth() * 0.2), (int) (bitmapGallery.getHeight() * 0.2), false);
-                Bitmap resizedImageGallery = Bitmap.createScaledBitmap (bitmapGallery,600,600, false);
-                imageBase64=convertBitmapToBASE64(resizedImageGallery);
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, 600, 600, false);
+                imageBase64 = convertBitmapToBASE64(resizedImageGallery);
                 photoAnimal.setImageBitmap(resizedImageGallery);
             } catch (Exception e) {
                 setMessageError("error");
             }
         }
-        if (requestCode == CAMERA_CODE ){
+        if (requestCode == CAMERA_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap bitmapCamera = (Bitmap) data.getExtras().get("data");
-                Bitmap resizedImageGallery = Bitmap.createScaledBitmap (bitmapCamera,600,600, false);
-                imageBase64=convertBitmapToBASE64(resizedImageGallery);
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapCamera, 600, 600, false);
+                imageBase64 = convertBitmapToBASE64(resizedImageGallery);
                 photoAnimal.setImageBitmap(resizedImageGallery);
             }
         }
@@ -195,15 +207,15 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(ActivityCompat.checkSelfPermission( getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED){
-            Toast.makeText( getActivity(), "Permiso concedido", Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getActivity(), "Permiso concedido", Toast.LENGTH_SHORT).show();
 
-        }else{
-            Toast.makeText( getActivity(), "Permiso denegado", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Permiso denegado", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public String convertBitmapToBASE64(Bitmap path){
+    public String convertBitmapToBASE64(Bitmap path) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         path.compress(Bitmap.CompressFormat.JPEG, 100, bytes); //bm is the bitmap object
         byte[] b = bytes.toByteArray();
@@ -212,43 +224,43 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
     @Override
     public void setLoadingIndicator(boolean active) {
-        if(mProgressDialogCustom!=null){
-            if(active){
+        if (mProgressDialogCustom != null) {
+            if (active) {
                 mProgressDialogCustom.show();
-            }
-            else{
+            } else {
                 mProgressDialogCustom.dismiss();
             }
         }
     }
+
     @Override
     public void setMessageError(String error) {
-        ((RegisterActivity)getActivity()).showMessage(error);
+        ((RegisterActivity) getActivity()).showMessage(error);
     }
 
     @Override
     public void setDialogMessage(String message) {
-        ((RegisterActivity)getActivity()).showMessage(message);
+        ((RegisterActivity) getActivity()).showMessage(message);
     }
 
-    void sendReport(){
-        if(imageBase64!= null){
-            if(idReport == 1){
-                presenter.start(location,latitud,longitude,edtDescrip.getText().toString(),
-                        imageBase64,edtName.getText().toString()
-                        ,edtNumber.getText().toString(),1);
-            }else if(idReport == 2){
-                presenter.start(location,latitud,longitude,edtDescrip.getText().toString(),
-                        imageBase64,edtName.getText().toString()
-                        ,edtNumber.getText().toString(),2);
-            }else{
-                presenter.start(sessionManager.getPersonEntity().getAddress().getLocation(),sessionManager.getPersonEntity().getAddress().getLatitude()
-                        ,sessionManager.getPersonEntity().getAddress().getLongitude(),edtDescrip.getText().toString(),
-                        imageBase64,edtName.getText().toString()
-                        ,edtNumber.getText().toString(),3);
+    void sendReport() {
+        if (imageBase64 != null) {
+            if (idReport == 1) {
+                presenter.start(location, latitud, longitude, edtDescrip.getText().toString(),
+                        imageBase64, edtName.getText().toString()
+                        , edtNumber.getText().toString(), 1);
+            } else if (idReport == 2) {
+                presenter.start(location, latitud, longitude, edtDescrip.getText().toString(),
+                        imageBase64, edtName.getText().toString()
+                        , edtNumber.getText().toString(), 2);
+            } else {
+                presenter.start(sessionManager.getPersonEntity().getAddress().getLocation(), sessionManager.getPersonEntity().getAddress().getLatitude()
+                        , sessionManager.getPersonEntity().getAddress().getLongitude(), edtDescrip.getText().toString(),
+                        imageBase64, edtName.getText().toString()
+                        , edtNumber.getText().toString(), 3);
             }
 
-        }else{
+        } else {
             setDialogMessage("Por favor adjunta una foto");
         }
     }
@@ -275,31 +287,31 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     }
 
     @OnClick(R.id.edt_address_report)
-    void onClickAddress(View view){
-        if(view.getId() == R.id.edt_address_report){
+    void onClickAddress(View view) {
+        if (view.getId() == R.id.edt_address_report) {
             startPlacePickerActivity();
         }
 
     }
 
     private void startPlacePickerActivity() {
-            PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
-            // this would only work if you have your Google Places API working
-            try {
-                Intent intent = intentBuilder.build(getActivity());
-                startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
-            } catch (Exception e) {
-                setMessageError("error");
-            }
+        PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+        // this would only work if you have your Google Places API working
+        try {
+            Intent intent = intentBuilder.build(getActivity());
+            startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
+        } catch (Exception e) {
+            setMessageError("error");
+        }
 
     }
 
-    public void registerReport(){
+    public void registerReport() {
         validator.validate();
     }
 
-    public void backToHome(){
-        ((RegisterActivity)getActivity()).callToHome();
+    public void backToHome() {
+        ((RegisterActivity) getActivity()).callToHome();
     }
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {

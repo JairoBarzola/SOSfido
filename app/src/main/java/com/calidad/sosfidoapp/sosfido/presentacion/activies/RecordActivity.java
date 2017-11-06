@@ -14,7 +14,8 @@ import butterknife.ButterKnife;
 
 public class RecordActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,19 +27,21 @@ public class RecordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         RecordFragment fragment = (RecordFragment) getSupportFragmentManager().findFragmentById(R.id.body);
-        if(fragment==null){
+        if (fragment == null) {
             fragment = RecordFragment.newInstance();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.body,fragment);
+            transaction.add(R.id.body, fragment);
             transaction.commit();
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
+
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;

@@ -12,11 +12,15 @@ public interface HomeContract {
     //interfaces para el modelo Vista-Presentador
     interface View {
         void setLoadingIndicator(boolean active);
+
         void setMessageError(String error);
+
         void setDialogMessage(String message);
-        void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned,List<ResponseReport.ReportListMissing> reportListsMissing,
+
+        void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing,
                               List<ResponseReport.ReportListAdoption> reportListAdoption);
     }
+
     interface Presenter {
         void loadReports();
     }

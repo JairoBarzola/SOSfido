@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.LoginContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.LoginPresenterImpl;
 import com.calidad.sosfidoapp.sosfido.R;
@@ -32,16 +33,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends AppCompatActivity implements LoginContract.View,Validator.ValidationListener{
+public class LoginActivity extends AppCompatActivity implements LoginContract.View, Validator.ValidationListener {
 
     @Email(message = "Email no válido")
-    @BindView(R.id.et_usuario_l) EditText etUsuario;
+    @BindView(R.id.et_usuario_l)
+    EditText etUsuario;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_password_l) EditText etPassword;
-    @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
+    @BindView(R.id.et_password_l)
+    EditText etPassword;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout container;
     private Validator validator;
     private LoginContract.Presenter presenter;
     private ProgressDialogCustom mProgressDialogCustom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,58 +54,65 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         ButterKnife.bind(this);
         validator = new Validator(this);
         validator.setValidationListener(this);
-        presenter = new LoginPresenterImpl(this,getApplicationContext());
-        mProgressDialogCustom = new ProgressDialogCustom(this,"Iniciando Sesión...");
+        presenter = new LoginPresenterImpl(this, getApplicationContext());
+        mProgressDialogCustom = new ProgressDialogCustom(this, "Iniciando Sesión...");
     }
-    @OnClick({R.id.btn_login,R.id.btn_register})
-    void onClickView(View view)
-    {
-        if(view.getId()==R.id.btn_login){
+
+    @OnClick({R.id.btn_login, R.id.btn_register})
+    void onClickView(View view) {
+        if (view.getId() == R.id.btn_login) {
             closeKeyboard();
             validator.validate();
-        }else{
+        } else {
             closeKeyboard();
             openActivity(RegisterUserActivity.class);
         }
     }
+
     public void openActivity(Class<?> activity) {
-        Intent i= new Intent(LoginActivity.this,activity);
+        Intent i = new Intent(LoginActivity.this, activity);
         startActivity(i);
     }
+
     @Override
     public void loginSuccessfully() {
         openActivity(HomeActivity.class);
         finish();
     }
+
     @Override
     public void setLoadingIndicator(boolean active) {
-        if(mProgressDialogCustom!=null){
-            if(active){
+        if (mProgressDialogCustom != null) {
+            if (active) {
                 mProgressDialogCustom.show();
-            }
-            else{
+            } else {
                 mProgressDialogCustom.dismiss();
             }
         }
     }
+
     @Override
     public void setMessageError(String error) {
         showMessage(error);
     }
+
     @Override
     public void setDialogMessage(String message) {
         showMessage(message);
     }
+
     @Override
     public boolean isActive() {
-            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            return netInfo != null && netInfo.isConnectedOrConnecting();
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+
     @Override
     public void onValidationSucceeded() {
-        presenter.login(etUsuario.getText().toString().trim(),etPassword.getText().toString());
+        presenter.login(etUsuario.getText().toString().trim(), etPassword.getText().toString());
     }
+
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
         for (ValidationError error : errors) {
@@ -116,9 +128,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             }
         }
     }
+
     public void showMessage(String message) {
         this.showMessageSnack(container, message, R.color.error_red);
     }
+
     public void showMessageSnack(View container, String message, int colorResource) {
         if (container != null) {
             Snackbar snackbar = Snackbar
@@ -130,17 +144,19 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             textView.setTextColor(Color.WHITE);
             snackbar.show();
         } else {
-            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }
+
     public void showMessageError(String message) {
         CoordinatorLayout container = findViewById(R.id.coordinatorLayout);
         this.showMessageSnack(container, message, R.color.error_red);
     }
-    void closeKeyboard(){
+
+    void closeKeyboard() {
         View view = LoginActivity.this.getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }

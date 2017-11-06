@@ -10,14 +10,20 @@ public interface ProfileContract {
 
     //interfaces para el modelo Vista-Presentador
     interface View {
-        void loadUser(PersonEntity personEntity,boolean t);
+        void loadUser(PersonEntity personEntity, boolean t);
+
         void setLoadingIndicator(boolean active);
+
         void setMessageError(String error);
+
         void updateNav();
     }
+
     interface Presenter {
         void start();
+
         void uploadPhoto(String path);
+
         void changePhoto(String path);
     }
 }

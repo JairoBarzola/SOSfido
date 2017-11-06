@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 public class EditUserActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,7 @@ public class EditUserActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
+
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;

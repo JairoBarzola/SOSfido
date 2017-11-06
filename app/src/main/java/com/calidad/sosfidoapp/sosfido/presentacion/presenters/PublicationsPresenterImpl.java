@@ -20,38 +20,38 @@ import retrofit2.Response;
  * Created by jairbarzola on 31/10/17.
  */
 
-public class PublicationsPresenterImpl  implements ReportContract.Presenter{
+public class PublicationsPresenterImpl implements ReportContract.Presenter {
 
     private PublicationsFragment view;
     private Context context;
     private SessionManager sessionManager;
-    private  ServiceFactory serviceFactory;
+    private ServiceFactory serviceFactory;
 
-    public PublicationsPresenterImpl(Context context,PublicationsFragment view){
-        this.context=context;
-        this.view=view;
-        sessionManager= new SessionManager(context);
-        serviceFactory=new ServiceFactory();
+    public PublicationsPresenterImpl(Context context, PublicationsFragment view) {
+        this.context = context;
+        this.view = view;
+        sessionManager = new SessionManager(context);
+        serviceFactory = new ServiceFactory();
     }
 
     @Override
     public void start() {
         view.showSwipeLayout();
         HomeRequest homeRequest = serviceFactory.createService(HomeRequest.class);
-        Call<List<ResponseReport.ReportList>> call = homeRequest.getReportsAbandoned("Bearer "+sessionManager.getUserToken(),true,true);
+        Call<List<ResponseReport.ReportList>> call = homeRequest.getReportsAbandoned("Bearer " + sessionManager.getUserToken(), true, true);
         call.enqueue(new Callback<List<ResponseReport.ReportList>>() {
             @Override
             public void onResponse(Call<List<ResponseReport.ReportList>> call, Response<List<ResponseReport.ReportList>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<ResponseReport.ReportList> reportList = response.body();
-                    if(reportList!=null){
+                    if (reportList != null) {
                         loadReportsMissing(reportList);
-                    }else{
+                    } else {
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.hideSWipeLayout();
                     }
 
-                }else{
+                } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                     view.hideSWipeLayout();
                 }
@@ -64,27 +64,29 @@ public class PublicationsPresenterImpl  implements ReportContract.Presenter{
             }
         });
     }
+
     public void loadReportsMissing(final List<ResponseReport.ReportList> reportListsAbandoned) {
 
         HomeRequest homeRequest = serviceFactory.createService(HomeRequest.class);
-        Call<List<ResponseReport.ReportListMissing>> call = homeRequest.getReportsMissing("Bearer "+sessionManager.getUserToken(),true,true);
+        Call<List<ResponseReport.ReportListMissing>> call = homeRequest.getReportsMissing("Bearer " + sessionManager.getUserToken(), true, true);
         call.enqueue(new Callback<List<ResponseReport.ReportListMissing>>() {
             @Override
             public void onResponse(Call<List<ResponseReport.ReportListMissing>> call, Response<List<ResponseReport.ReportListMissing>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<ResponseReport.ReportListMissing> reportListMissing = response.body();
-                    if(reportListMissing!=null){
-                        loadReportsAdoption(reportListsAbandoned,reportListMissing);
-                    }else{
+                    if (reportListMissing != null) {
+                        loadReportsAdoption(reportListsAbandoned, reportListMissing);
+                    } else {
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.hideSWipeLayout();
                     }
 
-                }else{
+                } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                     view.hideSWipeLayout();
                 }
             }
+
             @Override
             public void onFailure(Call<List<ResponseReport.ReportListMissing>> call, Throwable t) {
                 view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
@@ -95,25 +97,26 @@ public class PublicationsPresenterImpl  implements ReportContract.Presenter{
 
     private void loadReportsAdoption(final List<ResponseReport.ReportList> reportListsAbandoned, final List<ResponseReport.ReportListMissing> reportListMissing) {
         HomeRequest homeRequest = serviceFactory.createService(HomeRequest.class);
-        Call<List<ResponseReport.ReportListAdoption>> call = homeRequest.getReportsAdoption("Bearer "+sessionManager.getUserToken(),true);
+        Call<List<ResponseReport.ReportListAdoption>> call = homeRequest.getReportsAdoption("Bearer " + sessionManager.getUserToken(), true);
         call.enqueue(new Callback<List<ResponseReport.ReportListAdoption>>() {
             @Override
             public void onResponse(Call<List<ResponseReport.ReportListAdoption>> call, Response<List<ResponseReport.ReportListAdoption>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<ResponseReport.ReportListAdoption> reportListAdoption = response.body();
-                    if(reportListAdoption!=null){
-                        view.setInitRecycler(reportListsAbandoned,reportListMissing,reportListAdoption);
+                    if (reportListAdoption != null) {
+                        view.setInitRecycler(reportListsAbandoned, reportListMissing, reportListAdoption);
                         view.hideSWipeLayout();
-                    }else{
+                    } else {
                         view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.hideSWipeLayout();
                     }
 
-                }else{
+                } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                     view.hideSWipeLayout();
                 }
             }
+
             @Override
             public void onFailure(Call<List<ResponseReport.ReportListAdoption>> call, Throwable t) {
                 view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));

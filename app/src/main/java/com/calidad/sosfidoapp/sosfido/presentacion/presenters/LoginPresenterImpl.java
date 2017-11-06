@@ -21,38 +21,38 @@ import retrofit2.Response;
  * Created by jairbarzola on 1/10/17.
  */
 
-public class LoginPresenterImpl  implements LoginContract.Presenter{
+public class LoginPresenterImpl implements LoginContract.Presenter {
 
     private LoginActivity view;
     private Context context;
     private SessionManager sessionManager;
     private ServiceFactory serviceFactory;
 
-    public LoginPresenterImpl(LoginActivity view,Context context){
-        this.view=view;
+    public LoginPresenterImpl(LoginActivity view, Context context) {
+        this.view = view;
         sessionManager = new SessionManager(context);
-        this.context=context;
+        this.context = context;
         serviceFactory = new ServiceFactory();
     }
+
     @Override
     public void login(String email, String password) {
         view.setLoadingIndicator(true);
         UserRequest userRequest = serviceFactory.createService(UserRequest.class);
-        Call<AccessTokenEntity> call = userRequest.login(ApiConstants.CONTENT_TYPE,email,password);
+        Call<AccessTokenEntity> call = userRequest.login(ApiConstants.CONTENT_TYPE, email, password);
         call.enqueue(new Callback<AccessTokenEntity>() {
             @Override
             public void onResponse(Call<AccessTokenEntity> call, Response<AccessTokenEntity> response) {
-                Log.i("Response :",response.message());
-                if(response.isSuccessful()){
+                Log.i("Response :", response.message());
+                if (response.isSuccessful()) {
                     AccessTokenEntity accessTokenEntity = response.body();
-                    if(accessTokenEntity.isStatus()){
+                    if (accessTokenEntity.isStatus()) {
                         getAccount(accessTokenEntity);
-                    }else{
+                    } else {
                         view.setLoadingIndicator(false);
                         view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                     }
-                }
-                else{
+                } else {
                     view.setLoadingIndicator(false);
                     view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                 }
@@ -68,14 +68,13 @@ public class LoginPresenterImpl  implements LoginContract.Presenter{
 
     private void getAccount(final AccessTokenEntity accessTokenEntity) {
         UserRequest userRequest = serviceFactory.createService(UserRequest.class);
-        Call<PersonEntity> call = userRequest.getPerson(ApiConstants.CONTENT_TYPE,"Bearer "+String.valueOf(accessTokenEntity.getAccessToken()),String.valueOf(accessTokenEntity.getPersonId()));
+        Call<PersonEntity> call = userRequest.getPerson(ApiConstants.CONTENT_TYPE, "Bearer " + String.valueOf(accessTokenEntity.getAccessToken()), String.valueOf(accessTokenEntity.getPersonId()));
         call.enqueue(new Callback<PersonEntity>() {
             @Override
             public void onResponse(Call<PersonEntity> call, Response<PersonEntity> response) {
-                if(response.isSuccessful()){
-                    openSession(accessTokenEntity,response.body());
-                }
-                else{
+                if (response.isSuccessful()) {
+                    openSession(accessTokenEntity, response.body());
+                } else {
                     view.setLoadingIndicator(false);
                     view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                 }
@@ -88,8 +87,9 @@ public class LoginPresenterImpl  implements LoginContract.Presenter{
             }
         });
     }
-    private void openSession(AccessTokenEntity accessTokenEntity, PersonEntity personEntity){
-        sessionManager.openSession(accessTokenEntity.getAccessToken(),personEntity);
+
+    private void openSession(AccessTokenEntity accessTokenEntity, PersonEntity personEntity) {
+        sessionManager.openSession(accessTokenEntity.getAccessToken(), personEntity);
         view.loginSuccessfully();
         view.setLoadingIndicator(false);
     }

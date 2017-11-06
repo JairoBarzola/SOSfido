@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.RegisterUserFragment;
 import com.calidad.sosfidoapp.sosfido.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -20,7 +22,8 @@ public class RegisterUserActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    private  RegisterUserFragment fragment;
+    private RegisterUserFragment fragment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,23 +34,26 @@ public class RegisterUserActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         fragment = (RegisterUserFragment) getSupportFragmentManager().findFragmentById(R.id.body);
-        if(fragment==null){
+        if (fragment == null) {
             fragment = RegisterUserFragment.newInstance();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.body,fragment);
+            transaction.add(R.id.body, fragment);
             transaction.commit();
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
+
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_register_user, menu);
