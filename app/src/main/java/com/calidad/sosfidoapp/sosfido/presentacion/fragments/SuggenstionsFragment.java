@@ -16,8 +16,7 @@ import butterknife.ButterKnife;
 
 public class SuggenstionsFragment extends Fragment {
 
-    public SuggenstionsFragment() {
-    }
+
 
     public static SuggenstionsFragment newInstance() {
         return new SuggenstionsFragment();

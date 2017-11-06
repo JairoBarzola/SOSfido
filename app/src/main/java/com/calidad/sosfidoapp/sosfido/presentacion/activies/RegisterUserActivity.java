@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 public class RegisterUserActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar tb;
     private RegisterUserFragment fragment;
 
     @Override
@@ -29,7 +29,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_model);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

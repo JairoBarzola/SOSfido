@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 public class PublicationsActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar tb;
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
 
@@ -31,7 +31,7 @@ public class PublicationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_model);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

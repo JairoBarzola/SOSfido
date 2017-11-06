@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
-import com.calidad.sosfidoapp.sosfido.data.repositories.Local.SessionManager;
+import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.ProfileActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.ProfileContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.ProfilePresenterImpl;
@@ -43,33 +43,21 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
-    @BindView(R.id.tv_name)
-    TextView tvName;
-    @BindView(R.id.tv_birth_date)
-    TextView tvBirthDate;
-    @BindView(R.id.tv_direccion)
-    TextView tvDireccion;
-    @BindView(R.id.tv_email)
-    TextView tvEmail;
-    @BindView(R.id.tv_phone)
-    TextView tvPhone;
-    @BindView(R.id.cardView)
-    CardView cardView;
-    @BindView(R.id.fab_camera)
-    ImageButton fabCamera;
-    @BindView(R.id.image_profile)
-    CircleImageView imageProfile;
+    @BindView(R.id.tv_name)TextView tvName;
+    @BindView(R.id.tv_birth_date)TextView tvBirthDate;
+    @BindView(R.id.tv_direccion)TextView tvDireccion;
+    @BindView(R.id.tv_email) TextView tvEmail;
+    @BindView(R.id.tv_phone) TextView tvPhone;
+    @BindView(R.id.cardView) CardView cardView;
+    @BindView(R.id.fab_camera) ImageButton fabCamera;
+    @BindView(R.id.image_profile) CircleImageView imageProfile;
     private ProgressDialogCustom mProgressDialogCustom;
     private SessionManager sessionManager;
     private ProfileContract.Presenter presenter;
-    private static final int GALLERY_CODE = 5;
-    private static final int STORAGE_PERMISSION_CODE = 123;
-    private static final int CAMERA_CODE = 1888;
-    private static final int CAMERA = 0x5;
-    private String imageBase64;
-
-    public ProfileFragment() {
-    }
+    private  final int GALLERY_CODE = 5;;
+    private  final int CAMERA_CODE = 1888;
+    private  final int CAMERA = 0x5;
+    String imageBase64;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();

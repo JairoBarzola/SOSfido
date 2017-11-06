@@ -23,10 +23,10 @@ import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseEntity;
-import com.calidad.sosfidoapp.sosfido.data.repositories.Local.SessionManager;
-import com.calidad.sosfidoapp.sosfido.data.repositories.Remote.ApiConstants;
-import com.calidad.sosfidoapp.sosfido.data.repositories.Remote.Request.UserRequest;
-import com.calidad.sosfidoapp.sosfido.data.repositories.Remote.ServiceFactory;
+import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.Request.UserRequest;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.HomeFragment;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.utils.ProgressDialogCustom;
@@ -44,15 +44,15 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar tb;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout container;
     //code profile
-    private static final int CODE_PROFILE = 120;
+    private final int CODE_PROFILE = 120;
     //code report
-    private static final int CODE_REGISTER_REPORT = 130;
+    private final int CODE_REGISTER_REPORT = 130;
     View hView;
     PersonEntity personEntity;
     private TextView navName;
@@ -67,13 +67,9 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(tb);
         sessionManager = new SessionManager(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer,
-                toolbar,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, tb, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);

@@ -62,20 +62,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     private double latitude;
     private double longitude;
     private Unbinder unbinder;
-    private static int CODE_LOCATION = 123;
-    private static int ZOOM = 16;
-    private static int SIZE_MARKER = 95;
-    private static int MIN_TIME = 1200;
-    private static int MIN_DISTANCE = 0;
+    private final int CODE_LOCATION = 123;
+    final int ZOOM = 16;
+    final int SIZE_MARKER = 95;
+    final int MIN_TIME = 1200;
+    final int MIN_DISTANCE = 0;
     private List<ResponseReport.ReportListAdoption> reportListAdoptionsInfo;
     private List<ResponseReport.ReportList> reportListsAbandonedInfo;
     private List<ResponseReport.ReportListMissing> reportListsMissingInfo;
     private HashMap<Marker, ReportEntity> hashMapReport = new HashMap<Marker, ReportEntity>();
 
     private Timer timer;
-
-    public HomeFragment() {
-    }
 
     public static HomeFragment newInstance() {
         return new HomeFragment();

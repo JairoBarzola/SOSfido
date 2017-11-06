@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.HomeActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.RegisterUserContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.RegisterUserPresenterImpl;
@@ -72,10 +74,8 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     private String location;
     private String longitude;
     private String latitude;
-    com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd;
+    DatePickerDialog dpd;
 
-    public RegisterUserFragment() {
-    }
 
     public static RegisterUserFragment newInstance() {
         return new RegisterUserFragment();
@@ -189,7 +189,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
             Intent intent = intentBuilder.build(getActivity());
             startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
         } catch (Exception e) {
-            e.printStackTrace();
+            setMessageError("error");
         }
 
     }

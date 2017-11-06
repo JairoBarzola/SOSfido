@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.calidad.sosfidoapp.sosfido.data.repositories.Local.SessionManager;
+import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.R;
 
 public class LoadActivity extends AppCompatActivity {
@@ -21,7 +21,7 @@ public class LoadActivity extends AppCompatActivity {
                     sleep(2000);
                     verifyToken();
 
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     //nothing
                 }
             }

@@ -15,14 +15,14 @@ import butterknife.ButterKnife;
 public class SuggestionsActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar tb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_model);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         SuggenstionsFragment publicationsFragment = new SuggenstionsFragment().newInstance();

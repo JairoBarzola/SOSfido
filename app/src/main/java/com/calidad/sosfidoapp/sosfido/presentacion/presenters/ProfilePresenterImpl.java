@@ -4,10 +4,10 @@ import android.content.Context;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseUser;
-import com.calidad.sosfidoapp.sosfido.data.repositories.Local.SessionManager;
-import com.calidad.sosfidoapp.sosfido.data.repositories.Remote.ApiConstants;
-import com.calidad.sosfidoapp.sosfido.data.repositories.Remote.Request.UserRequest;
-import com.calidad.sosfidoapp.sosfido.data.repositories.Remote.ServiceFactory;
+import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.Request.UserRequest;
+import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.ProfileContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.ProfileFragment;
 import com.calidad.sosfidoapp.sosfido.R;

@@ -10,8 +10,8 @@ public class LoginEntity {
     private String password;
 
     public LoginEntity(String email,String password){
-        this.setPassword(password);
-        this.setEmail(email);
+        this.password=password;
+        this.email=email;
     }
 
     public String getEmail() {

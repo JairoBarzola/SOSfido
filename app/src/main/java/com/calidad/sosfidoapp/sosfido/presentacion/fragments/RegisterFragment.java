@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.calidad.sosfidoapp.sosfido.data.repositories.Local.SessionManager;
+import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.RegisterContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.RegisterPresenterImpl;
@@ -85,8 +85,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     private SessionManager sessionManager;
     private int idReport;
 
-    public RegisterFragment() {
-    }
 
     public static RegisterFragment newInstance() {
         return new RegisterFragment();
@@ -191,13 +189,11 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
                 setMessageError("error");
             }
         }
-        if (requestCode == CAMERA_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                Bitmap bitmapCamera = (Bitmap) data.getExtras().get("data");
-                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapCamera, 600, 600, false);
-                imageBase64 = convertBitmapToBASE64(resizedImageGallery);
-                photoAnimal.setImageBitmap(resizedImageGallery);
-            }
+        if (requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK) {
+            Bitmap bitmapCamera = (Bitmap) data.getExtras().get("data");
+            Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapCamera, 600, 600, false);
+            imageBase64 = convertBitmapToBASE64(resizedImageGallery);
+            photoAnimal.setImageBitmap(resizedImageGallery);
         }
         if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == Activity.RESULT_OK) {
             displaySelectedPlaceFromPlacePicker(data);

@@ -15,7 +15,7 @@ import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.PublicationsActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.ReportContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.PublicationsPresenterImpl;
-import com.calidad.sosfidoapp.sosfido.presentacion.Adapters.ReportRecyclerAdapter;
+import com.calidad.sosfidoapp.sosfido.presentacion.adapters.ReportRecyclerAdapter;
 import com.calidad.sosfidoapp.sosfido.R;
 
 import java.util.ArrayList;
@@ -40,11 +40,8 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
     SwipeRefreshLayout swipeRefresh;
 
     private ReportContract.Presenter presenter;
-    private LinearLayoutManager layoutManager;
-    private ReportRecyclerAdapter adapter;
-
-    public PublicationsFragment() {
-    }
+    LinearLayoutManager layoutManager;
+    ReportRecyclerAdapter adapter;
 
     public static PublicationsFragment newInstance() {
         return new PublicationsFragment();

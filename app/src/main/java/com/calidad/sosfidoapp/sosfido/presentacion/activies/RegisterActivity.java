@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 public class RegisterActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar tb;
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout container;
     private RegisterFragment fragment;
@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         int idReport = bundle.getInt("idReport");
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         fragment = (RegisterFragment) getSupportFragmentManager().findFragmentById(R.id.body);
