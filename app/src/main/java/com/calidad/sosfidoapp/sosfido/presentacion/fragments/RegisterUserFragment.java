@@ -82,12 +82,11 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         validator = new Validator(this);
         validator.setValidationListener(this);
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Registrando...");
         Calendar now = Calendar.getInstance();
-        dpd = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
+        dpd = DatePickerDialog.newInstance(
                 this,
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
@@ -149,7 +148,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     }
 
     @Override
-    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         etBirthDate.setText(year + "-" + String.format("%02d", monthOfYear + 1) + "-" + String.format("%02d", dayOfMonth));
     }
 
@@ -162,10 +161,11 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
 
     }
 
-    void closeKeyboard() {
+    public void closeKeyboard() {
         View view = getActivity().getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert imm != null;
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }

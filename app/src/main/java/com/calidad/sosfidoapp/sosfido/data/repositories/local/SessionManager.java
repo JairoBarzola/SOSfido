@@ -23,7 +23,7 @@ public class SessionManager {
     private static final String U_JSON = "uJson";
     // USER ISLOGIN
     private static final String IS_LOGIN = "userLogin";
-    Context context;
+    public Context context;
     public SessionManager(Context context){
         this.context = context;
         preferences = context.getSharedPreferences(NAME_PREFERENCE,Context.MODE_PRIVATE);

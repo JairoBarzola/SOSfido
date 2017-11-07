@@ -30,7 +30,7 @@ public class LoadActivity extends AppCompatActivity {
     }
 
     private void verifyToken() {
-        if (sessionManager.isLogin() == true) {
+        if (sessionManager.isLogin()) {
             openActivity(HomeActivity.class);
         } else {
             openActivity(LoginActivity.class);

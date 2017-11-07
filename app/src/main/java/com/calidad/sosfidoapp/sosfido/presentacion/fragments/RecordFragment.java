@@ -2,9 +2,7 @@ package com.calidad.sosfidoapp.sosfido.presentacion.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 
 import com.calidad.sosfidoapp.sosfido.R;
 
@@ -28,10 +26,6 @@ public class RecordFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
 
 
 }

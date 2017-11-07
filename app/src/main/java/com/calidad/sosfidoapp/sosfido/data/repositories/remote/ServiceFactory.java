@@ -10,16 +10,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ServiceFactory {
-    String API_BASE_URL = "http://sosfido.tk/";
-
-
-    public ServiceFactory(){}
     public  <S> S createService(Class<S> serviceClass) {
 
         OkHttpClient httpClient = new OkHttpClient();
         Retrofit.Builder builder =
                 new Retrofit.Builder()
-                        .baseUrl(API_BASE_URL)
+                        .baseUrl("http://sosfido.tk/")
                         .addConverterFactory(GsonConverterFactory.create());
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);

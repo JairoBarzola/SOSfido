@@ -11,15 +11,8 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Base64;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.view.*;
+import android.widget.*;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.RegisterContract;
@@ -120,11 +113,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
         }
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     private void askForPermission(String permission, Integer code) {
         if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
@@ -137,7 +125,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
 
     @OnClick(R.id.fab_photo_animal)
-    void buttonOnClicked() {
+    public void buttonOnClicked() {
         Bundle bundle = new Bundle();
         bundle.putInt("IdFragment", 1);
         CustomBottomSheetDialogFragment fragment = new CustomBottomSheetDialogFragment();
@@ -229,7 +217,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
         ((RegisterActivity) getActivity()).showMessage(message);
     }
 
-    void sendReport() {
+    public void sendReport() {
         if (imageBase64 != null) {
             if (idReport == 1) {
                 presenter.start(location, latitud, longitude, edtDescrip.getText().toString(),
@@ -273,7 +261,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     }
 
     @OnClick(R.id.edt_address_report)
-    void onClickAddress(View view) {
+    public void onClickAddress(View view) {
         if (view.getId() == R.id.edt_address_report) {
             startPlacePickerActivity();
         }

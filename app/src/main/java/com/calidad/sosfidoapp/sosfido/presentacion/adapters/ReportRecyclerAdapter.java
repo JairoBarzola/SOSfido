@@ -66,12 +66,9 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.image_publication)
-        CircleImageView image;
-        @BindView(R.id.name_publication)
-        TextView name;
-        @BindView(R.id.txtLag)
-        TextView lag;
+        @BindView(R.id.image_publication) CircleImageView image;
+        @BindView(R.id.name_publication) TextView name;
+        @BindView(R.id.txtLag) TextView lag;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -6,22 +6,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.location.*;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.view.*;
+import android.widget.*;
 import com.calidad.sosfidoapp.sosfido.data.entities.ReportEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.HomeActivity;
@@ -39,13 +32,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
+import java.util.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -63,15 +50,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     private double longitude;
     private Unbinder unbinder;
     private final int CODE_LOCATION = 123;
-    final int ZOOM = 16;
-    final int SIZE_MARKER = 95;
-    final int MIN_TIME = 1200;
-    final int MIN_DISTANCE = 0;
-    private List<ResponseReport.ReportListAdoption> reportListAdoptionsInfo;
-    private List<ResponseReport.ReportList> reportListsAbandonedInfo;
-    private List<ResponseReport.ReportListMissing> reportListsMissingInfo;
-    private HashMap<Marker, ReportEntity> hashMapReport = new HashMap<Marker, ReportEntity>();
-
+    int ZOOM = 16;
+    int SIZE_MARKER = 95;
+    int MIN_TIME = 1200;
+    int MIN_DISTANCE = 0;
+    public List<ResponseReport.ReportListAdoption> reportListAdoptionsInfo;
+    public List<ResponseReport.ReportList> reportListsAbandonedInfo;
+    public List<ResponseReport.ReportListMissing> reportListsMissingInfo;
+    public HashMap<Marker, ReportEntity> hashMapReport = new HashMap<Marker, ReportEntity>();
     private Timer timer;
 
     public static HomeFragment newInstance() {
@@ -91,7 +77,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
         int delay = 5000; // delay for 0 sec.

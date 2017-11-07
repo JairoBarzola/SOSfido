@@ -21,10 +21,8 @@ import butterknife.ButterKnife;
 
 public class PublicationsActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar tb;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.toolbar) Toolbar tb;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

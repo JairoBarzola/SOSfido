@@ -41,26 +41,22 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawer;
-    @BindView(R.id.toolbar)
-    Toolbar tb;
-    @BindView(R.id.nav_view)
-    NavigationView navigationView;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout container;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.toolbar) Toolbar tb;
+    @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
     //code profile
     private final int CODE_PROFILE = 120;
     //code report
     private final int CODE_REGISTER_REPORT = 130;
-    View hView;
-    PersonEntity personEntity;
+    public View hView;
+    public PersonEntity personEntity;
     private TextView navName;
     private TextView navAddress;
     private CircleImageView navImage;
     private SessionManager sessionManager;
     private ProgressDialogCustom mProgressDialogCustom;
-    HomeFragment homeFragment;
+    public HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,12 +230,12 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    void openActivity(Class<?> activity) {
+    private void openActivity(Class<?> activity) {
         Intent actv = new Intent(HomeActivity.this, activity);
         startActivity(actv);
     }
 
-    void openActivity(Class<?> activity, int code) {
+    private void openActivity(Class<?> activity, int code) {
         Intent actv = new Intent(HomeActivity.this, activity);
         startActivityForResult(actv, code);
     }
@@ -278,15 +274,11 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODE_PROFILE) {
-            if (resultCode == RESULT_OK) {
+        if (requestCode == CODE_PROFILE &&resultCode == RESULT_OK) {
                 updateData();
-            }
         }
-        if (requestCode == CODE_REGISTER_REPORT) {
-            if (resultCode == RESULT_OK) {
+        if (requestCode == CODE_REGISTER_REPORT && resultCode == RESULT_OK) {
                 homeFragment.loadMap();
-            }
         }
     }
 

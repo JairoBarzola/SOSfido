@@ -67,7 +67,6 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         presenter.start();
     }
 

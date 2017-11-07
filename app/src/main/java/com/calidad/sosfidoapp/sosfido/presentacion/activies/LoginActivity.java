@@ -36,13 +36,10 @@ import butterknife.OnClick;
 public class LoginActivity extends AppCompatActivity implements LoginContract.View, Validator.ValidationListener {
 
     @Email(message = "Email no válido")
-    @BindView(R.id.et_usuario_l)
-    EditText etUsuario;
+    @BindView(R.id.et_usuario_l) EditText etUsuario;
     @NotEmpty(message = "Este campo no puede ser vacío")
-    @BindView(R.id.et_password_l)
-    EditText etPassword;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout container;
+    @BindView(R.id.et_password_l) EditText etPassword;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
     private Validator validator;
     private LoginContract.Presenter presenter;
     private ProgressDialogCustom mProgressDialogCustom;
@@ -153,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         this.showMessageSnack(container, message, R.color.error_red);
     }
 
-    void closeKeyboard() {
+    private void closeKeyboard() {
         View view = LoginActivity.this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

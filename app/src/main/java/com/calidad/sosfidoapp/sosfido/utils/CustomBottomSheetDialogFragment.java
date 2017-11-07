@@ -26,13 +26,12 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
     public static final String FRAGMENT_KEY = "com.calidad.sosfidoapp.sosfido";
     @BindView(R.id.ln_gallery) ImageView lnGallery;
     @BindView(R.id.ln_camera) ImageView lnCamera;
-    ProfileFragment fragment2;
-    RegisterFragment fragment1;
+    public ProfileFragment fragment2;
+    public RegisterFragment fragment1;
     private int id;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.bottom_sheet_dialog, container);
         id= getArguments().getInt("IdFragment",1);
         ButterKnife.bind(this,view);

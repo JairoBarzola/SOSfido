@@ -20,7 +20,7 @@
                 android:layout_height="match_parent"
                 android:visibility="gone"
                 android:id="@+id/empty"
-                android:text="No hay reportes para mostrar."
+                android:text="@string/empty"
                 android:gravity="center"
                 />
 

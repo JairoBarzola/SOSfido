@@ -13,12 +13,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
@@ -57,7 +53,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     private  final int GALLERY_CODE = 5;;
     private  final int CAMERA_CODE = 1888;
     private  final int CAMERA = 0x5;
-    String imageBase64;
+    public String imageBase64;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -73,12 +69,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         presenter = new ProfilePresenterImpl(this, getContext());
         presenter.start();
         return root;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
     }
 
     private void askForPermission(String permission, Integer code) {
@@ -168,13 +158,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 setMessageError("error");
             }
         }
-        if (requestCode == CAMERA_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK) {
                 Bitmap bitmapCamera = (Bitmap) data.getExtras().get("data");
                 Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapCamera, 400, 600, false);
                 imageBase64 = convertBitmapToBASE64(resizedImageGallery);
                 sendPhoto(imageBase64);
-            }
         }
     }
 
@@ -204,13 +192,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     }
 
     public void setImage(String photo) {
-        Log.i("URL", sessionManager.getPersonEntity().getPersonImage());
         //construir personentity
         sessionManager.saveUser(new PersonEntity(sessionManager.getPersonEntity().getId(),
                 sessionManager.getPersonEntity().getUser(), sessionManager.getPersonEntity().getBornDate(),
                 sessionManager.getPersonEntity().getPhoneNumber(), sessionManager.getPersonEntity().getAddress(),
                 photo));
-        Log.i("URL", sessionManager.getPersonEntity().getPersonImage());
         Picasso.with(getContext()).load(sessionManager.getPersonEntity().getPersonImage()).into(imageProfile);
     }
 }
