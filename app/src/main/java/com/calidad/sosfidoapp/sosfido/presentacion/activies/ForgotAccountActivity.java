@@ -48,6 +48,7 @@ public class ForgotAccountActivity extends AppCompatActivity implements Validato
     @BindView(R.id.lnfa_email) LinearLayout lnEmail;
     @BindView(R.id.lnfa_pass) LinearLayout lnPassword;
     @BindView(R.id.name_person) TextView namePersona;
+    @BindView(R.id.enter_name) TextView enterName;
     private Validator validator;
     public ForgotAccountContract.Presenter presenter;
     private ProgressDialogCustom mProgressDialogCustom;
@@ -126,6 +127,7 @@ public class ForgotAccountActivity extends AppCompatActivity implements Validato
         faEmail.setText("");
         lnEmail.setVisibility(View.GONE);
         namePersona.setText(message+" existe");
+        enterName.setVisibility(View.GONE);
         this.idUser=userId;
     }
 
