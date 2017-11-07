@@ -26,7 +26,7 @@ public interface UserRequest {
 
     @FormUrlEncoded
     @POST(ApiConstants.LOGIN)
-    Call<AccessTokenEntity> login (@Header("Content-type") String contentType, @Field("email") String email,@Field("password") String password);
+    Call<AccessTokenEntity> login (@Header("Content-type") String contentType, @Field("email") String email, @Field("password") String password);
 
     @GET(ApiConstants.U_DESCRIPTION)
     Call<PersonEntity> getPerson (@Header("Content-type") String contentType, @Header("Authorization") String token, @Path("person_id") String person_id);
@@ -44,11 +44,11 @@ public interface UserRequest {
 
 
     @POST(ApiConstants.UPLOAD_PHOTO)
-    Call<ResponseUser.Photo> uploadPhoto (@Header("Content-type") String contentType, @Header("Authorization") String token,@Body ResponseUser.PhotoBody photoBody);
+    Call<ResponseUser.Photo> uploadPhoto (@Header("Content-type") String contentType, @Header("Authorization") String token, @Body ResponseUser.PhotoBody photoBody);
 
 
     @PATCH(ApiConstants.CHANGE_PHOTO)
-    Call<ResponseUser.PhotoChange> changePhoto (@Header("Content-type") String contentType, @Header("Authorization") String token,@Body ResponseUser.PhotoChange photoBody, @Path("person_id") String person_id);
+    Call<ResponseUser.PhotoChange> changePhoto (@Header("Content-type") String contentType, @Header("Authorization") String token, @Body ResponseUser.PhotoChange photoBody, @Path("person_id") String person_id);
 
 
 

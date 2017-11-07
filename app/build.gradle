@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.calidad.sosfidoapp.sosfido"
-        manifestPlaceholders = [onesignal_app_id: "340e9d3e-5e29-436f-a9d2-bc3c6b178e06",
+        manifestPlaceholders = [onesignal_app_id               : "340e9d3e-5e29-436f-a9d2-bc3c6b178e06",
                                 // Project number pulled from dashboard, local value is ignored.
                                 onesignal_google_project_number: "REMOTE"]
         minSdkVersion 21
@@ -49,4 +49,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services:11.4.2'
     compile 'com.android.support:animated-vector-drawable:26.1.0'
     compile 'com.android.support:customtabs:26.1.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }

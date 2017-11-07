@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.*;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,8 +16,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.*;
 import android.widget.*;
+
+import com.bumptech.glide.Glide;
 import com.calidad.sosfidoapp.sosfido.data.entities.*;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
+import com.calidad.sosfidoapp.sosfido.presentacion.activies.DetailMarkerActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.HomeActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.HomeContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.HomePresenterImpl;
@@ -39,7 +43,7 @@ import butterknife.Unbinder;
 
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeContract.View,
-        GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener {
+        GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener,GoogleMap.OnMarkerClickListener {
 
     @BindView(R.id.mv_show_reports)
     MapView mapView;
@@ -116,8 +120,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         googleMap.setOnMyLocationButtonClickListener(this);
+        googleMap.setOnMarkerClickListener(this);
         googleMap.setOnInfoWindowClickListener(this);
-        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+        googleMap.setInfoWindowAdapter(new CustomWindowAdapter());
+      /*  googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
                 return null;
@@ -130,21 +136,26 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
                 TextView textView = v.findViewById(R.id.text);
                 TextView name = v.findViewById(R.id.pet_name);
                 ReportEntity data = hashMapReport.get(marker);
+
                 if (data != null) {
                     textView.setText(data.getLocation());
                     name.setText(data.getNamePet());
                     if (data.getPhoto().equals("Sin imagen")) {
-                        Picasso.with(v.getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageView);
+                        //Picasso.with(v.getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageView);
+                        Glide.with(v.getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").crossFade().into(imageView);
                     } else {
-                        Picasso.with(v.getContext()).load(data.getPhoto()).into(imageView);
+                        //Picasso.with(v.getContext()).load(data.getPhoto()).into(imageView);
+                        Glide.with(v.getContext()).load(data.getPhoto()).crossFade().into(imageView);
                     }
+                    Glide.with(v.getContext()).load(data.getPhoto()).crossFade().into(imageView);
                 }
                 return v;
             }
-        });
+        });*/
         presenter.loadReports();
         myUbication();
     }
+
 
     private void myUbication() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -320,8 +331,49 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     }
 
     @Override
-    public void onInfoWindowClick(Marker marker) {
-        //    Toast.makeText(getContext(),"Hola",Toast.LENGTH_SHORT).show();
+    public void onInfoWindowClick(final Marker marker) {
+        Intent i = new Intent(getActivity(), DetailMarkerActivity.class);
+        startActivity(i);
     }
 
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        marker.showInfoWindow();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                marker.showInfoWindow();
+            }
+        }, 450);
+        return true;
+    }
+
+    public class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            return null;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            View v = getActivity().getLayoutInflater().inflate(R.layout.info_marker, null);
+            ImageView imageView = v.findViewById(R.id.image_animal);
+            TextView textView = v.findViewById(R.id.text);
+            TextView name = v.findViewById(R.id.pet_name);
+            ReportEntity data = hashMapReport.get(marker);
+            if (data != null) {
+                textView.setText(data.getLocation());
+                name.setText(data.getNamePet());
+                if (data.getPhoto().equals("Sin imagen")) {
+                    Picasso.with(getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageView);
+                } else {
+                    Picasso.with(getContext()).load(data.getPhoto()).into(imageView);
+                }
+            }
+            return v;
+        }
+    }
 }
