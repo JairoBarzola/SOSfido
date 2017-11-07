@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.view.*;
 import android.widget.*;
+import android.provider.MediaStore;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.RegisterContract;
@@ -135,7 +136,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
     public void openCamera() {
         if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(i, CAMERA_CODE);
         } else {
             askForPermission(android.Manifest.permission.CAMERA, CAMERA);
