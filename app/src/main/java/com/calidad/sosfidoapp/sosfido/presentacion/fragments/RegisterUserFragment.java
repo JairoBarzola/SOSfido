@@ -54,6 +54,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     @BindView(R.id.et_email) EditText etEmail;
     @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.et_district) EditText etDistrict;
+
     @Password(message = "La contraseña debe tener mínimo 6 campos")
     @BindView(R.id.et_password) EditText etPassword;
     @ConfirmPassword(message = "No concuerda con la contraseña")

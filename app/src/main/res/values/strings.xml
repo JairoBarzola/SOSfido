@@ -25,6 +25,8 @@
     //activities
 
     <string name="btnregistrar">CREAR UNA CUENTA</string>
+    <string name="verificar">Buscar</string>
+    <string name="updatepassword">Actualizar</string>
 
     //register
     <string name="first_name">Nombre</string>

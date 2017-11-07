@@ -151,7 +151,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             Uri filePath = data.getData();
             try {
                 Bitmap bitmapGallery = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, 400, 600, false);
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, 600, 600, false);
                 imageBase64 = convertBitmapToBASE64(resizedImageGallery);
                 sendPhoto(imageBase64);
 
@@ -161,7 +161,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         }
         if (requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK) {
                 Bitmap bitmapCamera = (Bitmap) data.getExtras().get("data");
-                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapCamera, 400, 600, false);
+                Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapCamera, 600, 600, false);
                 imageBase64 = convertBitmapToBASE64(resizedImageGallery);
                 sendPhoto(imageBase64);
         }

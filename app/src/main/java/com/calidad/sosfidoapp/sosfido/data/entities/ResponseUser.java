@@ -97,4 +97,26 @@ public class ResponseUser {
             this.image = image;
         }
     }
+
+    public static  class ForgotAccount {
+        private boolean status;
+        private String user_id;
+
+
+        public String getUserId() {
+            return user_id;
+        }
+
+        public void setUserId(String user_id) {
+            this.user_id = user_id;
+        }
+
+        public boolean isStatus() {
+            return status;
+        }
+
+        public void setStatus(boolean status) {
+            this.status = status;
+        }
+    }
 }

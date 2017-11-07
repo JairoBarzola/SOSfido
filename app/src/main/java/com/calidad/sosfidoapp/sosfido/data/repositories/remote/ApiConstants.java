@@ -19,6 +19,9 @@ public class ApiConstants {
     public static final String UPLOAD_PHOTO = "person-image-api/";
     public static final String CHANGE_PHOTO= "person-image-api/{person_id}/";
     public static final String EDIT_U="person-api/{person_id}/";
+    public static final String FIND_EMAIL="find-user-api/";
+
+    public static final String UPDATE_PASS="update-password-api/";
 
     //API KEYS CONSTANS
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";

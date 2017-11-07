@@ -50,6 +50,13 @@ public interface UserRequest {
     @PATCH(ApiConstants.CHANGE_PHOTO)
     Call<ResponseUser.PhotoChange> changePhoto (@Header("Content-type") String contentType, @Header("Authorization") String token, @Body ResponseUser.PhotoChange photoBody, @Path("person_id") String person_id);
 
+    @FormUrlEncoded
+    @POST(ApiConstants.FIND_EMAIL)
+    Call<ResponseUser.ForgotAccount> sendEmail(@Header("Content-type") String contentType,@Field("email") String email);
+
+    @FormUrlEncoded
+    @POST(ApiConstants.UPDATE_PASS)
+    Call<ResponseUser.ForgotAccount> updatePassword(@Header("Content-type") String contentType, @Field("user_id") String person_id, @Field("password") String password);
 
 
 }

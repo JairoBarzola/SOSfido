@@ -10,8 +10,7 @@
         android:layout_height="120dp"
         android:id="@+id/image_animal"
         android:src="@drawable/perro"
-        android:layout_gravity="center"
-        />
+        android:layout_gravity="center"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -23,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="FIDO"
         android:gravity="center"
-        android:textSize="14dp"
+        android:textSize="18sp"
         android:fontFamily="sans-serif"
         android:textStyle="bold"
         android:textColor="@color/text"/>
@@ -31,49 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:visibility="gone"
-        android:background="?android:attr/listDivider"
-        ></View>
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/gray"
-        android:textSize="12dp"
-        android:visibility="gone"
-        android:text=" Av. Gonzales prada"
-        android:gravity="center"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        ></View>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:weightSum="2"
-        android:layout_height="30dp">
-        <ImageView
-           android:padding="2dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Atendido"
-            android:textSize="12dp"
-            android:gravity="center"
-            android:src="@drawable/apd"
-            android:textStyle="bold"
-            android:textColor="@color/deep_orange"
-            android:layout_weight="1"/>
-        <View
-            android:id="@+id/separator"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="?android:attr/listDivider"></View>
-        <ImageView
-            android:padding="2dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:src="@drawable/info"
-            android:textColor="@color/blue_facebook_select"
-            android:layout_weight="1"/>
-    </LinearLayout>
+        android:background="?android:attr/listDivider">
+    </View>
+
 </LinearLayout>

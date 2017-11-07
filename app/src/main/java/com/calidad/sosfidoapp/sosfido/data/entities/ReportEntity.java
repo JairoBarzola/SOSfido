@@ -1,10 +1,13 @@
 package com.calidad.sosfidoapp.sosfido.data.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by jairbarzola on 31/10/17.
  */
 
-public class ReportEntity {
+public class ReportEntity implements Parcelable {
 
     private String idReport;
     private String location;
@@ -29,6 +32,30 @@ public class ReportEntity {
         this.description=description;
         this.typeReport=typeReport;
     }
+
+    protected ReportEntity(Parcel in) {
+        idReport = in.readString();
+        location = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
+        date = in.readString();
+        photo = in.readString();
+        namePet = in.readString();
+        description = in.readString();
+        typeReport = in.readString();
+    }
+
+    public static final Creator<ReportEntity> CREATOR = new Creator<ReportEntity>() {
+        @Override
+        public ReportEntity createFromParcel(Parcel in) {
+            return new ReportEntity(in);
+        }
+
+        @Override
+        public ReportEntity[] newArray(int size) {
+            return new ReportEntity[size];
+        }
+    };
 
     public String getIdReport() {
         return idReport;
@@ -100,5 +127,23 @@ public class ReportEntity {
 
     public void setTypeReport(String typeReport) {
         this.typeReport = typeReport;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(idReport);
+        parcel.writeString(location);
+        parcel.writeString(latitude);
+        parcel.writeString(longitude);
+        parcel.writeString(date);
+        parcel.writeString(photo);
+        parcel.writeString(namePet);
+        parcel.writeString(description);
+        parcel.writeString(typeReport);
     }
 }

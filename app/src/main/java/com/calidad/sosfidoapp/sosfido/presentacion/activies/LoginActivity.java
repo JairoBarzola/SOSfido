@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.et_password_l) EditText etPassword;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout container;
+    @BindView(R.id.tv_forgot_account) TextView forgotAccount;
     private Validator validator;
     private LoginContract.Presenter presenter;
     private ProgressDialogCustom mProgressDialogCustom;
@@ -55,14 +56,19 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mProgressDialogCustom = new ProgressDialogCustom(this, "Iniciando Sesión...");
     }
 
-    @OnClick({R.id.btn_login, R.id.btn_register})
+    @OnClick({R.id.btn_login, R.id.btn_register,R.id.tv_forgot_account})
     void onClickView(View view) {
         if (view.getId() == R.id.btn_login) {
             closeKeyboard();
             validator.validate();
         } else {
+            if(view.getId() == R.id.btn_register){
             closeKeyboard();
             openActivity(RegisterUserActivity.class);
+            }else{
+                openActivity(ForgotAccountActivity.class);
+                finish();
+            }
         }
     }
 
@@ -109,7 +115,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void onValidationSucceeded() {
         presenter.login(etUsuario.getText().toString().trim(), etPassword.getText().toString());
     }
-
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
         for (ValidationError error : errors) {

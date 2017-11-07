@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.location.*;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +37,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
 import java.util.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,35 +126,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         googleMap.setOnMarkerClickListener(this);
         googleMap.setOnInfoWindowClickListener(this);
         googleMap.setInfoWindowAdapter(new CustomWindowAdapter());
-      /*  googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-            @Override
-            public View getInfoWindow(Marker marker) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                View v = getActivity().getLayoutInflater().inflate(R.layout.info_marker, null);
-                ImageView imageView = v.findViewById(R.id.image_animal);
-                TextView textView = v.findViewById(R.id.text);
-                TextView name = v.findViewById(R.id.pet_name);
-                ReportEntity data = hashMapReport.get(marker);
-
-                if (data != null) {
-                    textView.setText(data.getLocation());
-                    name.setText(data.getNamePet());
-                    if (data.getPhoto().equals("Sin imagen")) {
-                        //Picasso.with(v.getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageView);
-                        Glide.with(v.getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").crossFade().into(imageView);
-                    } else {
-                        //Picasso.with(v.getContext()).load(data.getPhoto()).into(imageView);
-                        Glide.with(v.getContext()).load(data.getPhoto()).crossFade().into(imageView);
-                    }
-                    Glide.with(v.getContext()).load(data.getPhoto()).crossFade().into(imageView);
-                }
-                return v;
-            }
-        });*/
         presenter.loadReports();
         myUbication();
     }
@@ -332,7 +306,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
     @Override
     public void onInfoWindowClick(final Marker marker) {
+        ReportEntity data = hashMapReport.get(marker);
         Intent i = new Intent(getActivity(), DetailMarkerActivity.class);
+        i.putExtra("Report",data);
         startActivity(i);
     }
 
@@ -361,11 +337,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         public View getInfoContents(Marker marker) {
             View v = getActivity().getLayoutInflater().inflate(R.layout.info_marker, null);
             ImageView imageView = v.findViewById(R.id.image_animal);
-            TextView textView = v.findViewById(R.id.text);
             TextView name = v.findViewById(R.id.pet_name);
             ReportEntity data = hashMapReport.get(marker);
             if (data != null) {
-                textView.setText(data.getLocation());
                 name.setText(data.getNamePet());
                 if (data.getPhoto().equals("Sin imagen")) {
                     Picasso.with(getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageView);
