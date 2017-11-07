@@ -37,7 +37,7 @@ public class LoadActivity extends AppCompatActivity {
         }
     }
 
-    void openActivity(Class<?> activity) {
+    private void openActivity(Class<?> activity) {
 
         Intent i = new Intent(LoadActivity.this, activity);
         startActivity(i);

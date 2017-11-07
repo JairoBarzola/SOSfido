@@ -15,7 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.*;
 import android.widget.*;
-import com.calidad.sosfidoapp.sosfido.data.entities.ReportEntity;
+import com.calidad.sosfidoapp.sosfido.data.entities.*;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.HomeActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.HomeContract;
@@ -50,15 +50,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     private double longitude;
     private Unbinder unbinder;
     private final int CODE_LOCATION = 123;
-    int ZOOM = 16;
-    int SIZE_MARKER = 95;
-    int MIN_TIME = 1200;
-    int MIN_DISTANCE = 0;
-    public List<ResponseReport.ReportListAdoption> reportListAdoptionsInfo;
-    public List<ResponseReport.ReportList> reportListsAbandonedInfo;
-    public List<ResponseReport.ReportListMissing> reportListsMissingInfo;
+    public int zoom = 16;
+    public int size_maker = 95;
+    public int min_time = 1200;
+    public int min_distance = 0;
     public HashMap<Marker, ReportEntity> hashMapReport = new HashMap<Marker, ReportEntity>();
     private Timer timer;
+    public LocationListener locListener;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -88,7 +86,30 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
                 presenter.loadReports();
             }
         }, delay, period);
+        //control del gps
+        locListener = new LocationListener() {
 
+            @Override
+            public void onLocationChanged(Location location) {
+                // mover market real time ActualizarUbicacion(location);/ setLocation(location);
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+                //nothing
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+                message("GPS Activado");
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                locationStart();
+                message("GPS Desactivado");
+            }
+        };
     }
 
     @Override
@@ -133,7 +154,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             actualizarUbicacion(location);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, locListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, min_time, min_distance, locListener);
             googleMap.setMyLocationEnabled(true);
         }
     }
@@ -213,16 +234,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     @Override
     public void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing,
                                  List<ResponseReport.ReportListAdoption> reportListAdoptions) {
-
         List<ReportEntity> reportEntityList = convertOneList(reportListAdoptions, reportListsAbandoned, reportListsMissing);
-
-
         Bitmap abandoned = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
-                R.drawable.verde), 95, 95, false);
+                R.drawable.verde), size_maker, size_maker, false);
         Bitmap lost = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
-                R.drawable.naranja), 95, 95, false);
+                R.drawable.naranja), size_maker, size_maker, false);
         Bitmap adoption = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
-                R.drawable.plomo), 95, 95, false);
+                R.drawable.plomo), size_maker, size_maker, false);
         for (ReportEntity entity : reportEntityList) {
             if (!entity.getLatitude().equals("") || !entity.getLongitude().equals("")) {
                 LatLng latLng = new LatLng(Double.parseDouble(entity.getLatitude()), Double.parseDouble(entity.getLongitude()));
@@ -239,10 +257,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
                                 .icon(BitmapDescriptorFactory.fromBitmap(adoption))), entity);
                     }
                 }
-
             }
         }
-
         mapView.onResume();
     }
 
@@ -268,31 +284,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         mapView.getMapAsync(this);
     }
 
-    //control del gps
-    LocationListener locListener = new LocationListener() {
-
-        @Override
-        public void onLocationChanged(Location location) {
-            // mover market real time ActualizarUbicacion(location);/ setLocation(location);
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-            //nothing
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-            message("GPS Activado");
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-            locationStart();
-            message("GPS Desactivado");
-        }
-    };
-
     private void message(String s) {
         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
     }
@@ -308,7 +299,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
     private void mCamera(double latitude, double longitude) {
         LatLng coordenadas = new LatLng(latitude, longitude);
-        CameraUpdate myUbication = CameraUpdateFactory.newLatLngZoom(coordenadas, ZOOM);
+        CameraUpdate myUbication = CameraUpdateFactory.newLatLngZoom(coordenadas, zoom);
         googleMap.animateCamera(myUbication);
     }
 

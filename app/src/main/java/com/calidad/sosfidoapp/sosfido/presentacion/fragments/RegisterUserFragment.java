@@ -40,7 +40,7 @@ import butterknife.OnClick;
  * Created by jairbarzola on 29/09/17.
  */
 
-public class RegisterUserFragment extends Fragment implements RegisterUserContract.View, Validator.ValidationListener, com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener {
+public class RegisterUserFragment extends Fragment implements RegisterUserContract.View, Validator.ValidationListener,DatePickerDialog.OnDateSetListener {
 
     @NotEmpty(message = "Este campo no puede ser vacío")
     @BindView(R.id.et_first_name) EditText etFirstName;
@@ -66,7 +66,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
     private String location;
     private String longitude;
     private String latitude;
-    DatePickerDialog dpd;
+    public DatePickerDialog dpd;
 
 
     public static RegisterUserFragment newInstance() {
@@ -165,7 +165,6 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
         View view = getActivity().getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            assert imm != null;
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }

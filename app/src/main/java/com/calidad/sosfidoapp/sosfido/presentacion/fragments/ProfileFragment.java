@@ -12,7 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Base64;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.*;
 import android.widget.*;
 
@@ -54,6 +54,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     private  final int CAMERA_CODE = 1888;
     private  final int CAMERA = 0x5;
     public String imageBase64;
+
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -129,7 +130,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     public void openCamera() {
         if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(i, CAMERA_CODE);
         } else {
             askForPermission(android.Manifest.permission.CAMERA, CAMERA);

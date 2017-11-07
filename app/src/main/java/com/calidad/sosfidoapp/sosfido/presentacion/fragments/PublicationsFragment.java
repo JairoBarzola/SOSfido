@@ -36,8 +36,8 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
     @BindView(R.id.empty) TextView emptyView;
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefresh;
     private ReportContract.Presenter presenter;
-    LinearLayoutManager layoutManager;
-    ReportRecyclerAdapter adapter;
+    public LinearLayoutManager layoutManager;
+    public ReportRecyclerAdapter adapter;
 
     public static PublicationsFragment newInstance() {
         return new PublicationsFragment();

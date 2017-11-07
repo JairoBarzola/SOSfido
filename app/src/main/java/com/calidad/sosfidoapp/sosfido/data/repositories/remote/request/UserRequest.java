@@ -36,7 +36,11 @@ public interface UserRequest {
 
     @FormUrlEncoded
     @POST(ApiConstants.REGISTER)
-    Call<ResponseRegisterEntity> registerUser (@Header("Content-type") String contentType, @Field("first_name") String firstname, @Field("last_name") String lastname, @Field("email") String email, @Field("password") String password, @Field("born_date") String borndate, @Field("location") String location, @Field("latitude") String longitude,@Field("longitude") String latitude, @Field("phone_number") String phone);
+    Call<ResponseRegisterEntity> registerUser (@Header("Content-type") String contentType, @Field("first_name") String firstname,
+                                               @Field("last_name") String lastname, @Field("email") String email,
+                                               @Field("password") String password, @Field("born_date") String borndate,
+                                               @Field("location") String location, @Field("latitude") String longitude,
+                                               @Field("longitude") String latitude, @Field("phone_number") String phone);
 
 
     @POST(ApiConstants.UPLOAD_PHOTO)

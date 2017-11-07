@@ -116,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    void closeKeyboard() {
+    private void closeKeyboard() {
         View view = RegisterActivity.this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

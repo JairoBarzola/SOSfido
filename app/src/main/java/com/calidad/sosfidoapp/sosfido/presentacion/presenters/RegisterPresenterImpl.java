@@ -169,8 +169,7 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
     //enviar foto de animal en adopcion
     private void uploadPhotoAdoption(String image, String adoption_proposal) {
         ReportRequest reportRequest = serviceFactory.createService(ReportRequest.class);
-        Call<ResponseStatus> call = reportRequest.sendPhotoAdoption(ApiConstants.CONTENT_TYPE_JSON,
-                "Bearer " + String.valueOf(sessionManager.getUserToken()), new ResponseReport.SendPhotoAdoption(adoption_proposal, image));
+        Call<ResponseStatus> call = reportRequest.sendPhotoAdoption(ApiConstants.CONTENT_TYPE_JSON, "Bearer " + String.valueOf(sessionManager.getUserToken()), new ResponseReport.SendPhotoAdoption(adoption_proposal, image));
         call.enqueue(new Callback<ResponseStatus>() {
             @Override
             public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
