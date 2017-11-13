@@ -1,6 +1,8 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,13 +33,11 @@ public class MyAdoptionRecylerAdapter extends  RecyclerView.Adapter<MyAdoptionRe
 
     public List<MyProposalAdoptionsEntity> myPAList;
     public Context context;
-    public ProposalAdoptionsFragment proposalAdoptionsFragment;
 
 
-    public MyAdoptionRecylerAdapter(Context context, List<MyProposalAdoptionsEntity> myPAList, ProposalAdoptionsFragment proposalAdoptionsFragment){
+    public MyAdoptionRecylerAdapter(Context context, List<MyProposalAdoptionsEntity> myPAList){
         this.context=context;
         this.myPAList=myPAList;
-        this.proposalAdoptionsFragment = proposalAdoptionsFragment;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -68,11 +68,37 @@ public class MyAdoptionRecylerAdapter extends  RecyclerView.Adapter<MyAdoptionRe
         holder.ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                proposalAdoptionsFragment.message("Mensaje","elimando");
+                deleteProposal().show();
+            }
+        });
+
+        holder.ivLook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
             }
         });
 
 
+    }
+
+    public AlertDialog deleteProposal(){
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setTitle("Mensaje");
+        dialog.setMessage("¿Desea eliminar esta propuesta?");
+        dialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        return dialog.create();
     }
 
     @Override

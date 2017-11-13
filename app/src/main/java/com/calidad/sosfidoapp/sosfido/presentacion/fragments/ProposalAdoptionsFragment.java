@@ -87,7 +87,7 @@ public class ProposalAdoptionsFragment extends Fragment  implements ProposalAdop
     @Override
     public void initRecyclerView(List<MyProposalAdoptionsEntity> reportlist) {
 
-        adapter = new MyAdoptionRecylerAdapter(getContext(),reportlist,ProposalAdoptionsFragment.this);
+        adapter = new MyAdoptionRecylerAdapter(getContext(),reportlist);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

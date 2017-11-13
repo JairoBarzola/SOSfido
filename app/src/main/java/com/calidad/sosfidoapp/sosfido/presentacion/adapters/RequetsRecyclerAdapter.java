@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.RequestsEntity;
+import com.github.siyamed.shapeimageview.BubbleImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class RequetsRecyclerAdapter extends  RecyclerView.Adapter<RequetsRecycle
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.image_request) CircleImageView imageRequest;
+        @BindView(R.id.image_request) BubbleImageView imageRequest;
         @BindView(R.id.name_request) TextView nameRequest;
         @BindView(R.id.date_request) TextView dateRequest;
         @BindView(R.id.ln_request) LinearLayout lnRequest;
