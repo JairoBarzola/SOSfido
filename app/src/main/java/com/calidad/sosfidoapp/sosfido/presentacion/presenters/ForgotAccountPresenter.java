@@ -50,7 +50,7 @@ public class ForgotAccountPresenter implements ForgotAccountContract.Presenter{
                         view.setLoadingIndicator(false);
                     }else{
                         view.setLoadingIndicator(false);
-                        view.showMessage("No hubo conexión al servidor, por favor intente más tarde");
+                        view.showMessage("Hubo un error, intente mas tarde");
                     }
                 }else{
                     view.setLoadingIndicator(false);
@@ -81,7 +81,7 @@ public class ForgotAccountPresenter implements ForgotAccountContract.Presenter{
                     view.setLoadingIndicator(false);
                 }else{
                     view.setLoadingIndicator(false);
-                    view.showMessage("Este correo no existe en nuestra base de datos");
+                    view.showMessage("Este correo es incorrecto");
                 }
                }else{
                    view.setLoadingIndicator(false);

@@ -1,13 +1,20 @@
 package com.calidad.sosfidoapp.sosfido.data.repositories.remote.request;
 
+import com.calidad.sosfidoapp.sosfido.data.entities.DeleteProposalEntity;
+import com.calidad.sosfidoapp.sosfido.data.entities.MyProposalAdoptionsEntity;
+import com.calidad.sosfidoapp.sosfido.data.entities.ProposalAdoption;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseStatus;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by Jair Barzola on 22-Oct-17.
@@ -35,5 +42,12 @@ public interface ReportRequest {
     @POST(ApiConstants.SEND_PHOTO_ADOPTION)
     Call<ResponseStatus> sendPhotoAdoption(@Header("Content-type") String contentType, @Header("Authorization") String token, @Body ResponseReport.SendPhotoAdoption responsePhoto);
 
+    @POST(ApiConstants.SEND_PROPOSAL)
+    Call<ProposalAdoption.Response> sendProposal(@Header("Content-type") String contentType, @Header("Authorization") String token, @Body ProposalAdoption proposalAdoption);
 
+    @GET(ApiConstants.GET_PROPOSAL)
+    Call<List<MyProposalAdoptionsEntity>> getMyProposal( @Header("Authorization") String token, @Query("owner_id") String owner_id);
+
+    @GET(ApiConstants.DELETE_PROPOSAL)
+    Call<DeleteProposalEntity.Reponse> deleteProposal(@Header("Content-type") String contentType, @Header("Authorization") String token, @Body DeleteProposalEntity deleteProposalEntity);
 }

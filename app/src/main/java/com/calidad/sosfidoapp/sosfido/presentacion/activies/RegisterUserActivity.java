@@ -46,7 +46,6 @@ public class RegisterUserActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public boolean onSupportNavigateUp() {

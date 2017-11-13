@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:paddingTop="20dp">
 
             <LinearLayout
@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingTop="8dp">
 
                 <ImageView
@@ -46,22 +47,22 @@
                         android:id="@+id/et_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="8dp"
                         android:hint="@string/first_name"
                         android:inputType="textCapWords"
                         android:maxLength="30"
-                        android:textSize="14dp"
+                        android:textSize="16sp"
                         android:theme="@style/EditTxtConstant" />
 
                     <EditText
                         android:id="@+id/et_last_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="8dp"
                         android:hint="@string/last_name"
                         android:inputType="textCapWords"
                         android:maxLength="30"
-                        android:textSize="14dp"
+                        android:textSize="16sp"
                         android:theme="@style/EditTxtConstant" />
                 </LinearLayout>
             </LinearLayout>
@@ -71,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingTop="8dp">
 
                 <ImageView
@@ -84,11 +86,11 @@
                     android:id="@+id/et_birth_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="8dp"
                     android:focusable="false"
                     android:hint="@string/birth_date"
                     android:inputType="datetime"
-                    android:textSize="14dp"
+                    android:textSize="16sp"
                     android:theme="@style/EditTxtConstant" />
             </LinearLayout>
 
@@ -97,7 +99,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingTop="8dp">
 
                 <ImageView
@@ -110,11 +113,11 @@
                     android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="8dp"
                     android:hint="@string/phone"
                     android:inputType="phone"
                     android:maxLength="9"
-                    android:textSize="14dp"
+                    android:textSize="16sp"
                     android:theme="@style/EditTxtConstant" />
             </LinearLayout>
 
@@ -123,7 +126,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingTop="8dp">
 
                 <ImageView
@@ -136,12 +140,12 @@
                     android:id="@+id/et_district"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="8dp"
                     android:hint="@string/direction"
                     android:inputType="text"
                     android:maxLength="40"
                     android:focusable="false"
-                    android:textSize="14dp"
+                    android:textSize="16dp"
                     android:theme="@style/EditTxtConstant" />
             </LinearLayout>
 
@@ -150,7 +154,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingTop="8dp">
 
                 <ImageView
@@ -163,10 +168,10 @@
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="8dp"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:textSize="14dp"
+                    android:textSize="16sp"
                     android:theme="@style/EditTxtConstant" />
             </LinearLayout>
 
@@ -175,7 +180,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingTop="8dp">
 
                 <ImageView
@@ -194,29 +200,25 @@
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/et_email"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="8dp"
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:maxLength="12"
-                        android:textSize="14dp"
+                        android:textSize="16sp"
                         android:theme="@style/EditTxtConstant" />
 
                     <EditText
                         android:id="@+id/et_repeat_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/et_password"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="8dp"
                         android:hint="@string/repeat_password"
                         android:inputType="textPassword"
                         android:maxLength="12"
-                        android:textSize="14dp"
+                        android:textSize="16sp"
                         android:theme="@style/EditTxtConstant" />
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
 </LinearLayout>

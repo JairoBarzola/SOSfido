@@ -44,22 +44,16 @@ public class PublicationsPresenterImpl implements ReportContract.Presenter {
             public void onResponse(Call<List<ResponseReport.ReportList>> call, Response<List<ResponseReport.ReportList>> response) {
                 if (response.isSuccessful()) {
                     List<ResponseReport.ReportList> reportList = response.body();
-                    if (reportList != null) {
-                        loadReportsMissing(reportList);
-                    } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
-                        view.hideSWipeLayout();
-                    }
-
+                    loadReportsMissing(reportList);
                 } else {
-                    view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                    view.showEmpty();
                     view.hideSWipeLayout();
                 }
             }
 
             @Override
             public void onFailure(Call<List<ResponseReport.ReportList>> call, Throwable t) {
-                view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                view.showEmpty();
                 view.hideSWipeLayout();
             }
         });
@@ -74,52 +68,23 @@ public class PublicationsPresenterImpl implements ReportContract.Presenter {
             public void onResponse(Call<List<ResponseReport.ReportListMissing>> call, Response<List<ResponseReport.ReportListMissing>> response) {
                 if (response.isSuccessful()) {
                     List<ResponseReport.ReportListMissing> reportListMissing = response.body();
-                    if (reportListMissing != null) {
-                        loadReportsAdoption(reportListsAbandoned, reportListMissing);
+                    if (reportListMissing!=null) {
+                            view.setInitRecycler(reportListsAbandoned, reportListMissing);
+                            view.hideSWipeLayout();
                     } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
                         view.hideSWipeLayout();
+                        view.showEmpty();
                     }
 
                 } else {
-                    view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                    view.showEmpty();
                     view.hideSWipeLayout();
                 }
             }
 
             @Override
             public void onFailure(Call<List<ResponseReport.ReportListMissing>> call, Throwable t) {
-                view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
-                view.hideSWipeLayout();
-            }
-        });
-    }
-
-    private void loadReportsAdoption(final List<ResponseReport.ReportList> reportListsAbandoned, final List<ResponseReport.ReportListMissing> reportListMissing) {
-        HomeRequest homeRequest = serviceFactory.createService(HomeRequest.class);
-        Call<List<ResponseReport.ReportListAdoption>> call = homeRequest.getReportsAdoption("Bearer " + sessionManager.getUserToken(), true);
-        call.enqueue(new Callback<List<ResponseReport.ReportListAdoption>>() {
-            @Override
-            public void onResponse(Call<List<ResponseReport.ReportListAdoption>> call, Response<List<ResponseReport.ReportListAdoption>> response) {
-                if (response.isSuccessful()) {
-                    List<ResponseReport.ReportListAdoption> reportListAdoption = response.body();
-                    if (reportListAdoption != null) {
-                        view.setInitRecycler(reportListsAbandoned, reportListMissing, reportListAdoption);
-                        view.hideSWipeLayout();
-                    } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
-                        view.hideSWipeLayout();
-                    }
-
-                } else {
-                    view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
-                    view.hideSWipeLayout();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ResponseReport.ReportListAdoption>> call, Throwable t) {
-                view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                view.showEmpty();
                 view.hideSWipeLayout();
             }
         });

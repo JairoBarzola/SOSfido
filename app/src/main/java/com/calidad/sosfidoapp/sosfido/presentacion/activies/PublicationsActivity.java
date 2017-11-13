@@ -44,7 +44,6 @@ public class PublicationsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public boolean onSupportNavigateUp() {
@@ -52,24 +51,4 @@ public class PublicationsActivity extends AppCompatActivity {
         return true;
     }
 
-    public void showMessageSnack(View container, String message, int colorResource) {
-        if (container != null) {
-            Snackbar snackbar = Snackbar
-                    .make(container, message, Snackbar.LENGTH_LONG);
-            snackbar.setActionTextColor(Color.WHITE);
-            View sbView = snackbar.getView();
-            sbView.setBackgroundColor(ContextCompat.getColor(this, colorResource));
-            TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.WHITE);
-            snackbar.show();
-        } else {
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void showMessageError(String message) {
-        CoordinatorLayout container = findViewById(R.id.coordinatorLayout);
-        this.showMessageSnack(container, message, R.color.error_red);
-
-    }
 }

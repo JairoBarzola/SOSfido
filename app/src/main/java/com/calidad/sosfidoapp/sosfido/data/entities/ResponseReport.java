@@ -1,5 +1,8 @@
 package com.calidad.sosfidoapp.sosfido.data.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Jair Barzola on 24-Oct-17.
  */
@@ -358,7 +361,7 @@ public class ResponseReport {
         }
     }
 
-    public static class ReportListAdoption{
+    public static class ReportListAdoption implements Parcelable {
         private String id;
         private PersonEntity owner;
         private String pet_name;
@@ -366,6 +369,36 @@ public class ResponseReport {
         private String description;
         private String date;
         private String adoption_image;
+
+        public ReportListAdoption(String id,String pet_name,String status,String description,String date,String adoption_image){
+            this.id=id;
+            this.pet_name=pet_name;
+            this.adopter=status;
+            this.description=description;
+            this.date=date;
+            this.adoption_image=adoption_image;
+        }
+
+        protected ReportListAdoption(Parcel in) {
+            id = in.readString();
+            pet_name = in.readString();
+            adopter = in.readString();
+            description = in.readString();
+            date = in.readString();
+            adoption_image = in.readString();
+        }
+
+        public static final Creator<ReportListAdoption> CREATOR = new Creator<ReportListAdoption>() {
+            @Override
+            public ReportListAdoption createFromParcel(Parcel in) {
+                return new ReportListAdoption(in);
+            }
+
+            @Override
+            public ReportListAdoption[] newArray(int size) {
+                return new ReportListAdoption[size];
+            }
+        };
 
         public PersonEntity getOwner() {
             return owner;
@@ -381,14 +414,6 @@ public class ResponseReport {
 
         public void setPetName(String pet_name) {
             this.pet_name = pet_name;
-        }
-
-        public String getAdopter() {
-            return adopter;
-        }
-
-        public void setAdopter(String adopter) {
-            this.adopter = adopter;
         }
 
         public String getDescription() {
@@ -421,6 +446,29 @@ public class ResponseReport {
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        public String getAdopter() {
+            return adopter;
+        }
+
+        public void setAdopter(String adopter) {
+            this.adopter = adopter;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(id);
+            parcel.writeString(pet_name);
+            parcel.writeString(adopter);
+            parcel.writeString(description);
+            parcel.writeString(date);
+            parcel.writeString(adoption_image);
         }
     }
 

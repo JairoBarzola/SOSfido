@@ -57,7 +57,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
 
     @Password(message = "La contraseña debe tener mínimo 6 campos")
     @BindView(R.id.et_password) EditText etPassword;
-    @ConfirmPassword(message = "No concuerda con la contraseña")
+    @ConfirmPassword(message = "No coincide con la contraseña")
     @BindView(R.id.et_repeat_password) EditText etRepeatPass;
 
     private final int REQUEST_CODE_PLACEPICKER = 1;

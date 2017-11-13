@@ -1,15 +1,18 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.ReportEntity;
 import com.calidad.sosfidoapp.sosfido.R;
+import com.calidad.sosfidoapp.sosfido.presentacion.activies.DetailMarkerActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -41,15 +44,16 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ReportEntity reportEntity = reportEntityList.get(position);
+        final ReportEntity reportEntity = reportEntityList.get(position);
         if (reportEntity.getTypeReport().equals("1")) {
             holder.image.setBorderColor(ContextCompat.getColor(context, R.color.colorMissing));
         } else {
             if (reportEntity.getTypeReport().equals("2")) {
                 holder.image.setBorderColor(ContextCompat.getColor(context, R.color.colorAbandoned));
-            } else {
-                holder.image.setBorderColor(ContextCompat.getColor(context, R.color.colorAdoption));
             }
+            /*else {
+                holder.image.setBorderColor(ContextCompat.getColor(context, R.color.colorAdoption));
+            }*/
         }
         if (reportEntity.getPhoto().equals("Sin imagen")) {
             Picasso.with(context).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(holder.image);
@@ -58,6 +62,15 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
         }
         holder.name.setText(reportEntity.getNamePet());
         holder.lag.setText(reportEntity.getLocation());
+        holder.lnPublication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent detail = new Intent (context, DetailMarkerActivity.class);
+                detail.putExtra("Report",reportEntity);
+                detail.putExtra("tag","2");
+                context.startActivity(detail);
+            }
+        });
     }
 
     @Override
@@ -69,6 +82,7 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
         @BindView(R.id.image_publication) CircleImageView image;
         @BindView(R.id.name_publication) TextView name;
         @BindView(R.id.txtLag) TextView lag;
+        @BindView(R.id.ln_publication) LinearLayout lnPublication;
 
         public ViewHolder(View itemView) {
             super(itemView);

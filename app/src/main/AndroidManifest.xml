@@ -57,7 +57,7 @@
             android:label="@string/record"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentacion.activies.SuggestionsActivity"
+            android:name=".presentacion.activies.HandleAdoptionsActivity"
             android:label="@string/suggestions"
             android:screenOrientation="portrait" />
         <activity
@@ -68,8 +68,12 @@
             android:name=".presentacion.activies.EditUserActivity"
             android:label="Editar Usuario" />
         <activity android:name=".presentacion.activies.DetailMarkerActivity" />
-        <activity android:name=".presentacion.activies.ForgotAccountActivity"
+        <activity
+            android:name=".presentacion.activies.ForgotAccountActivity"
             android:label="Recuperar Contraseña">
+        </activity>
+        <activity android:name=".presentacion.activies.RequestsActivity"
+            android:label="@string/solicitudes">
         </activity>
     </application>
 

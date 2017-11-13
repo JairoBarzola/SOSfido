@@ -1,10 +1,13 @@
 package com.calidad.sosfidoapp.sosfido.data.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by jairbarzola on 1/10/17.
  */
 
-public class PersonEntity {
+public class PersonEntity implements Parcelable {
     private int id;
     private UserEntity user;
     private String born_date;
@@ -21,6 +24,25 @@ public class PersonEntity {
         this.person_image=person_image;
     }
 
+
+    protected PersonEntity(Parcel in) {
+        id = in.readInt();
+        born_date = in.readString();
+        phone_number = in.readString();
+        person_image = in.readString();
+    }
+
+    public static final Creator<PersonEntity> CREATOR = new Creator<PersonEntity>() {
+        @Override
+        public PersonEntity createFromParcel(Parcel in) {
+            return new PersonEntity(in);
+        }
+
+        @Override
+        public PersonEntity[] newArray(int size) {
+            return new PersonEntity[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -70,34 +92,18 @@ public class PersonEntity {
         this.person_image = person_image;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-    public  class Address{
-        private String location;
-        private String latitude;
-        private String longitude;
-
-        public String getLocation() {
-            return location;
-        }
-
-        public void setLocation(String location) {
-            this.location = location;
-        }
-
-        public String getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(String latitude) {
-            this.latitude = latitude;
-        }
-
-        public String getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(String longitude) {
-            this.longitude = longitude;
-        }
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(born_date);
+        parcel.writeString(phone_number);
+        parcel.writeString(person_image);
+        parcel.writeParcelable(address,i);
+        parcel.writeParcelable(user,i);
     }
 }

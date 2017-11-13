@@ -10,8 +10,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reportar"
-            android:textSize="18dp"
+            android:text="@string/reporte"
+            android:textSize="18sp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:gravity="center"
@@ -20,13 +20,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/cream"
-            ></View>
+            android:background="@color/cream">
+        </View>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Animal perdido"
-            android:textSize="16dp"
+            android:text="@string/ranimalperidod"
+            android:textSize="16sp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:gravity="center"
@@ -35,13 +35,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/cream"
-            ></View>
+            android:background="@color/cream">
+
+        </View>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Animal abandonado"
-            android:textSize="16dp"
+            android:text="@string/ranimalabandonado"
+            android:textSize="16sp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:gravity="center"
@@ -50,13 +51,15 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/cream"
-            ></View>
+            android:visibility="gone"
+            android:background="@color/cream">
+        </View>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Animal en adopción"
-            android:textSize="16dp"
+            android:text="@string/ranimalperidod"
+            android:textSize="16sp"
+            android:visibility="gone"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:gravity="center"

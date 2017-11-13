@@ -47,7 +47,7 @@ public class HomePresenterImpl implements HomeContract.Presenter {
                     if (reportList != null) {
                         loadReportsMissing(reportList);
                     } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                        view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                     }
                 } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
@@ -70,9 +70,9 @@ public class HomePresenterImpl implements HomeContract.Presenter {
                 if (response.isSuccessful()) {
                     List<ResponseReport.ReportListMissing> reportListMissing = response.body();
                     if (reportListMissing != null) {
-                        loadReportsAdoption(reportListsAbandoned, reportListMissing);
+                        view.getReportsPoints(reportListsAbandoned, reportListMissing);
                     } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                        view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                     }
                 } else {
                     view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
@@ -81,32 +81,6 @@ public class HomePresenterImpl implements HomeContract.Presenter {
 
             @Override
             public void onFailure(Call<List<ResponseReport.ReportListMissing>> call, Throwable t) {
-                view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
-            }
-        });
-    }
-
-    private void loadReportsAdoption(final List<ResponseReport.ReportList> reportListsAbandoned, final List<ResponseReport.ReportListMissing> reportListMissing) {
-        HomeRequest homeRequest = serviceFactory.createService(HomeRequest.class);
-        Call<List<ResponseReport.ReportListAdoption>> call = homeRequest.getReportsAdoption("Bearer " + sessionManager.getUserToken(), true);
-        call.enqueue(new Callback<List<ResponseReport.ReportListAdoption>>() {
-            @Override
-            public void onResponse(Call<List<ResponseReport.ReportListAdoption>> call, Response<List<ResponseReport.ReportListAdoption>> response) {
-                if (response.isSuccessful()) {
-                    List<ResponseReport.ReportListAdoption> reportListAdoption = response.body();
-                    if (reportListAdoption != null) {
-                        view.getReportsPoints(reportListsAbandoned, reportListMissing, reportListAdoption);
-                    } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
-                    }
-
-                } else {
-                    view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ResponseReport.ReportListAdoption>> call, Throwable t) {
                 view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
             }
         });

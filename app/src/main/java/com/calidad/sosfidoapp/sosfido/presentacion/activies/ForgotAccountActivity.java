@@ -40,7 +40,7 @@ public class ForgotAccountActivity extends AppCompatActivity implements Validato
     @BindView(R.id.et_fa_email) EditText faEmail;
     @Password(message = "La contraseña debe tener mínimo 6 campos")
     @BindView(R.id.et_fa_password) EditText faPassword;
-    @ConfirmPassword(message = "No concuerda con la contraseña")
+    @ConfirmPassword(message = "No coincide con la contraseña")
     @BindView(R.id.et_fa_repeat_password) EditText faRepeatPassword;
     @BindView(R.id.btn_send_email) Button checkEmail;
     @BindView(R.id.btn_update_pass) Button updatePassword;

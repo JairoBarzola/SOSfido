@@ -17,8 +17,7 @@ public interface HomeContract {
 
         void setDialogMessage(String message);
 
-        void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing,
-                              List<ResponseReport.ReportListAdoption> reportListAdoption);
+        void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing);
     }
 
     interface Presenter {

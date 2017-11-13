@@ -6,4 +6,5 @@
 
     //text size
     <dimen name="normal_text">14sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

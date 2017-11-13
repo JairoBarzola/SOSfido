@@ -217,15 +217,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
     }
 
     @Override
-    public void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing,
-                                 List<ResponseReport.ReportListAdoption> reportListAdoptions) {
-        List<ReportEntity> reportEntityList = convertOneList(reportListAdoptions, reportListsAbandoned, reportListsMissing);
+    public void getReportsPoints(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing) {
+        List<ReportEntity> reportEntityList = convertOneList(reportListsAbandoned, reportListsMissing);
         Bitmap abandoned = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
                 R.drawable.verde), size_maker, size_maker, false);
-        Bitmap lost = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
-                R.drawable.naranja), size_maker, size_maker, false);
-        Bitmap adoption = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
-                R.drawable.plomo), size_maker, size_maker, false);
+        Bitmap lost = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.naranja), size_maker, size_maker, false);
+        //Bitmap adoption = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.plomo), size_maker, size_maker, false);
         for (ReportEntity entity : reportEntityList) {
             if (!entity.getLatitude().equals("") || !entity.getLongitude().equals("")) {
                 LatLng latLng = new LatLng(Double.parseDouble(entity.getLatitude()), Double.parseDouble(entity.getLongitude()));
@@ -234,26 +231,28 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
                     hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
                             .icon(BitmapDescriptorFactory.fromBitmap(lost))), entity);
                 } else {
-                    if (entity.getTypeReport().equals("2")) {
+                    //if (entity.getTypeReport().equals("2")) {
                         hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
                                 .icon(BitmapDescriptorFactory.fromBitmap(abandoned))), entity);
-                    } else {
+                //}
+                    /*else {
                         hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
                                 .icon(BitmapDescriptorFactory.fromBitmap(adoption))), entity);
-                    }
+                    }*/
                 }
             }
         }
         mapView.onResume();
     }
 
-    private List<ReportEntity> convertOneList(List<ResponseReport.ReportListAdoption> reportListAdoptions, List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing) {
+
+    private List<ReportEntity> convertOneList(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing) {
         List<ReportEntity> reportList = new ArrayList<>();
-        for (ResponseReport.ReportListAdoption entity : reportListAdoptions) {
+        /*for (ResponseReport.ReportListAdoption entity : reportListAdoptions) {
             reportList.add(new ReportEntity(entity.getId(), entity.getOwner().getAddress().getLocation(),
                     entity.getOwner().getAddress().getLatitude(), entity.getOwner().getAddress().getLongitude(),
                     entity.getDate(), entity.getAdoptionImage(), entity.getPetName(), entity.getDescription(), "3"));
-        }
+        }*/
         for (ResponseReport.ReportListMissing entity : reportListsMissing) {
             reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(),
                     entity.getPlace().getLongitude(), entity.getDate(), entity.getReportImage(), entity.getPetName(), entity.getDescription(), "1"));
@@ -309,6 +308,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         ReportEntity data = hashMapReport.get(marker);
         Intent i = new Intent(getActivity(), DetailMarkerActivity.class);
         i.putExtra("Report",data);
+        i.putExtra("tag","2");
         startActivity(i);
     }
 

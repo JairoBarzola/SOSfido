@@ -46,4 +46,33 @@
     <string name="no_server_connection_try_it_later">No hubo conexión al servidor, por favor intente más tarde</string>
     <string name="empty">No hay reportes para mostrar</string>
 
+    //label
+    <string name="nombre">Nombre</string>
+    <string name="descripcion">Descripción</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="publicado">Publicado por</string>
+
+    //dialog report
+    <string name="reporte">Reportar</string>
+    <string name="propuesta">Propuesta</string>
+    <string name="ranimalabandonado">Animal abandonado</string>
+    <string name="ranimalperidod">Animal perdido</string>
+
+    //register animal
+    <string name="nombrea">Nombre:</string>
+    <string name="direcciona">Dirección:</string>
+    <string name="contactoa">Contacto:</string>
+    <string name="descra">Descripción:</string>
+
+    //hint
+    <string name="in">Ingresar nombre</string>
+    <string name="id">Dirección</string>
+    <string name="it">Teléfono</string>
+    <string name="ides">Ingresar una descripción</string>
+    <string name="olvido">¿Olvidó su contraseña?</string>
+
+    <string name="emptyR">Aún no hay solicitudes para esta propuesta</string>
+
+    <string name="solicitudes">Solicitudes</string>
+
 </resources>

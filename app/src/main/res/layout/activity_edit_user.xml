@@ -38,34 +38,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="16dp"
-            android:paddingRight="32dp"
+            android:paddingRight="16dp"
             android:paddingTop="20dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_height="wrap_content">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_edprofile"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/user" />
-                <ImageButton
-                    android:id="@+id/fab_edcamera"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_alignBottom="@+id/image_edprofile"
-                    android:layout_alignRight="@+id/image_edprofile"
-                    android:background="@drawable/ripple_oval"
-                    android:src="@mipmap/ic_camera_p" />
-            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingTop="8dp">
 
                 <ImageView
@@ -84,22 +66,22 @@
                         android:id="@+id/et_first_edname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="8dp"
                         android:hint="@string/first_name"
                         android:inputType="textCapWords"
                         android:maxLength="30"
-                        android:textSize="14dp"
+                        android:textSize="16sp"
                         android:theme="@style/EditTxtConstant" />
 
                     <EditText
                         android:id="@+id/et_last_edname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="8dp"
                         android:hint="@string/last_name"
                         android:inputType="textCapWords"
                         android:maxLength="30"
-                        android:textSize="14dp"
+                        android:textSize="16sp"
                         android:theme="@style/EditTxtConstant" />
                 </LinearLayout>
             </LinearLayout>
@@ -109,7 +91,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingTop="8dp">
 
                 <ImageView
@@ -122,11 +105,11 @@
                     android:id="@+id/et_edphone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="8dp"
                     android:hint="@string/phone"
                     android:inputType="phone"
                     android:maxLength="9"
-                    android:textSize="14dp"
+                    android:textSize="16sp"
                     android:theme="@style/EditTxtConstant" />
             </LinearLayout>
 
@@ -135,7 +118,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingTop="8dp">
 
                 <ImageView
@@ -148,7 +132,7 @@
                     android:id="@+id/et_eddistrict"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="8dp"
                     android:hint="@string/direction"
                     android:inputType="text"
                     android:maxLength="40"

@@ -61,7 +61,7 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
                     if (responseReport.getId() != null) {
                         uploadPhotoAdoption("data:image/jpeg;base64," + image, responseReport.getId());
                     } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                        view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                         view.setLoadingIndicator(false);
                     }
                 } else {
@@ -90,7 +90,7 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
                     if (responseReport.getId() != null) {
                         uploadPhoto("data:image/jpeg;base64," + image, responseReport.getId());
                     } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                        view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                         view.setLoadingIndicator(false);
                     }
                 } else {
@@ -119,7 +119,7 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
                     if (responseReport.getId() != null) {
                         uploadPhoto("data:image/jpeg;base64," + image, responseReport.getId());
                     } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                        view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                         view.setLoadingIndicator(false);
                     }
                 } else {
@@ -149,7 +149,7 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
                         view.backToHome();
                         view.setLoadingIndicator(false);
                     } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                        view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                         view.setLoadingIndicator(false);
                     }
                 } else {
@@ -179,7 +179,7 @@ public class RegisterPresenterImpl implements RegisterContract.Presenter {
                         view.backToHome();
                         view.setLoadingIndicator(false);
                     } else {
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                        view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                         view.setLoadingIndicator(false);
                     }
                 } else {

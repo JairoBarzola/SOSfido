@@ -183,7 +183,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_record) {
             openActivity(RecordActivity.class);
         } else if (id == R.id.nav_suggestions) {
-            openActivity(SuggestionsActivity.class);
+            openActivity(HandleAdoptionsActivity.class);
         } else if (id == R.id.nav_logout) {
             closeSession();
         }

@@ -22,5 +22,8 @@
 
     <color name="colorMissing">#ed9420</color>
     <color name="colorAbandoned">#1a9678</color>
-    <color name="colorAdoption">#9d9d9d</color>
+    <color name="colorAdoption">#1040ff</color>
+
+    <color name="ok">#4ab957</color>
+    <color name="request">#ffe448</color>
 </resources>

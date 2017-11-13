@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/propuesta"
+        android:textSize="18sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark" />
+    <EditText
+        android:id="@+id/edt_proposal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadeScrollbars="false"
+        android:gravity="top|left"
+        android:hint="@string/ides"
+        android:inputType="textNoSuggestions|textMultiLine"
+        android:lines="8"
+        android:maxLength="400"
+        android:minLines="1"
+        android:scrollbars="vertical"
+        android:theme="@style/EditTxtConstant" />
+
+</LinearLayout>

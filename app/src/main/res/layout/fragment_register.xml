@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
         android:padding="16dp">
 
@@ -54,15 +54,15 @@
                 <TextView
                     android:id="@+id/textView"
                     style="@style/TextViewConstant"
-                    android:text="Nombre:" />
+                    android:text="@string/nombrea" />
 
                 <EditText
                     android:id="@+id/edt_name_animal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ingrese un nombre"
+                    android:hint="@string/in"
                     android:maxLength="20"
-                    android:inputType="textCapWords"
+                    android:inputType="text"
                    android:maxLines="1"
                     android:theme="@style/EditTxtConstant" />
 
@@ -75,13 +75,13 @@
                 android:orientation="vertical">
                 <TextView
                     style="@style/TextViewConstant"
-                    android:text="Dirección:" />
+                    android:text="@string/direcciona" />
 
                 <EditText
                     android:id="@+id/edt_address_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Dirección"
+                    android:hint="@string/id"
                     android:maxLength="40"
                     android:maxLines="1"
                     android:focusable="false"
@@ -96,17 +96,20 @@
                 android:orientation="vertical">
                 <TextView
                     style="@style/TextViewConstant"
-                    android:text="Contacto:" />
+                    android:text="@string/contactoa" />
 
                 <EditText
                     android:id="@+id/edt_number_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Telefono"
+                    android:hint="@string/it"
+                    android:inputType="phone"
                     android:visibility="visible"
                     android:maxLength="9"
                     android:maxLines="1"
-                    android:theme="@style/EditTxtConstant" />
+                    android:scrollbars="vertical"
+                    android:theme="@style/EditTxtConstant"
+                     />
 
             </LinearLayout>
 
@@ -117,24 +120,21 @@
                 android:orientation="vertical">
                 <TextView
                     style="@style/TextViewConstant"
-                    android:text="Descripción:" />
+                    android:text="@string/descra" />
                 <EditText
                     android:id="@+id/edt_descrip_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fadeScrollbars="false"
                     android:gravity="top|left"
-                    android:hint="Ingrese una descripción"
-                    android:inputType="textCapWords|textNoSuggestions|textMultiLine"
+                    android:hint="@string/ides"
+                    android:inputType="textNoSuggestions|textMultiLine"
                     android:lines="8"
                     android:maxLength="400"
                     android:minLines="1"
                     android:scrollbars="vertical"
                     android:theme="@style/EditTxtConstant" />
             </LinearLayout>
-
-
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

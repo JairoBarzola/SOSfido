@@ -61,7 +61,7 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter {
                         view.setLoadingIndicator(false);
                     } else {
                         view.setLoadingIndicator(false);
-                        view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+                        view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
                     }
                 } else {
                     view.setLoadingIndicator(false);

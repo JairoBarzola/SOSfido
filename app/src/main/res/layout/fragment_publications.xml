@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
+                android:textSize="16sp"
                 android:id="@+id/empty"
                 android:text="@string/empty"
                 android:gravity="center"
@@ -27,6 +28,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewP"
                 android:scrollbars="vertical"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/item_publication"

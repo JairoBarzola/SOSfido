@@ -2,10 +2,13 @@ package com.calidad.sosfidoapp.sosfido.data.repositories.remote.request;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.AccessTokenEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
+import com.calidad.sosfidoapp.sosfido.data.entities.RequestsEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseRegisterEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseUser;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,6 +19,7 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by jairbarzola on 24/09/17.
@@ -59,4 +63,6 @@ public interface UserRequest {
     Call<ResponseUser.ForgotAccount> updatePassword(@Header("Content-type") String contentType, @Field("user_id") String person_id, @Field("password") String password);
 
 
+    @GET(ApiConstants.GET_REQUESTS)
+    Call<List<RequestsEntity>> getRequest(@Header("Authorization") String token, @Query("proposal_id") String requester);
 }

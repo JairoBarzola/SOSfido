@@ -22,6 +22,10 @@ public class ApiConstants {
     public static final String FIND_EMAIL="find-user-api/";
 
     public static final String UPDATE_PASS="update-password-api/";
+    public static final String SEND_PROPOSAL="adoption-request-api/";
+    public static final String GET_PROPOSAL="adoption-proposal-api/";
+    public static final String GET_REQUESTS= "adoption-request-api";
+    public static final String DELETE_PROPOSAL= "adoption-proposal-api/{proposal_id}/";
 
     //API KEYS CONSTANS
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
