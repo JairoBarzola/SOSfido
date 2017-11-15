@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,14 @@ import android.widget.TextView;
 
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
+import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.adapters.AdoptionRecyclerAdapter;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.AdoptionsContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.AdoptionsPresesenterImpl;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,6 +41,8 @@ public class AdoptionsFragment extends Fragment implements AdoptionsContract.Vie
     public LinearLayoutManager layoutManager;
     public AdoptionRecyclerAdapter adapter;
     public final int CODE_REGISTER_REPORT = 140;
+    public SessionManager sessionManager;
+
 
 
     public static AdoptionsFragment newInstance(String param1, String param2) {
@@ -47,6 +52,7 @@ public class AdoptionsFragment extends Fragment implements AdoptionsContract.Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_adoptions, container, false);
         unbinder = ButterKnife.bind(this, root);
+        sessionManager = new SessionManager(getContext());
         //presenter
         presenter = new AdoptionsPresesenterImpl(getContext(), this);
         // recyclerview
@@ -78,9 +84,20 @@ public class AdoptionsFragment extends Fragment implements AdoptionsContract.Vie
     @Override
     public void initRecyclerView(List<ResponseReport.ReportListAdoption> reportListAdoptionList) {
 
-        adapter = new AdoptionRecyclerAdapter(getContext(),reportListAdoptionList);
+        adapter = new AdoptionRecyclerAdapter(getContext(),filterList(reportListAdoptionList));
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    private List<ResponseReport.ReportListAdoption> filterList(List<ResponseReport.ReportListAdoption> reportListAdoptionList) {
+    List<ResponseReport.ReportListAdoption> list = new ArrayList<>();
+    for(int i=0;i<reportListAdoptionList.size();i++){
+        Log.i("ID ",String.valueOf(reportListAdoptionList.get(i).getOwner().getId())+" "+sessionManager.getPersonEntity().getId());
+        if(reportListAdoptionList.get(i).getOwner().getId()!=sessionManager.getPersonEntity().getId()){
+            list.add(reportListAdoptionList.get(i));
+        }
+    }
+    return list;
     }
 
     @Override
@@ -105,6 +122,7 @@ public class AdoptionsFragment extends Fragment implements AdoptionsContract.Vie
         recyclerView.setVisibility(View.VISIBLE);
         emptyView.setVisibility(View.GONE);
     }
+
 
 
 

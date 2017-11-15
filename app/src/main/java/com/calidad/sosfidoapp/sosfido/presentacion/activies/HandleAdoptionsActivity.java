@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.R;
+import com.calidad.sosfidoapp.sosfido.presentacion.contracts.CommunicateFragment;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.AdoptionsFragment;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.MyRequestsFragment;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.ProposalAdoptionsFragment;
@@ -76,6 +78,17 @@ public class HandleAdoptionsActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+
+    public void communicateFragment() {
+        ProposalAdoptionsFragment fragment = (ProposalAdoptionsFragment) adapter.getItem(2);
+        if (fragment != null) {
+            fragment.load();
+
+        } else {
+            Log.i("TAG", "Fragment ProposalAdoptionsFragment is not initialized");
+        }
     }
 
 
@@ -136,6 +149,7 @@ public class HandleAdoptionsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CODE_REGISTER_REPORT && resultCode == RESULT_OK) {
             setMessage("Registrado");
+            communicateFragment();
         }
     }
     public void showMessageSnack(View container, String message, int colorResource) {
