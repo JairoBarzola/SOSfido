@@ -60,10 +60,11 @@ public class HandleAdoptionsActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager mPager) {
 
         adapter= new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new MyRequestsFragment(), "Mis adopciones");
         adapter.addFragment(new AdoptionsFragment(),"Buscar");
-        adapter.addFragment(new MyRequestsFragment(), "Mis solicitudes");
-        adapter.addFragment(new ProposalAdoptionsFragment(), "Mis propuestas ");
+        adapter.addFragment(new ProposalAdoptionsFragment(), "Mis propuestas");
         mPager.setAdapter(adapter);
+        mPager.setCurrentItem(1);
     }
 
     @Override

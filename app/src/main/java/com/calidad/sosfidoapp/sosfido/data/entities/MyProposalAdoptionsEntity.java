@@ -45,11 +45,11 @@ public class MyProposalAdoptionsEntity implements Parcelable{
         this.id = id;
     }
 
-    public String getPet_name() {
+    public String getPetName() {
         return pet_name;
     }
 
-    public void setPet_name(String pet_name) {
+    public void setPetName(String pet_name) {
         this.pet_name = pet_name;
     }
 

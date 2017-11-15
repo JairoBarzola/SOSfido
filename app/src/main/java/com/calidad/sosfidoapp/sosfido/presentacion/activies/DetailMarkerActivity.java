@@ -98,6 +98,7 @@ public class DetailMarkerActivity extends AppCompatActivity implements DetailMar
                 btnHelp.setImageResource(R.drawable.abperi);
                 data = parametros.getParcelable("Report");
                 nameReport.setText(data.getNamePet());
+                ubicationReport.setText(data.getLocation());
                 if (data.getPhoto().equals("Sin imagen")) {
                 Picasso.with(getApplication()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageReport);
                 } else {

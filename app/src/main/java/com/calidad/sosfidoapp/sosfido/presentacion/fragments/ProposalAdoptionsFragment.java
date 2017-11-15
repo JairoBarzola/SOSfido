@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.MyProposalAdoptionsEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
+import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.presentacion.adapters.MyAdoptionRecylerAdapter;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.ProposalAdoptionsContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.AdoptionsPresesenterImpl;
@@ -40,6 +41,7 @@ public class ProposalAdoptionsFragment extends Fragment  implements ProposalAdop
     private ProposalAdoptionsContract.Presenter presenter;
     public LinearLayoutManager layoutManager;
     public MyAdoptionRecylerAdapter adapter;
+    public SessionManager sessionManager;
 
 
     public static ProposalAdoptionsFragment newInstance(String param1, String param2) {
@@ -56,6 +58,8 @@ public class ProposalAdoptionsFragment extends Fragment  implements ProposalAdop
 
         View root = inflater.inflate(R.layout.fragment_proposal_adoptions, container, false);
         unbinder = ButterKnife.bind(this, root);
+
+        sessionManager = new SessionManager(getContext());
         //presenter
         presenter = new ProposalAdoptionsPresenter(getContext(), this);
         // recyclerview
@@ -90,6 +94,14 @@ public class ProposalAdoptionsFragment extends Fragment  implements ProposalAdop
         adapter = new MyAdoptionRecylerAdapter(getContext(),reportlist);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    private List<MyProposalAdoptionsEntity> filterList(List<MyProposalAdoptionsEntity> reportlist) {
+
+        for(int i=0;i<reportlist.size();i++){
+            //if(reportlist.get(i).getStatus()){}
+        }
+        return null;
     }
 
     @Override

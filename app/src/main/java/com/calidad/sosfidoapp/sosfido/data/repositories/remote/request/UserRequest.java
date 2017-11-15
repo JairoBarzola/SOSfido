@@ -1,6 +1,7 @@
 package com.calidad.sosfidoapp.sosfido.data.repositories.remote.request;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.AccessTokenEntity;
+import com.calidad.sosfidoapp.sosfido.data.entities.MyRequestEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.RequestsEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseEntity;
@@ -65,4 +66,8 @@ public interface UserRequest {
 
     @GET(ApiConstants.GET_REQUESTS)
     Call<List<RequestsEntity>> getRequest(@Header("Authorization") String token, @Query("proposal_id") String requester);
+
+    @GET(ApiConstants.GET_REQUESTS)
+    Call<List<MyRequestEntity>> getMyRequest(@Header("Authorization") String token, @Query("requester_id") String requester);
+
 }

@@ -1,17 +1,16 @@
 package com.calidad.sosfidoapp.sosfido.data.entities;
 
 /**
- * Created by jairbarzola on 13/11/17.
+ * Created by jairbarzola on 14/11/17.
  */
 
-public class ProposalRequestEntity {
+public class MyRequestEntity {
     private String id;
-    private PersonEntity owner;
-    private String pet_name;
+    private ProposalRequestEntity adoption_proposal;
     private String status;
     private String description;
     private String date;
-    private String adoption_image;
+
 
     public String getId() {
         return id;
@@ -21,20 +20,12 @@ public class ProposalRequestEntity {
         this.id = id;
     }
 
-    public PersonEntity getOwner() {
-        return owner;
+    public ProposalRequestEntity getAdoptionProposal() {
+        return adoption_proposal;
     }
 
-    public void setOwner(PersonEntity owner) {
-        this.owner = owner;
-    }
-
-    public String getPetName() {
-        return pet_name;
-    }
-
-    public void setPetName(String pet_name) {
-        this.pet_name = pet_name;
+    public void setAdoptionProposal(ProposalRequestEntity adoption_proposal) {
+        this.adoption_proposal = adoption_proposal;
     }
 
     public String getStatus() {
@@ -60,13 +51,4 @@ public class ProposalRequestEntity {
     public void setDate(String date) {
         this.date = date;
     }
-
-    public String getAdoptionImage() {
-        return adoption_image;
-    }
-
-    public void setAdoptionImage(String adoption_image) {
-        this.adoption_image = adoption_image;
-    }
-
 }

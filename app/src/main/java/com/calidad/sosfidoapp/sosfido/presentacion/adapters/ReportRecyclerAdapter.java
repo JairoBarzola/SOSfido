@@ -61,7 +61,7 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
             Picasso.with(context).load(reportEntity.getPhoto()).into(holder.image);
         }
         holder.name.setText(reportEntity.getNamePet());
-        holder.lag.setText(reportEntity.getLocation());
+        holder.lag.setText(reportEntity.getDescription());
         holder.lnPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

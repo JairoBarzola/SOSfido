@@ -54,7 +54,7 @@
 
     //dialog report
     <string name="reporte">Reportar</string>
-    <string name="propuesta">Propuesta</string>
+    <string name="propuesta">Enviar solicitud de adopción</string>
     <string name="ranimalabandonado">Animal abandonado</string>
     <string name="ranimalperidod">Animal perdido</string>
 

@@ -12,6 +12,7 @@ import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.LoginActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.LoginContract;
 import com.calidad.sosfidoapp.sosfido.R;
+import com.onesignal.OneSignal;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -90,6 +91,10 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
 
     private void openSession(AccessTokenEntity accessTokenEntity, PersonEntity personEntity) {
         sessionManager.openSession(accessTokenEntity.getAccessToken(), personEntity);
+        OneSignal.startInit(context)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
         view.loginSuccessfully();
         view.setLoadingIndicator(false);
     }

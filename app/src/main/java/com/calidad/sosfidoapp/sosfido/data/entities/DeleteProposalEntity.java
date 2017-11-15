@@ -5,14 +5,19 @@ package com.calidad.sosfidoapp.sosfido.data.entities;
  */
 
 public class DeleteProposalEntity {
-    private String was_delete;
+    private boolean was_deleted;
 
-    public String getWasDelete() {
-        return was_delete;
+    public DeleteProposalEntity(boolean was_deleted){
+        this.was_deleted=was_deleted;
     }
 
-    public void setWasDelete(String was_delete) {
-        this.was_delete = was_delete;
+
+    public boolean getWasDelete() {
+        return was_deleted;
+    }
+
+    public void setWasDelete(boolean was_deleted) {
+        this.was_deleted = was_deleted;
     }
 
 

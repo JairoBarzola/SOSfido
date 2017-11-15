@@ -13,7 +13,9 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -48,6 +50,6 @@ public interface ReportRequest {
     @GET(ApiConstants.GET_PROPOSAL)
     Call<List<MyProposalAdoptionsEntity>> getMyProposal( @Header("Authorization") String token, @Query("owner_id") String owner_id);
 
-    @GET(ApiConstants.DELETE_PROPOSAL)
-    Call<DeleteProposalEntity.Reponse> deleteProposal(@Header("Content-type") String contentType, @Header("Authorization") String token, @Body DeleteProposalEntity deleteProposalEntity);
+    @PATCH(ApiConstants.DELETE_PROPOSAL)
+    Call<DeleteProposalEntity.Reponse> deleteProposal(@Header("Content-type") String contentType, @Header("Authorization") String token, @Path("proposal_id") String id , @Body DeleteProposalEntity deleteProposalEntity);
 }
