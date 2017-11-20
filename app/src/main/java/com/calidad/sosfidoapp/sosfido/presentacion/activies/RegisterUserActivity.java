@@ -1,5 +1,6 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.activies;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -7,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.RegisterUserFragment;
 import com.calidad.sosfidoapp.sosfido.R;
@@ -63,9 +66,17 @@ public class RegisterUserActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.ac_register_user) {
+            closeKeyboard();
             fragment.register();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void closeKeyboard() {
+        View view = RegisterUserActivity.this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

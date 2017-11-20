@@ -276,7 +276,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
             Intent intent = intentBuilder.build(getActivity());
             startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
         } catch (Exception e) {
-            setMessageError("error");
+            setMessageError("No se pudo cargar la foto, intente nuevamente");
         }
 
     }

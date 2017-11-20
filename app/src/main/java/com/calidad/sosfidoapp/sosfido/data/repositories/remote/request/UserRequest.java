@@ -1,7 +1,9 @@
 package com.calidad.sosfidoapp.sosfido.data.repositories.remote.request;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.AccessTokenEntity;
+import com.calidad.sosfidoapp.sosfido.data.entities.ChangedStatusRequest;
 import com.calidad.sosfidoapp.sosfido.data.entities.MyRequestEntity;
+import com.calidad.sosfidoapp.sosfido.data.entities.PersonDeviceEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.RequestsEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseEntity;
@@ -31,7 +33,7 @@ public interface UserRequest {
 
     @FormUrlEncoded
     @POST(ApiConstants.LOGIN)
-    Call<AccessTokenEntity> login (@Header("Content-type") String contentType, @Field("email") String email, @Field("password") String password);
+    Call<AccessTokenEntity> login (@Header("Content-type") String contentType, @Field("email") String email, @Field("password") String password,@Field("id_onesignal") String id_onesignal);
 
     @GET(ApiConstants.U_DESCRIPTION)
     Call<PersonEntity> getPerson (@Header("Content-type") String contentType, @Header("Authorization") String token, @Path("person_id") String person_id);
@@ -70,4 +72,15 @@ public interface UserRequest {
     @GET(ApiConstants.GET_REQUESTS)
     Call<List<MyRequestEntity>> getMyRequest(@Header("Authorization") String token, @Query("requester_id") String requester);
 
+    @PATCH(ApiConstants.EDIT_U)
+    Call<PersonEntity> editPerson(@Header("Content-type") String contentType, @Header("Authorization") String token,@Path("person_id") String person_id,@Body PersonEntity personEntity);
+
+    @GET(ApiConstants.GET_REQUEST_PERSON)
+    Call<List<MyRequestEntity>> getRequestByPerson(@Header("Authorization") String token, @Query("requester_id") String requester_id);
+
+    @POST(ApiConstants.REGISTER_DEVICE)
+    Call<PersonDeviceEntity.ResponseDevice> registerDevide(@Header("Content-type") String contentType, @Header("Authorization") String token, @Body PersonDeviceEntity personDeviceEntity);
+
+    @PATCH(ApiConstants.CHANGED_STATE)
+    Call<ChangedStatusRequest.Response> changedState(@Header("Content-type") String contentType, @Header("Authorization") String token, @Path("request_id") String requester_id, @Body ChangedStatusRequest changedStatusRequest);
 }

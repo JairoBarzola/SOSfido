@@ -1,8 +1,10 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.presenters;
 
 import android.content.Context;
+import android.util.Log;
 
 
+import com.calidad.sosfidoapp.sosfido.data.entities.PersonDeviceEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseRegisterEntity;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
@@ -12,6 +14,7 @@ import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.RegisterUserContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.RegisterUserFragment;
 import com.calidad.sosfidoapp.sosfido.R;
+import com.onesignal.OneSignal;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,8 +96,44 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
     }
 
     private void openSession(ResponseRegisterEntity responseRegisterEntity, PersonEntity personEntity) {
-        view.setLoadingIndicator(false);
+
         sessionManager.openSession(responseRegisterEntity.getAccessToken(), personEntity);
+        registerMyDevice();
         view.registerSuccessfully();
+    }
+
+    private void registerMyDevice() {
+        OneSignal.startInit(context)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+        saveIdDevice();
+        String idDevice = sessionManager.getIdDevice();
+        UserRequest  userRequest = serviceFactory.createService(UserRequest.class);
+        PersonDeviceEntity personDeviceEntity = new PersonDeviceEntity(String.valueOf(sessionManager.getPersonEntity().getId()),idDevice);
+        Call<PersonDeviceEntity.ResponseDevice> call = userRequest.registerDevide(ApiConstants.CONTENT_TYPE_JSON, "Bearer " + sessionManager.getUserToken(),personDeviceEntity);
+        call.enqueue(new Callback<PersonDeviceEntity.ResponseDevice>() {
+            @Override
+            public void onResponse(Call<PersonDeviceEntity.ResponseDevice> call, Response<PersonDeviceEntity.ResponseDevice> response) {
+                if(response.isSuccessful()){
+                    Log.i("DEVICE","DEVICE ID REGISTRADO");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PersonDeviceEntity.ResponseDevice> call, Throwable t) {
+                view.setLoadingIndicator(false);
+                view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+            }
+        });
+    }
+    private void saveIdDevice() {
+        OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
+            @Override
+            public void idsAvailable(String userId, String registrationId) {
+                Log.i("info", "User:" + userId);
+                sessionManager.saveDevice(userId);
+            }
+        });
     }
 }

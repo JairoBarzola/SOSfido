@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 
 public class PersonEntity implements Parcelable {
+
     private int id;
     private UserEntity user;
     private String born_date;
@@ -22,6 +23,11 @@ public class PersonEntity implements Parcelable {
         this.phone_number=phone_number;
         this.address=address;
         this.person_image=person_image;
+    }
+    public PersonEntity(String phone_number,UserEntity user,Address address){
+        this.phone_number=phone_number;
+        this.user=user;
+        this.address=address;
     }
 
 

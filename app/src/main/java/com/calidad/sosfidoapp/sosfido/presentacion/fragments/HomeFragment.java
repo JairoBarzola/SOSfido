@@ -259,7 +259,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         }
         for (ResponseReport.ReportList entity : reportListsAbandoned) {
             reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(), entity.getPlace().getLongitude(),
-                    entity.getDate(), entity.getReportImage(), "Abandonado", entity.getDescription(), "2"));
+                    entity.getDate(), entity.getReportImage(), "Desconocido", entity.getDescription(), "2"));
         }
         return reportList;
     }
@@ -342,7 +342,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
             if (data != null) {
                 name.setText(data.getNamePet());
                 if (data.getPhoto().equals("Sin imagen")) {
-                    Picasso.with(getContext()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageView);
+                    Picasso.with(getContext()).load(R.drawable.mph).into(imageView);
                 } else {
                     Picasso.with(getContext()).load(data.getPhoto()).into(imageView);
                 }

@@ -22,7 +22,9 @@ public class SessionManager {
     //USER JSON
     private static final String U_JSON = "uJson";
     // USER ISLOGIN
-    private static final String IS_LOGIN = "userLogin";
+    private static final String IS_LOGIN = "uLogin";
+    // USER DEVICE
+    private static final String DEVICE = "uDevice";
     public Context context;
     public SessionManager(Context context){
         this.context = context;
@@ -69,6 +71,7 @@ public class SessionManager {
         editor.putBoolean(IS_LOGIN, false);
         editor.putString(U_TOKEN, null);
         editor.putString(U_JSON, null);
+        editor.putString(DEVICE,null);
         editor.commit();
     }
     //metodo para obtener datos del usuario guardados en memoria interna
@@ -77,4 +80,12 @@ public class SessionManager {
         return new Gson().fromJson(userData, PersonEntity.class);
     }
 
+    public void saveDevice(String iddevice){
+        editor.putString(DEVICE,iddevice);
+        editor.commit();
+    }
+
+    public String getIdDevice(){
+        return  preferences.getString(DEVICE,"");
+    }
 }

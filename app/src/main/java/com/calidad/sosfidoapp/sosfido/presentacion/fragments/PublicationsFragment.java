@@ -104,8 +104,9 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
                     entity.getPlace().getLongitude(), entity.getDate(), entity.getReportImage(), entity.getPetName(), entity.getDescription(), "1"));
         }
         for (ResponseReport.ReportList entity : reportListsAbandoned) {
+
             reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(), entity.getPlace().getLongitude(),
-                    entity.getDate(), entity.getReportImage(), "Abandonado", entity.getDescription(), "2"));
+                    entity.getDate(), entity.getReportImage(), "Desconocido", entity.getDescription(), "2"));
         }
         return reportList;
     }

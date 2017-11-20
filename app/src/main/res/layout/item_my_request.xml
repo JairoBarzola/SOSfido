@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/ln_myadoption"
+        android:id="@+id/ln_rq_adp"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:paddingTop="4dp"
@@ -16,19 +16,19 @@
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_proposal"
+            android:id="@+id/image_rq_adp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:layout_width="70dp"
             android:layout_alignParentLeft="true"
             android:src="@drawable/dog"
-            app:civ_border_width="2dp"
+            app:civ_border_width="3dp"
             android:layout_centerInParent="true"
             app:civ_border_color="@color/colorAdoption"
             android:layout_height="70dp"/>
 
         <LinearLayout
-            android:layout_toRightOf="@+id/image_proposal"
+            android:layout_toRightOf="@+id/image_rq_adp"
             android:layout_width="wrap_content"
             android:orientation="vertical"
             android:layout_centerInParent="true"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/name_proposal"
+                android:id="@+id/name_rq_adp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -46,39 +46,22 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/date_proposal"
+                android:id="@+id/date_rq_adp"
                 android:textStyle="italic"
                 android:textColor="@color/gray"
                 android:textSize="16sp"
                 />
         </LinearLayout>
         <ImageView
-            android:id="@+id/iv_delete"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:id="@+id/iv_delete_rq"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:src="@drawable/delete"
             android:layout_centerInParent="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="10dp"
             />
-        <ImageView
-            android:id="@+id/iv_list"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/list"
-            android:layout_centerInParent="true"
-            android:layout_toLeftOf="@+id/iv_delete" />
-        <ImageView
-            android:id="@+id/iv_look"
-            android:layout_marginLeft="16dp"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:visibility="gone"
-            android:layout_marginRight="10dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/look"
-            android:layout_toLeftOf="@+id/iv_list" />
 
     </RelativeLayout>
     <View

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.ReportEntity;
@@ -51,17 +52,18 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
             if (reportEntity.getTypeReport().equals("2")) {
                 holder.image.setBorderColor(ContextCompat.getColor(context, R.color.colorAbandoned));
             }
-            /*else {
-                holder.image.setBorderColor(ContextCompat.getColor(context, R.color.colorAdoption));
-            }*/
         }
         if (reportEntity.getPhoto().equals("Sin imagen")) {
-            Picasso.with(context).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(holder.image);
+            Picasso.with(context).load(R.drawable.mph).into(holder.image);
         } else {
             Picasso.with(context).load(reportEntity.getPhoto()).into(holder.image);
         }
+        // 2017-11-19 17:35:37
+        // 0123456789123456789
+
         holder.name.setText(reportEntity.getNamePet());
-        holder.lag.setText(reportEntity.getDescription());
+        holder.descr.setText(reportEntity.getDescription());
+        holder.date.setText(reportEntity.getDate().substring(11,16));
         holder.lnPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,8 +83,9 @@ public class ReportRecyclerAdapter extends RecyclerView.Adapter<ReportRecyclerAd
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image_publication) CircleImageView image;
         @BindView(R.id.name_publication) TextView name;
-        @BindView(R.id.txtLag) TextView lag;
-        @BindView(R.id.ln_publication) LinearLayout lnPublication;
+        @BindView(R.id.descr_publication) TextView descr;
+        @BindView(R.id.ln_publication) RelativeLayout lnPublication;
+        @BindView(R.id.date_publication) TextView date;
 
         public ViewHolder(View itemView) {
             super(itemView);

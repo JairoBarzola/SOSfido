@@ -73,7 +73,7 @@ public class ForgotAccountActivity extends AppCompatActivity implements Validato
         checkEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("CLick ","clicked");
+                closeKeyboard();
                 validator.validate();
             }
         });
@@ -81,6 +81,7 @@ public class ForgotAccountActivity extends AppCompatActivity implements Validato
         updatePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                closeKeyboard();
                 validator.validate();
             }
         });

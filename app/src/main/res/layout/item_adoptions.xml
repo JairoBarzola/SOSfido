@@ -8,16 +8,21 @@
         android:id="@+id/ln_adoption"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_adoption"
-            android:layout_width="80dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_width="70dp"
             android:src="@drawable/dog"
-            app:civ_border_width="4dp"
+            app:civ_border_width="2dp"
             app:civ_border_color="@color/colorAdoption"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,6 +49,7 @@
         </LinearLayout>
     </LinearLayout>
     <View
+        android:layout_marginLeft="76dp"
         style="@style/Divider">
     </View>
 

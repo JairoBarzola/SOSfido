@@ -1,8 +1,6 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.fragments;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,11 +14,8 @@ import android.widget.TextView;
 
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.MyProposalAdoptionsEntity;
-import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
-import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
-import com.calidad.sosfidoapp.sosfido.presentacion.adapters.MyAdoptionRecylerAdapter;
+import com.calidad.sosfidoapp.sosfido.presentacion.adapters.MyAdoptionRecyclerAdapter;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.ProposalAdoptionsContract;
-import com.calidad.sosfidoapp.sosfido.presentacion.presenters.AdoptionsPresesenterImpl;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.ProposalAdoptionsPresenter;
 
 import java.util.List;
@@ -40,7 +35,7 @@ public class ProposalAdoptionsFragment extends Fragment  implements ProposalAdop
     SwipeRefreshLayout swipeRefresh;
     private ProposalAdoptionsContract.Presenter presenter;
     public LinearLayoutManager layoutManager;
-    public MyAdoptionRecylerAdapter adapter;
+    public MyAdoptionRecyclerAdapter adapter;
 
 
     public static ProposalAdoptionsFragment newInstance(String param1, String param2) {
@@ -90,7 +85,7 @@ public class ProposalAdoptionsFragment extends Fragment  implements ProposalAdop
     @Override
     public void initRecyclerView(List<MyProposalAdoptionsEntity> reportlist) {
 
-        adapter = new MyAdoptionRecylerAdapter(getContext(),reportlist);
+        adapter = new MyAdoptionRecyclerAdapter(getContext(),reportlist);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

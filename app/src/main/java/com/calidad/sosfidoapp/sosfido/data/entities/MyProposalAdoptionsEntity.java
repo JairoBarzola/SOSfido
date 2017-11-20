@@ -16,6 +16,13 @@ public class MyProposalAdoptionsEntity implements Parcelable{
     private String adoption_image;
 
 
+    public MyProposalAdoptionsEntity(String id,String pet_name,String description,String date,String adoption_image){
+        this.id=id;
+        this.pet_name=pet_name;
+        this.description=description;
+        this.date=date;
+        this.date=adoption_image;
+    }
     protected MyProposalAdoptionsEntity(Parcel in) {
         id = in.readString();
         pet_name = in.readString();

@@ -26,4 +26,7 @@
 
     <color name="ok">#4ab957</color>
     <color name="request">#ffe448</color>
+
+    <color name="aceptado">#499952</color>
+    <color name="rechazado">#8f0007</color>
 </resources>

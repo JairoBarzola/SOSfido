@@ -27,6 +27,12 @@ public class ApiConstants {
     public static final String GET_REQUESTS= "adoption-request-api";
     public static final String DELETE_PROPOSAL= "adoption-proposal-api/{proposal_id}/";
 
+    public static final String GET_REQUEST_PERSON ="adoption-request-api/";
+    public static final String REGISTER_DEVICE="person-device-api/";
+
+    public static final String DELETE_REQUEST = "adoption-request-api/{proposal_id}/";
+    public static final String CHANGED_STATE = "adoption-request-api/{request_id}/";
+
     //API KEYS CONSTANS
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
     public static final String CONTENT_TYPE_JSON = "application/json";

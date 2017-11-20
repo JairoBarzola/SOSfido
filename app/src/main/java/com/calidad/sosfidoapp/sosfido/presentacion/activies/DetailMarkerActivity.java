@@ -1,6 +1,7 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.activies;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -10,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,14 +19,17 @@ import android.view.View;
 
 import android.widget.EditText;
 import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.Address;
+import com.calidad.sosfidoapp.sosfido.data.entities.MyProposalAdoptionsEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ProposalAdoption;
 import com.calidad.sosfidoapp.sosfido.data.entities.ReportAdoptionEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ReportEntity;
+import com.calidad.sosfidoapp.sosfido.data.entities.RequestModelEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.UserEntity;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.DetailMarkerContract;
@@ -48,6 +53,13 @@ public class DetailMarkerActivity extends AppCompatActivity implements DetailMar
     @BindView(R.id.collapsing) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.btn_help) FloatingActionButton btnHelp;
     @BindView(R.id.public_report) TextView publicReport;
+    @BindView(R.id.cardView3) CardView cardView3;
+    @BindView(R.id.cardView2) CardView cardView2;
+    @BindView(R.id.cardView4) CardView cardView4;
+    @BindView(R.id.description_state) TextView descrState;
+    @BindView(R.id.my_request) TextView myRequest;
+    @BindView(R.id.phone) TextView phone;
+    @BindView(R.id.email) TextView email;
 
     public ReportEntity data;
     public String tag;
@@ -58,6 +70,8 @@ public class DetailMarkerActivity extends AppCompatActivity implements DetailMar
     public DetailMarkerContract.Presenter presenter;
     private ProgressDialogCustom mProgressDialogCustom;
     public SessionManager sessionManager;
+    public MyProposalAdoptionsEntity myProposalAdoptionsEntity;
+    public RequestModelEntity requestModelEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +100,7 @@ public class DetailMarkerActivity extends AppCompatActivity implements DetailMar
                 reportAdoption = parametros.getParcelable("ReportAdoption");
                 nameReport.setText(reportAdoption.getPetName());
                 if (reportAdoption.getAdoptionImage().equals("Sin imagen")) {
-                    Picasso.with(getApplication()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageReport);
+                    Picasso.with(getApplicationContext()).load(R.drawable.mph).into(imageReport);
                 } else {
                     Picasso.with(getApplication()).load(reportAdoption.getAdoptionImage()).into(imageReport);
                 }
@@ -94,21 +108,79 @@ public class DetailMarkerActivity extends AppCompatActivity implements DetailMar
                 dateReport.setText(reportAdoption.getDate());
                 publicReport.setText(userEntity.getFirstName()+" "+userEntity.getLastName());
                 ubicationReport.setText(address.getLocation());
+                invisibleView();
             }else{
-                btnHelp.setImageResource(R.drawable.abperi);
-                data = parametros.getParcelable("Report");
-                nameReport.setText(data.getNamePet());
-                ubicationReport.setText(data.getLocation());
-                if (data.getPhoto().equals("Sin imagen")) {
-                Picasso.with(getApplication()).load("http://sosfido.tk/media/photos/users/profile/3b00f90e-cda.jpg").into(imageReport);
-                } else {
-                Picasso.with(getApplication()).load(data.getPhoto()).into(imageReport);
+                if(tag.equals("2")) {
+                    cardView2.setVisibility(View.GONE);
+                    btnHelp.setImageResource(R.drawable.abperi);
+                    data = parametros.getParcelable("Report");
+                    nameReport.setText(data.getNamePet());
+                    ubicationReport.setText(data.getLocation());
+                    if (data.getPhoto().equals("Sin imagen")) {
+                        Picasso.with(getApplicationContext()).load(R.drawable.mph).into(imageReport);
+                    } else {
+                        Picasso.with(getApplication()).load(data.getPhoto()).into(imageReport);
+                    }
+                    descriptionReport.setText(data.getDescription());
+                    dateReport.setText(data.getDate());
+                    invisibleView();
+                }else{
+                    if(tag.equals("3")) {
+                        btnHelp.setVisibility(View.GONE);
+                        myProposalAdoptionsEntity = parametros.getParcelable("ReportMyAdoption");
+                        nameReport.setText(myProposalAdoptionsEntity.getPetName());
+                        descriptionReport.setText(myProposalAdoptionsEntity.getDescription());
+                        dateReport.setText(myProposalAdoptionsEntity.getDate());
+                        publicReport.setText("Mí");
+                        ubicationReport.setText(sessionManager.getPersonEntity().getAddress().getLocation());
+                        if (myProposalAdoptionsEntity.getAdoptionImage().equals("Sin imagen")) {
+                            Picasso.with(getApplicationContext()).load(R.drawable.mph).into(imageReport);
+                        } else {
+                            Picasso.with(getApplication()).load(myProposalAdoptionsEntity.getAdoptionImage()).into(imageReport);
+                        }
+                        invisibleView();
+                    }else{
+                        btnHelp.setVisibility(View.GONE);
+                        requestModelEntity = parametros.getParcelable("Request");
+                        nameReport.setText(requestModelEntity.getPetName());
+                        descriptionReport.setText(requestModelEntity.getDescriptionProposal());
+                        dateReport.setText(requestModelEntity.getDateProposal());
+                        publicReport.setText(requestModelEntity.getFirstName()+" "+requestModelEntity.getLastName());
+                        ubicationReport.setText(sessionManager.getPersonEntity().getAddress().getLocation());
+                        if (requestModelEntity.getAdoptionImage().contains("Sin")) {
+                            Picasso.with(getApplicationContext()).load(R.drawable.mph).into(imageReport);
+                        } else {
+                            Picasso.with(getApplication()).load(requestModelEntity.getAdoptionImage()).into(imageReport);
+                        }
+                        // verify status
+                        if(requestModelEntity.getStatus().equals("0")){
+                            cardView3.setVisibility(View.VISIBLE);
+                            cardView4.setVisibility(View.GONE);
+                            descrState.setText("Su petición ha sido rechazada");
+                            myRequest.setText(requestModelEntity.getDescription());
+                        }else{
+                            if(requestModelEntity.getStatus().equals("1")){
+                            cardView3.setVisibility(View.VISIBLE);
+                            descrState.setText("Su petición ha sido aceptada");
+                            myRequest.setText(requestModelEntity.getDescription());
+                            cardView4.setVisibility(View.VISIBLE);
+                            phone.setText(requestModelEntity.getPhoneNumber());
+                            email.setText(requestModelEntity.getEmail());
+                            }else {
+                                cardView3.setVisibility(View.VISIBLE);
+                                cardView4.setVisibility(View.GONE);
+                                descrState.setText("Su petición sigue en espera");
+                                myRequest.setText(requestModelEntity.getDescription());
+
+                            }
+
+                        }
+                    }
                 }
-                descriptionReport.setText(data.getDescription());
-                dateReport.setText(data.getDate());
             }
 
         }
+
 
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,12 +188,20 @@ public class DetailMarkerActivity extends AppCompatActivity implements DetailMar
                 if(tag.equals("1")){
                     proposal().show();
                 }else{
-                    Toast.makeText(getApplicationContext(),"Implementation next sprint",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"Implementation next sprint",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_TEXT, "#AyudandoConSOSfido http://sosfido.tk/w/");
+                    startActivity(Intent.createChooser(intent, "Share with"));
                 }
 
             }
         });
 
+    }
+    void invisibleView(){
+        cardView3.setVisibility(View.GONE);
+        cardView4.setVisibility(View.GONE);
     }
     private AlertDialog proposal(){
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -147,7 +227,7 @@ public class DetailMarkerActivity extends AppCompatActivity implements DetailMar
     }
 
     private void sendProposal(String s) {
-        if(!s.isEmpty()){
+        if(!s.equals("")){
             Log.i("TAG",reportAdoption.getIdReport()+ " "+sessionManager.getPersonEntity().getId()+" "+s);
             presenter.sendProposalAdoption(new ProposalAdoption(reportAdoption.getIdReport(),String.valueOf(sessionManager.getPersonEntity().getId()),s));
         }else{

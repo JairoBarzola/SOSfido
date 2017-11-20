@@ -47,6 +47,7 @@ public class ProposalAdoptionsPresenter implements ProposalAdoptionsContract.Pre
                     if (reportListAdoption.size()!=0) {
                         view.initRecyclerView(reportListAdoption);
                         view.hideSWipeLayout();
+                        view.hideEmpty();
                     } else {
                         view.showEmpty();
                         view.hideSWipeLayout();

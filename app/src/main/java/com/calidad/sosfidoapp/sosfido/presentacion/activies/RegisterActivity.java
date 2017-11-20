@@ -78,6 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.ac_save_report) {
+            closeKeyboard();
             fragment.registerReport();
             return true;
         }

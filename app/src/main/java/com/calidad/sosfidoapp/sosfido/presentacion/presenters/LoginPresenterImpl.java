@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.AccessTokenEntity;
+import com.calidad.sosfidoapp.sosfido.data.entities.PersonDeviceEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.PersonEntity;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
@@ -13,6 +14,7 @@ import com.calidad.sosfidoapp.sosfido.presentacion.activies.LoginActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.LoginContract;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.onesignal.OneSignal;
+import android.provider.Settings.Secure;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,9 +40,12 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
 
     @Override
     public void login(String email, String password) {
+        saveIdDevice();
+        String idDevice = sessionManager.getIdDevice();
+        Log.i("ID ",idDevice);
         view.setLoadingIndicator(true);
         UserRequest userRequest = serviceFactory.createService(UserRequest.class);
-        Call<AccessTokenEntity> call = userRequest.login(ApiConstants.CONTENT_TYPE, email, password);
+        Call<AccessTokenEntity> call = userRequest.login(ApiConstants.CONTENT_TYPE, email, password,idDevice);
         call.enqueue(new Callback<AccessTokenEntity>() {
             @Override
             public void onResponse(Call<AccessTokenEntity> call, Response<AccessTokenEntity> response) {
@@ -51,7 +56,7 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
                         getAccount(accessTokenEntity);
                     } else {
                         view.setLoadingIndicator(false);
-                        view.setMessageError(context.getString(R.string.there_was_an_error_try_it_later));
+                        view.setMessageError("El usuario y la contraseña no coinciden");
                     }
                 } else {
                     view.setLoadingIndicator(false);
@@ -91,11 +96,51 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
 
     private void openSession(AccessTokenEntity accessTokenEntity, PersonEntity personEntity) {
         sessionManager.openSession(accessTokenEntity.getAccessToken(), personEntity);
-        OneSignal.startInit(context)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
+        if(accessTokenEntity.isIsRegistered()){
+           // sessionManager.openSession(accessTokenEntity.getAccessToken(), personEntity);
+            Log.i("TAG","REGISTRADO EN CON ESTE TELEFONO");
+        }else{
+            //guardar id del telefono
+            OneSignal.startInit(context)
+                    .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                    .unsubscribeWhenNotificationsAreDisabled(true)
+                    .init();
+            registerMyDevice();
+            Log.i("TAG","SE ACABA DE REGISTRA EL TELEFONO");
+        }
         view.loginSuccessfully();
         view.setLoadingIndicator(false);
+    }
+
+    private void registerMyDevice(){
+        String idDevice = sessionManager.getIdDevice();
+        UserRequest  userRequest = serviceFactory.createService(UserRequest.class);
+        PersonDeviceEntity personDeviceEntity = new PersonDeviceEntity(String.valueOf(sessionManager.getPersonEntity().getId()),idDevice);
+        Call<PersonDeviceEntity.ResponseDevice> call = userRequest.registerDevide(ApiConstants.CONTENT_TYPE_JSON, "Bearer " + sessionManager.getUserToken(),personDeviceEntity);
+        call.enqueue(new Callback<PersonDeviceEntity.ResponseDevice>() {
+            @Override
+            public void onResponse(Call<PersonDeviceEntity.ResponseDevice> call, Response<PersonDeviceEntity.ResponseDevice> response) {
+                if(response.isSuccessful()){
+                    Log.i("DEVICE","DEVICE ID REGISTRADO");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PersonDeviceEntity.ResponseDevice> call, Throwable t) {
+                view.setLoadingIndicator(false);
+                view.setMessageError(context.getString(R.string.no_server_connection_try_it_later));
+            }
+        });
+
+    }
+    private void saveIdDevice() {
+
+        OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
+            @Override
+            public void idsAvailable(String userId, String registrationId) {
+                Log.i("info", "User:" + userId);
+                sessionManager.saveDevice(userId);
+            }
+        });
     }
 }

@@ -5,9 +5,11 @@ package com.calidad.sosfidoapp.sosfido.data.entities;
  */
 
 public class AccessTokenEntity {
-    private boolean status;
-    private int person_id;
+
     private String access_token;
+    private int person_id;
+    private boolean is_registered;
+    private boolean status;
 
     public boolean isStatus() {
         return status;
@@ -32,5 +34,13 @@ public class AccessTokenEntity {
 
     public void setAccessToken(String access_token) {
         this.access_token = access_token;
+    }
+
+    public boolean isIsRegistered() {
+        return is_registered;
+    }
+
+    public void setIsRegistered(boolean is_registered) {
+        this.is_registered = is_registered;
     }
 }

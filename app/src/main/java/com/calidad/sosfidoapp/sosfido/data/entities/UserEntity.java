@@ -14,6 +14,12 @@ public class UserEntity implements Parcelable {
     private String last_name;
     private String email;
 
+    public UserEntity(String first_name,String last_name,String email){
+        this.first_name=first_name;
+        this.last_name=last_name;
+        this.email=email;
+    }
+
     protected UserEntity(Parcel in) {
         id = in.readInt();
         username = in.readString();

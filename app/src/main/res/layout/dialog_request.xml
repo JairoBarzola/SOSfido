@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/t_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/propuesta"
+        android:textSize="18sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buenas tardes, quisiera poder adoptar su mascota y poner tenerla en mis brazos lo mas antes posible"
+        android:id="@+id/descr_requester"
+        android:textColor="@color/black"
+        />
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btn_aceptar"
+            android:padding="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_redondo"
+            android:text="@string/aceptar"
+            android:textColor="@color/btn_color"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/btn_rechazar"
+            android:padding="8dp"
+            android:background="@drawable/button_redondo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rechazar"
+            android:textColor="@color/btn_color"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>

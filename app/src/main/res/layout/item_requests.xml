@@ -4,47 +4,69 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ln_request"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:padding="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content">
 
 
-        <com.github.siyamed.shapeimageview.BubbleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/fondo"
-            app:siArrowPosition="right"
             android:id="@+id/image_request"
-            app:siSquare="true"/>
+            android:layout_alignParentLeft="true"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="center"
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/rl"
+            android:layout_toRightOf="@+id/image_request"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="8dp"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/name_request"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:text="Jair Barzola Cuba"
                 android:textColor="@color/textList"
                 android:textSize="16sp"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_below="@id/name_request"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/date_request"
+                android:id="@+id/desc_request"
                 android:textStyle="italic"
                 android:textColor="@color/gray"
                 android:textSize="16sp"
                 />
-        </LinearLayout>
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/date_request"
+                android:layout_alignParentRight="true"
+                android:text="12/07/17"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:layout_toLeftOf="@id/name_request"
+                />
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
     <View
+        android:layout_marginLeft="76dp"
         style="@style/Divider">
     </View>
 

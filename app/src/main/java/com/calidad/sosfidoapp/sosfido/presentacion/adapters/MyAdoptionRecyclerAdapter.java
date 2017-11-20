@@ -1,7 +1,6 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.adapters;
 
 import android.app.AlertDialog;
-import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,19 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.DeleteProposalEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.MyProposalAdoptionsEntity;
-import com.calidad.sosfidoapp.sosfido.data.entities.MyRequestEntity;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.request.ReportRequest;
+import com.calidad.sosfidoapp.sosfido.presentacion.activies.DetailMarkerActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.RequestsActivity;
-import com.calidad.sosfidoapp.sosfido.presentacion.fragments.ProposalAdoptionsFragment;
 import com.calidad.sosfidoapp.sosfido.utils.ProgressDialogCustom;
 import com.squareup.picasso.Picasso;
 
@@ -34,13 +33,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Body;
 
 /**
  * Created by jairbarzola on 12/11/17.
  */
 
-public class MyAdoptionRecylerAdapter extends  RecyclerView.Adapter<MyAdoptionRecylerAdapter.ViewHolder> {
+public class MyAdoptionRecyclerAdapter extends  RecyclerView.Adapter<MyAdoptionRecyclerAdapter.ViewHolder> {
 
     public List<MyProposalAdoptionsEntity> myPAList;
     public Context context;
@@ -48,7 +46,7 @@ public class MyAdoptionRecylerAdapter extends  RecyclerView.Adapter<MyAdoptionRe
     private ProgressDialogCustom mProgressDialogCustom;
 
 
-    public MyAdoptionRecylerAdapter(Context context, List<MyProposalAdoptionsEntity> myPAList){
+    public MyAdoptionRecyclerAdapter(Context context, List<MyProposalAdoptionsEntity> myPAList){
         this.context=context;
         this.myPAList=myPAList;
         sessionManager = new SessionManager(context);
@@ -87,10 +85,13 @@ public class MyAdoptionRecylerAdapter extends  RecyclerView.Adapter<MyAdoptionRe
             }
         });
 
-        holder.ivLook.setOnClickListener(new View.OnClickListener() {
+        holder.lnMyAdoption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent detail = new Intent(context, DetailMarkerActivity.class);
+                detail.putExtra("ReportMyAdoption",myProposalAdoptionsEntity);
+                detail.putExtra("tag","3");
+                context.startActivity(detail);
             }
         });
     }
@@ -125,7 +126,7 @@ public class MyAdoptionRecylerAdapter extends  RecyclerView.Adapter<MyAdoptionRe
                 mProgressDialogCustom.show();
                 if(response.isSuccessful()){
                     deletItem(pos);
-                    Toast.makeText(context,"Eliminado exitosamente.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Eliminado exitosamente",Toast.LENGTH_SHORT).show();
                     mProgressDialogCustom.dismiss();
                 }else{
                     Toast.makeText(context,"Hubo un error, intentelo mas tarde.",Toast.LENGTH_SHORT).show();
@@ -158,6 +159,7 @@ public class MyAdoptionRecylerAdapter extends  RecyclerView.Adapter<MyAdoptionRe
         @BindView(R.id.iv_list) ImageView ivlist;
         @BindView(R.id.iv_look) ImageView ivLook;
         @BindView(R.id.iv_delete) ImageView ivDelete;
+        @BindView(R.id.ln_myadoption) RelativeLayout lnMyAdoption;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

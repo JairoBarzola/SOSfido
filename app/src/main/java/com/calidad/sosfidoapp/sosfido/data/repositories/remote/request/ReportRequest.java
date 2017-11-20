@@ -52,4 +52,7 @@ public interface ReportRequest {
 
     @PATCH(ApiConstants.DELETE_PROPOSAL)
     Call<DeleteProposalEntity.Reponse> deleteProposal(@Header("Content-type") String contentType, @Header("Authorization") String token, @Path("proposal_id") String id , @Body DeleteProposalEntity deleteProposalEntity);
+
+    @PATCH(ApiConstants.DELETE_REQUEST)
+    Call<DeleteProposalEntity.Reponse> deleteRequest(@Header("Content-type") String contentType, @Header("Authorization") String token, @Path("proposal_id") String id , @Body DeleteProposalEntity deleteProposalEntity);
 }

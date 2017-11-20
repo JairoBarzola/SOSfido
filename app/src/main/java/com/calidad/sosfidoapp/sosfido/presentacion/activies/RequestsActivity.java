@@ -82,7 +82,7 @@ public class RequestsActivity extends AppCompatActivity implements RequestContra
     @Override
     public void initRecyclerView(List<RequestsEntity> requestsEntityList) {
 
-        adapter = new RequetsRecyclerAdapter(getApplicationContext(),requestsEntityList);
+        adapter = new RequetsRecyclerAdapter(this,requestsEntityList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
