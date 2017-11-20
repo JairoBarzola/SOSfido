@@ -1,17 +1,14 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.calidad.sosfidoapp.sosfido.R;
@@ -92,7 +89,6 @@ public class AdoptionsFragment extends Fragment implements AdoptionsContract.Vie
     private List<ResponseReport.ReportListAdoption> filterList(List<ResponseReport.ReportListAdoption> reportListAdoptionList) {
     List<ResponseReport.ReportListAdoption> list = new ArrayList<>();
     for(int i=0;i<reportListAdoptionList.size();i++){
-        Log.i("ID ",String.valueOf(reportListAdoptionList.get(i).getOwner().getId())+" "+sessionManager.getPersonEntity().getId());
         if(reportListAdoptionList.get(i).getOwner().getId()!=sessionManager.getPersonEntity().getId()){
             list.add(reportListAdoptionList.get(i));
         }

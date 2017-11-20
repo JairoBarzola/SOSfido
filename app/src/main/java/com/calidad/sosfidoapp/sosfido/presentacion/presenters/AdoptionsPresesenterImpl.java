@@ -2,7 +2,6 @@ package com.calidad.sosfidoapp.sosfido.presentacion.presenters;
 
 import android.content.Context;
 
-import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;

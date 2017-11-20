@@ -14,7 +14,6 @@ import com.calidad.sosfidoapp.sosfido.presentacion.activies.LoginActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.LoginContract;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.onesignal.OneSignal;
-import android.provider.Settings.Secure;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +41,6 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
     public void login(String email, String password) {
         saveIdDevice();
         String idDevice = sessionManager.getIdDevice();
-        Log.i("ID ",idDevice);
         view.setLoadingIndicator(true);
         UserRequest userRequest = serviceFactory.createService(UserRequest.class);
         Call<AccessTokenEntity> call = userRequest.login(ApiConstants.CONTENT_TYPE, email, password,idDevice);
@@ -138,7 +136,6 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
-                Log.i("info", "User:" + userId);
                 sessionManager.saveDevice(userId);
             }
         });

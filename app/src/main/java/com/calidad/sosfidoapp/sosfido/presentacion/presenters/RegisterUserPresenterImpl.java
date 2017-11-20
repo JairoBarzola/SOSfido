@@ -131,7 +131,6 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
-                Log.i("info", "User:" + userId);
                 sessionManager.saveDevice(userId);
             }
         });

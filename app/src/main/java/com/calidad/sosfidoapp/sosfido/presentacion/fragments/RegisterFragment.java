@@ -13,7 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.view.*;
 import android.widget.*;
-import android.provider.MediaStore;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.RegisterActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.RegisterContract;
@@ -160,12 +159,11 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
             Uri filePath = data.getData();
             try {
                 Bitmap bitmapGallery = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                //Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, (int) (bitmapGallery.getWidth() * 0.2), (int) (bitmapGallery.getHeight() * 0.2), false);
                 Bitmap resizedImageGallery = Bitmap.createScaledBitmap(bitmapGallery, 600, 600, false);
                 imageBase64 = convertBitmapToBASE64(resizedImageGallery);
                 photoAnimal.setImageBitmap(resizedImageGallery);
             } catch (Exception e) {
-                setMessageError("error");
+                setMessageError("No se pudo cargar la foto, intente nuevamente");
             }
         }
         if (requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK) {

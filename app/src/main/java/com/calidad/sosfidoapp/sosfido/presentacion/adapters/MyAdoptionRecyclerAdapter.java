@@ -151,7 +151,7 @@ public class MyAdoptionRecyclerAdapter extends  RecyclerView.Adapter<MyAdoptionR
         return myPAList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.image_proposal) CircleImageView imageProposal;
         @BindView(R.id.name_proposal) TextView nameProposal;

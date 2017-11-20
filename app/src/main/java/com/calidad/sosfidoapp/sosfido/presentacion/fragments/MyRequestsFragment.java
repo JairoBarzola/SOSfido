@@ -1,7 +1,6 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +13,7 @@ import android.widget.TextView;
 
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.MyRequestEntity;
-import com.calidad.sosfidoapp.sosfido.data.entities.RequestsEntity;
-import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
+
 import com.calidad.sosfidoapp.sosfido.presentacion.adapters.MyRequestRecyclerAdapter;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.MyRequestContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.MyRequestPresenterImpl;

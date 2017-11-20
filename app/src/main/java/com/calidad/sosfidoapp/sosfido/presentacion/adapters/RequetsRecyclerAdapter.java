@@ -92,7 +92,7 @@ public class RequetsRecyclerAdapter extends  RecyclerView.Adapter<RequetsRecycle
         return requestsEntityList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.image_request) CircleImageView imageRequest;
         @BindView(R.id.name_request) TextView nameRequest;

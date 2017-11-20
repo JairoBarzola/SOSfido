@@ -8,7 +8,7 @@ import com.calidad.sosfidoapp.sosfido.data.repositories.remote.request.HomeReque
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.ReportContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.PublicationsFragment;
-import com.calidad.sosfidoapp.sosfido.R;
+
 
 import java.util.List;
 

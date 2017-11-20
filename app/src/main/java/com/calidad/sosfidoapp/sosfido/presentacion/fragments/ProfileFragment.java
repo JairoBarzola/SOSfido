@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Base64;
-import android.provider.MediaStore;
 import android.view.*;
 import android.widget.*;
 

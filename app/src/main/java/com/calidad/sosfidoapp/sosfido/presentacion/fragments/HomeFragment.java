@@ -326,7 +326,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         return true;
     }
 
-    public class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    protected class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         @Override
         public View getInfoWindow(Marker marker) {

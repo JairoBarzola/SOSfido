@@ -2,7 +2,6 @@ package com.calidad.sosfidoapp.sosfido.presentacion.presenters;
 
 
 
-import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseUser;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ServiceFactory;

@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.calidad.sosfidoapp.sosfido.data.entities.ReportEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
-import com.calidad.sosfidoapp.sosfido.presentacion.activies.PublicationsActivity;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.ReportContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.PublicationsPresenterImpl;
 import com.calidad.sosfidoapp.sosfido.presentacion.adapters.ReportRecyclerAdapter;
@@ -94,11 +93,6 @@ public class PublicationsFragment extends Fragment implements ReportContract.Vie
 
     private List<ReportEntity> convertOneList(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing) {
         List<ReportEntity> reportList = new ArrayList<>();
-        /*for (ResponseReport.ReportListAdoption entity : reportListAdoption) {
-            reportList.add(new ReportEntity(entity.getId(), entity.getOwner().getAddress().getLocation(),
-                    entity.getOwner().getAddress().getLatitude(), entity.getOwner().getAddress().getLongitude(),
-                    entity.getDate(), entity.getAdoptionImage(), entity.getPetName(), entity.getDescription(), "3"));
-        }*/
         for (ResponseReport.ReportListMissing entity : reportListsMissing) {
             reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(),
                     entity.getPlace().getLongitude(), entity.getDate(), entity.getReportImage(), entity.getPetName(), entity.getDescription(), "1"));

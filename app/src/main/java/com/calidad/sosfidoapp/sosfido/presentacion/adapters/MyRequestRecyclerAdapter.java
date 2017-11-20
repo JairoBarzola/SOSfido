@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.DeleteProposalEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.MyRequestEntity;
-import com.calidad.sosfidoapp.sosfido.data.entities.ReportAdoptionEntity;
 import com.calidad.sosfidoapp.sosfido.data.entities.RequestModelEntity;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
 import com.calidad.sosfidoapp.sosfido.data.repositories.remote.ApiConstants;
@@ -110,7 +109,7 @@ public class MyRequestRecyclerAdapter extends RecyclerView.Adapter<MyRequestRecy
         return requestsEntityList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.image_rq_adp) CircleImageView imageRequest;
         @BindView(R.id.name_rq_adp) TextView nameRequest;

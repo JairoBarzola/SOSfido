@@ -1,7 +1,6 @@
 package com.calidad.sosfidoapp.sosfido.presentacion.activies;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -13,7 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -23,9 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.calidad.sosfidoapp.sosfido.R;
-import com.calidad.sosfidoapp.sosfido.presentacion.contracts.CommunicateFragment;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.AdoptionsFragment;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.MyRequestsFragment;
 import com.calidad.sosfidoapp.sosfido.presentacion.fragments.ProposalAdoptionsFragment;
@@ -93,7 +89,7 @@ public class HandleAdoptionsActivity extends AppCompatActivity {
 
 
     //View pager
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    protected  class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

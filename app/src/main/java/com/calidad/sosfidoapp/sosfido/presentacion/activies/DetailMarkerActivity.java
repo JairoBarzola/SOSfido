@@ -16,13 +16,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.Address;
 import com.calidad.sosfidoapp.sosfido.data.entities.MyProposalAdoptionsEntity;
@@ -228,7 +225,6 @@ public class DetailMarkerActivity extends AppCompatActivity implements DetailMar
 
     private void sendProposal(String s) {
         if(!s.equals("")){
-            Log.i("TAG",reportAdoption.getIdReport()+ " "+sessionManager.getPersonEntity().getId()+" "+s);
             presenter.sendProposalAdoption(new ProposalAdoption(reportAdoption.getIdReport(),String.valueOf(sessionManager.getPersonEntity().getId()),s));
         }else{
             Toast.makeText(getApplication(),"Ingrese la descripción",Toast.LENGTH_SHORT).show();

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.ReportAdoptionEntity;
@@ -82,7 +81,7 @@ public class AdoptionRecyclerAdapter extends  RecyclerView.Adapter<AdoptionRecyc
         return reportListAdoptionList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.ln_adoption) LinearLayout lnAdoption;
         @BindView(R.id.name_adoption) TextView nameAdoption;
