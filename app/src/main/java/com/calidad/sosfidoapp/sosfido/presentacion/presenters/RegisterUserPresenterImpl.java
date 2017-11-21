@@ -71,7 +71,6 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
         });
 
     }
-
     private void openHome(final ResponseRegisterEntity responseRegisterEntity) {
         UserRequest userRequest = serviceFactory.createService(UserRequest.class);
         Call<PersonEntity> call = userRequest.getPerson(ApiConstants.CONTENT_TYPE, "Bearer " + String.valueOf(responseRegisterEntity.getAccessToken())
@@ -96,13 +95,17 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
     }
 
     private void openSession(ResponseRegisterEntity responseRegisterEntity, PersonEntity personEntity) {
-
         sessionManager.openSession(responseRegisterEntity.getAccessToken(), personEntity);
         registerMyDevice();
         view.registerSuccessfully();
+        view.setLoadingIndicator(false);
     }
 
     private void registerMyDevice() {
+        OneSignal.startInit(context)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
         saveIdDevice();
         String idDevice = sessionManager.getIdDevice();
         UserRequest  userRequest = serviceFactory.createService(UserRequest.class);
@@ -115,7 +118,6 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
                     Log.i("DEVICE","DEVICE ID REGISTRADO");
                 }
             }
-
             @Override
             public void onFailure(Call<PersonDeviceEntity.ResponseDevice> call, Throwable t) {
                 view.setLoadingIndicator(false);
@@ -124,15 +126,14 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
         });
     }
     private void saveIdDevice() {
-        OneSignal.startInit(context)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
+
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
                 sessionManager.saveDevice(userId);
             }
         });
+
+
     }
 }
