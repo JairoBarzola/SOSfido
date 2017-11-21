@@ -47,7 +47,6 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
         call.enqueue(new Callback<AccessTokenEntity>() {
             @Override
             public void onResponse(Call<AccessTokenEntity> call, Response<AccessTokenEntity> response) {
-                Log.i("Response :", response.message());
                 if (response.isSuccessful()) {
                     AccessTokenEntity accessTokenEntity = response.body();
                     if (accessTokenEntity.isStatus()) {

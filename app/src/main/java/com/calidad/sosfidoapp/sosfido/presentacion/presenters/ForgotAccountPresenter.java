@@ -29,8 +29,10 @@ public class ForgotAccountPresenter implements ForgotAccountContract.Presenter{
     public void start(String email, String password,String userId) {
         if(!email.equals("")){
             checkEmail(email);
-        }else if(email.equals("")&&!userId.equals("")){
-            updatePassword(password,userId);
+        }else{
+            if(email.equals("")&&!userId.equals("")){
+                updatePassword(password,userId);
+            }
         }
     }
 

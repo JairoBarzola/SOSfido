@@ -25,7 +25,4 @@ public class RecordFragment extends Fragment {
         ButterKnife.bind(this, root);
         return root;
     }
-
-
-
 }

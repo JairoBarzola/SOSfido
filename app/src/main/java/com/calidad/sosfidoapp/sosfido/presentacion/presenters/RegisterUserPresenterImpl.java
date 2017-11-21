@@ -103,10 +103,6 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
     }
 
     private void registerMyDevice() {
-        OneSignal.startInit(context)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
         saveIdDevice();
         String idDevice = sessionManager.getIdDevice();
         UserRequest  userRequest = serviceFactory.createService(UserRequest.class);
@@ -128,6 +124,10 @@ public class RegisterUserPresenterImpl implements RegisterUserContract.Presenter
         });
     }
     private void saveIdDevice() {
+        OneSignal.startInit(context)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {

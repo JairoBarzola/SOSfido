@@ -5,21 +5,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.calidad.sosfidoapp.sosfido.R;
 import com.calidad.sosfidoapp.sosfido.data.entities.MyRequestEntity;
-
 import com.calidad.sosfidoapp.sosfido.presentacion.adapters.MyRequestRecyclerAdapter;
 import com.calidad.sosfidoapp.sosfido.presentacion.contracts.MyRequestContract;
 import com.calidad.sosfidoapp.sosfido.presentacion.presenters.MyRequestPresenterImpl;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

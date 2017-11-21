@@ -181,7 +181,7 @@ public class RegisterUserFragment extends Fragment implements RegisterUserContra
             Intent intent = intentBuilder.build(getActivity());
             startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
         } catch (Exception e) {
-            setMessageError("error");
+            setMessageError("No se pudo cargar la foto, intente nuevamente");
         }
 
     }

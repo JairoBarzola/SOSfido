@@ -22,10 +22,10 @@ import retrofit2.Response;
 
 public class PublicationsPresenterImpl implements ReportContract.Presenter {
 
-    private PublicationsFragment view;
-    private Context context;
-    private SessionManager sessionManager;
-    private ServiceFactory serviceFactory;
+    public PublicationsFragment view;
+    public Context context;
+    public SessionManager sessionManager;
+    public ServiceFactory serviceFactory;
 
     public PublicationsPresenterImpl(Context context, PublicationsFragment view) {
         this.context = context;

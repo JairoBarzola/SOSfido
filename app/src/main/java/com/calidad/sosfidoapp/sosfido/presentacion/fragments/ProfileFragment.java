@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
@@ -109,13 +110,21 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     @Override
     public void setMessageError(String error) {
-        ((ProfileActivity) getActivity()).showMessageError(error);
+        if(getActivity()!=null) {
+            ((ProfileActivity) getActivity()).showMessageError(error);
+        }else{
+            Toast.makeText(getContext(),error,Toast.LENGTH_SHORT).show();
+        }
     }
 
     //metodo para actualizar el navegation view
     @Override
     public void updateNav() {
-        ((ProfileActivity) getActivity()).returnResult();
+        if(getActivity()!=null) {
+            ((ProfileActivity) getActivity()).returnResult();
+        }else {
+            Log.i("tag","profile activity null");
+        }
     }
 
     @OnClick(R.id.fab_camera)
@@ -155,7 +164,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 sendPhoto(imageBase64);
 
             } catch (Exception e) {
-                setMessageError("error");
+                setMessageError("No se pudo cargar la foto, intente nuevamente");
             }
         }
         if (requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK) {

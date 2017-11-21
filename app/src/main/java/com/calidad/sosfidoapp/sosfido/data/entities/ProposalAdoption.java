@@ -15,11 +15,11 @@ public class ProposalAdoption {
         this.requester=requester;
         this.description=description;
     }
-    public String getAdoption_proposal() {
+    public String getAdoptionProposal() {
         return adoption_proposal;
     }
 
-    public void setAdoption_proposal(String adoption_proposal) {
+    public void setAdoptionProposal(String adoption_proposal) {
         this.adoption_proposal = adoption_proposal;
     }
 
@@ -39,7 +39,4 @@ public class ProposalAdoption {
         this.description = description;
     }
 
-    public class Response{
-        String id;
-    }
 }

@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Base64;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.calidad.sosfidoapp.sosfido.data.repositories.local.SessionManager;
@@ -208,12 +209,21 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
 
     @Override
     public void setMessageError(String error) {
-        ((RegisterActivity) getActivity()).showMessage(error);
+        if(getActivity()!=null){
+            ((RegisterActivity) getActivity()).showMessage(error);
+        }else{
+            Toast.makeText(getContext(),error,Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
     public void setDialogMessage(String message) {
-        ((RegisterActivity) getActivity()).showMessage(message);
+        if(getActivity()!=null){
+            ((RegisterActivity) getActivity()).showMessage(message);
+        }else{
+            Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void sendReport() {
@@ -284,7 +294,11 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
     }
 
     public void backToHome() {
-        ((RegisterActivity) getActivity()).callToHome();
+        if(getActivity()!=null) {
+            ((RegisterActivity) getActivity()).callToHome();
+        }else {
+            Log.i("tag","RegisterActivity null");
+        }
     }
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {

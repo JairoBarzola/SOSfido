@@ -12,15 +12,11 @@ public interface AdoptionsContract {
     interface View{
         void initRecyclerView(List<ResponseReport.ReportListAdoption> reportListAdoptionList);
         void showSwipeLayout();
-
         void hideSWipeLayout();
-
         void showEmpty();
-
         void hideEmpty();
     }
     interface Presenter{
         void start();
-        void registerReport();
     }
 }

@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.location.*;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,8 +16,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.*;
 import android.widget.*;
-
-import com.bumptech.glide.Glide;
 import com.calidad.sosfidoapp.sosfido.data.entities.*;
 import com.calidad.sosfidoapp.sosfido.data.entities.ResponseReport;
 import com.calidad.sosfidoapp.sosfido.presentacion.activies.DetailMarkerActivity;
@@ -37,8 +34,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
-
-import java.io.Serializable;
 import java.util.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -208,12 +203,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
     @Override
     public void setMessageError(String error) {
-        ((HomeActivity) getActivity()).showMessageError(error);
+        if(getActivity()!=null) {
+            ((HomeActivity) getActivity()).showMessageError(error);
+        }else{
+            Toast.makeText(getContext(),error,Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void setDialogMessage(String message) {
-        ((HomeActivity) getActivity()).showMessageError(message);
+        if(getActivity()!=null) {
+            ((HomeActivity) getActivity()).showMessageError(message);
+        }else{
+            Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -222,7 +225,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
         Bitmap abandoned = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
                 R.drawable.verde), size_maker, size_maker, false);
         Bitmap lost = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.naranja), size_maker, size_maker, false);
-        //Bitmap adoption = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.plomo), size_maker, size_maker, false);
         for (ReportEntity entity : reportEntityList) {
             if (!entity.getLatitude().equals("") || !entity.getLongitude().equals("")) {
                 LatLng latLng = new LatLng(Double.parseDouble(entity.getLatitude()), Double.parseDouble(entity.getLongitude()));
@@ -231,14 +233,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
                     hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
                             .icon(BitmapDescriptorFactory.fromBitmap(lost))), entity);
                 } else {
-                    //if (entity.getTypeReport().equals("2")) {
                         hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
                                 .icon(BitmapDescriptorFactory.fromBitmap(abandoned))), entity);
-                //}
-                    /*else {
-                        hashMapReport.put(googleMap.addMarker(new MarkerOptions().position(latLng).title(entity.getIdReport())
-                                .icon(BitmapDescriptorFactory.fromBitmap(adoption))), entity);
-                    }*/
                 }
             }
         }
@@ -248,11 +244,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeCo
 
     private List<ReportEntity> convertOneList(List<ResponseReport.ReportList> reportListsAbandoned, List<ResponseReport.ReportListMissing> reportListsMissing) {
         List<ReportEntity> reportList = new ArrayList<>();
-        /*for (ResponseReport.ReportListAdoption entity : reportListAdoptions) {
-            reportList.add(new ReportEntity(entity.getId(), entity.getOwner().getAddress().getLocation(),
-                    entity.getOwner().getAddress().getLatitude(), entity.getOwner().getAddress().getLongitude(),
-                    entity.getDate(), entity.getAdoptionImage(), entity.getPetName(), entity.getDescription(), "3"));
-        }*/
         for (ResponseReport.ReportListMissing entity : reportListsMissing) {
             reportList.add(new ReportEntity(entity.getId(), entity.getPlace().getLocation(), entity.getPlace().getLatitude(),
                     entity.getPlace().getLongitude(), entity.getDate(), entity.getReportImage(), entity.getPetName(), entity.getDescription(), "1"));

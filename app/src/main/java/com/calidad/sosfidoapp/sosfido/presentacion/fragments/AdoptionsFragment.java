@@ -118,9 +118,4 @@ public class AdoptionsFragment extends Fragment implements AdoptionsContract.Vie
         recyclerView.setVisibility(View.VISIBLE);
         emptyView.setVisibility(View.GONE);
     }
-
-
-
-
-
 }

@@ -52,8 +52,6 @@ public class ProposalAdoptionsFragment extends Fragment  implements ProposalAdop
 
         View root = inflater.inflate(R.layout.fragment_proposal_adoptions, container, false);
         unbinder = ButterKnife.bind(this, root);
-
-
         //presenter
         presenter = new ProposalAdoptionsPresenter(getContext(), this);
         // recyclerview

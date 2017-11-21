@@ -48,24 +48,16 @@ public class AdoptionsPresesenterImpl implements AdoptionsContract.Presenter{
                         view.showEmpty();
                         view.hideSWipeLayout();
                     }
-
                 } else {
                     view.showEmpty();
                     view.hideSWipeLayout();
                 }
             }
-
             @Override
             public void onFailure(Call<List<ResponseReport.ReportListAdoption>> call, Throwable t) {
                 view.showEmpty();
                 view.hideSWipeLayout();
             }
         });
-
-    }
-
-    @Override
-    public void registerReport() {
-
     }
 }
